@@ -1,30 +1,33 @@
-import './App.css';
-import Home from './Pages/home';
-import Login from './Pages/login';
-import Register from './Pages/register';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './Components/navbar';
+import "./App.css";
+import Home from "./Pages/home";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./Pages/login";
+import Register from "./Pages/register";
+import Navigation from "./Components/navbar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
-   return (
+  return (
+    <>
+      <Navigation />
       <Router>
-         <div className='App'>
-            <Switch>
-               <Route exact path='/'>
-                  <Login />
-               </Route>
-
-               <Route exact path='/signup'>
-                  <Register />
-               </Route>
-               <Route exact path='/home'>
-                  <Navbar />
-                  <Home />
-               </Route>
-            </Switch>
-         </div>
+        <Switch>
+          <Route path="/signup">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+        </Switch>
       </Router>
-   );
+    </>
+  );
 }
 
 export default App;
