@@ -6,6 +6,7 @@ import Register from './Pages/register';
 import Navigation from './Components/navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CreateProject from './Pages/createProject';
+import UserProfile from './Pages/UserProfile';
 
 function App() {
    return (
@@ -27,6 +28,9 @@ function App() {
                </Route>
                <Route path='/create_project'>
                   <CreateProject />
+               </Route>
+               <Route path='/user_profile'>
+                  <UserProfile />
                </Route>
             </Switch>
          </Router>
