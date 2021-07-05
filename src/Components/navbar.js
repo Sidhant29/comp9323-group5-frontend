@@ -17,14 +17,11 @@ export default function Navigation() {
          <Router>
             <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
                <Container>
-                  <Navbar.Brand href='/home'>
-                     Learning-Projects-Portal
-                  </Navbar.Brand>
+                  <Navbar.Brand href='/home'>Find projects</Navbar.Brand>
+                  <Navbar.Brand href='/home'>Look-up</Navbar.Brand>
                   <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                   <Navbar.Collapse id='responsive-navbar-nav'>
                      <Nav className='me-auto'>
-                        <Nav.Link href='/login'>Login</Nav.Link>
-                        <Nav.Link href='/signup'>Signup</Nav.Link>
                         <Form className='d-flex'>
                            <FormControl
                               type='text'
@@ -35,7 +32,15 @@ export default function Navigation() {
                         </Form>
                      </Nav>
                      <Nav>
-                        <Nav.Link href='/my_account'>My account</Nav.Link>
+                        <Nav.Link href='/create_project'>
+                           Create project
+                        </Nav.Link>
+                     </Nav>
+                     <Nav>
+                        <Nav.Link href='/user_profile'>My account</Nav.Link>
+                     </Nav>
+                     <Nav>
+                        <Nav.Link href='/'>Logout</Nav.Link>
                      </Nav>
                   </Navbar.Collapse>
                </Container>
