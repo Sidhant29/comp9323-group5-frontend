@@ -10,7 +10,9 @@ import {
    Container,
 } from 'react-bootstrap';
 
-export default function Navigation() {
+export default function Navigation(props) {
+   const { keyword, setKeyword } = props;
+
    return (
       <>
          <Router>
@@ -25,6 +27,8 @@ export default function Navigation() {
                            <FormControl
                               type='text'
                               placeholder='Search'
+                              value={keyword}
+                              onChange={(e) => setKeyword(e.target.value)}
                               className='mr-sm-2'
                            />
                            <Button variant='outline-info'>Search</Button>
