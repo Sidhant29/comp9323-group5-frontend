@@ -11,6 +11,7 @@ import {
   Col,
 } from "react-bootstrap";
 import { useState } from "react";
+import ProjectList from "../Components/ProjectList";
 
 function UserProfile() {
   const [aquiredSkills, setAquiredSkills] = useState(["Swimming", "Java"]);
@@ -25,10 +26,6 @@ function UserProfile() {
     "Api Development",
   ]);
 
-  function MyProjects() {
-    return <div>MY PROJECTS</div>;
-  }
-
   function UserDetails() {
     return (
       <>
@@ -41,7 +38,6 @@ function UserProfile() {
                     <Form.Label>My Name</Form.Label>
                     <Form.Control
                       placeholder={userName}
-                      onChange={(e) => setUserName(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -51,7 +47,6 @@ function UserProfile() {
                     <Form.Control
                       type="email"
                       placeholder={userEmail}
-                      onClick={(e) => setUserEmail(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -62,9 +57,7 @@ function UserProfile() {
                     <Form.Label>Your Bio</Form.Label>
                     <Form.Control
                       as="textarea"
-                      value={userBio}
-                      onChange={(e) => setUserBio(e.target.value)}
-                      placeholder="Share a bit about Yourself"
+                      placeholder={userBio}
                     />
                   </Form.Group>
                 </Col>
@@ -194,7 +187,7 @@ function UserProfile() {
             </Nav.Item>
           </Nav>
         </Card.Header>
-        <Card.Body>{showDetails ? <UserDetails /> : <MyProjects />}</Card.Body>
+        <Card.Body>{showDetails ? <UserDetails /> : <ProjectList />}</Card.Body>
       </Card>
     </div>
   );

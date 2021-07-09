@@ -7,6 +7,7 @@ import Navigation from './Components/navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CreateProject from './Pages/createProject';
 import UserProfile from './Pages/UserProfile';
+import ProjectPage from './Pages/projectPage';
 
 function App() {
    return (
@@ -31,6 +32,9 @@ function App() {
                </Route>
                <Route path='/user_profile'>
                   <UserProfile />
+               </Route>
+               <Route path='/project_page'>
+                  <ProjectPage />
                </Route>
             </Switch>
          </Router>
