@@ -2,37 +2,46 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Card, Row, Container, Col, ListGroup, Image } from 'react-bootstrap';
+import axios from 'axios';
+import { urls } from '../Components/Constants/url';
 
 export default function Searchuser(props) {
-   const { user } = props;
+   const { user, ifClicked } = props;
+   const [skill, setSkill] = useState('');
+   const [userType, setUserType] = useState('');
+
    const history = useHistory();
    const [userList, setuserList] = useState([]);
 
-   const fetchData = () => {
-      return fetch(
-         `http://localhost:8080/searchUser?name=${user}&skill=&userType=`
-      )
+   // useEffect(() => {
+   //    SearchUser(skill, user, userType).then((data) => {
+   //       console.log(data);
+
+   //       setuserList(data);
+   //       console.log(userList);
+   //       console.log(user);
+   //       return 0;
+   //    });
+   // }, []);
+
+   useEffect(() => {
+      axios
+         .get(
+            urls.searchUser +
+               `?name=${user}&skill=${skill}&userType=${userType}`
+         )
          .then((res) => {
-            return res.json();
+            setuserList(res.data);
          })
          .catch((err) => {
             console.log(err);
          });
-   };
-
-   useEffect(() => {
-      fetchData().then((data) => {
-         setuserList(data);
-         //  console.log(userList);
-         //  console.log(user);
-         return 0;
-      });
    }, []);
 
-   //    const handleRouting = (contactData) => {
-   //       ifClicked(contactData);
-   //       history.push(`/contactlists`);
-   //  };
+   const handleRouting = (userId) => {
+      ifClicked(userId);
+      history.push(`/search_user/user`);
+   };
    return (
       <Container fluid='md'>
          <Row className='justify-content-md-center'>
@@ -55,6 +64,7 @@ export default function Searchuser(props) {
                                  <ListGroup.Item
                                     id='bootstrap-overrides'
                                     key={items.id}
+                                    onClick={() => handleRouting(items.id)}
                                  >
                                     <h3 className='name'>{items.name}</h3>
                                     <h3 className='name'>

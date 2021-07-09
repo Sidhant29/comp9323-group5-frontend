@@ -1,9 +1,41 @@
 import React from 'react';
+import { useState } from 'react';
 import { Card, Row, ListGroup, Col, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import axios from 'axios';
 
 export default function Login() {
    const history = useHistory();
+   const [formValues, setForm] = useState({ email: '', password: '' });
+
+   // const onsubmit = () => {
+   //    console.log(formValues);
+   //    loginUser(formValues).then((data) => {
+   //       if (data) {
+   //          console.log(data);
+   //          history.push('/home');
+   //       } else {
+   //          alert('err');
+   //       }
+   //    });
+   // };
+
+   const onsubmit = () => {
+      console.log(formValues);
+      axios
+         .post('/login', formValues)
+         .then((res) => {
+            if (res.data.token) {
+               localStorage.setItem('token', res.data.token);
+            }
+            console.log(localStorage);
+            history.push('/home');
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+   };
+
    return (
       <div
          className='container'
@@ -37,8 +69,16 @@ export default function Login() {
                                  Email address
                               </Form.Label>
                               <Form.Control
-                                 type='email'
+                                 name='email'
+                                 type='text'
+                                 className='email'
                                  placeholder='Enter email'
+                                 onChange={(e) =>
+                                    setForm({
+                                       ...formValues,
+                                       ['email']: e.target.value,
+                                    })
+                                 }
                               />
                            </Form.Group>
                            <br />
@@ -52,12 +92,20 @@ export default function Login() {
                                  Password
                               </Form.Label>
                               <Form.Control
+                                 name='password'
                                  type='password'
+                                 className='password'
                                  placeholder='Password'
+                                 onChange={(e) =>
+                                    setForm({
+                                       ...formValues,
+                                       ['password']: e.target.value,
+                                    })
+                                 }
                               />
                            </Form.Group>
                            <div className='button-placeholder'>
-                              <Button variant='primary' type='submit'>
+                              <Button variant='primary' onClick={onsubmit}>
                                  Log in
                               </Button>
                               <Button
