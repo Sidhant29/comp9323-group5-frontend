@@ -1,44 +1,55 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import "bootstrap/dist/css/bootstrap.min.css";
 import {
    Nav,
    Navbar,
-   NavDropdown,
    Form,
    FormControl,
    Button,
+   Container,
 } from 'react-bootstrap';
 
-export default function Navigation() {
+export default function Navigation(props) {
+   const { keyword, setKeyword } = props;
+
+   const signOff = () => {
+      localStorage.removeItem('token');
+   };
+
    return (
-      <>
-         <Router>
-            <Navbar bg='dark' variant='dark'>
-               <Navbar.Brand>Learning-Projects-Portal</Navbar.Brand>
-               <Nav className='mr-auto'>
-                  <Nav.Item>
-                     <Nav.Link href='/home' style={{ textalign: 'right' }}>
-                        Home
+      <Router>
+         <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+            <Container>
+               <Navbar.Brand href='/home'>Find projects</Navbar.Brand>
+               <Navbar.Brand href='/search_user'>Look-up</Navbar.Brand>
+               <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+               <Navbar.Collapse id='responsive-navbar-nav'>
+                  <Nav className='me-auto'>
+                     <Form className='d-flex'>
+                        <FormControl
+                           type='text'
+                           placeholder='Search'
+                           value={keyword}
+                           onChange={(e) => setKeyword(e.target.value)}
+                           className='mr-sm-2'
+                        />
+                        <Button variant='outline-info'>Search</Button>
+                     </Form>
+                  </Nav>
+                  <Nav>
+                     <Nav.Link href='/create_project'>Create project</Nav.Link>
+                  </Nav>
+                  <Nav>
+                     <Nav.Link href='/user_profile'>My account</Nav.Link>
+                  </Nav>
+                  <Nav>
+                     <Nav.Link href='/' onClick={signOff}>
+                        Logout
                      </Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                     <Nav.Link href='/login'>Login</Nav.Link>
-                  </Nav.Item>
-                  <Nav.Item>
-                     <Nav.Link href='/signup'>SignUp</Nav.Link>
-                  </Nav.Item>
-               </Nav>
-               <Form inline>
-                  <FormControl
-                     type='text'
-                     placeholder='Search'
-                     className='mr-sm-2'
-                  />
-                  <Button variant='outline-info'>Search</Button>
-               </Form>
-            </Navbar>
-         </Router>
-      </>
+                  </Nav>
+               </Navbar.Collapse>
+            </Container>
+         </Navbar>
+      </Router>
    );
 }
