@@ -63,7 +63,7 @@ export default function Register() {
                       setAquiredSkills(newArray);
                     }}
                   >
-                    {element} x
+                    {element} <Badge variant="dark">x</Badge>
                   </Button>
                 );
               })}
@@ -77,6 +77,7 @@ export default function Register() {
                 placeholder="Enter skills you want to learn"
               />
               <Button
+                style={{marginTop:"1rem"}}
                 onClick={() => {
                   setDesiredSkills([
                     ...desiredSkills,
@@ -99,7 +100,7 @@ export default function Register() {
                       setDesiredSkills(newArray);
                     }}
                   >
-                    {element} x
+                    {element} <Badge variant="dark">x</Badge>
                   </Button>
                 );
               })}
