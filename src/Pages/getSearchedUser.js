@@ -1,12 +1,68 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Card, Row, Container, Col, ListGroup } from 'react-bootstrap';
+import {
+   Card,
+   Row,
+   Container,
+   Col,
+   ListGroup,
+   Button,
+   InputGroup,
+   Form,
+   FormControl,
+} from 'react-bootstrap';
 import axios from 'axios';
-import { urls } from '../Components/Constants/url';
 
 export default function GetSearchedUser(props) {
    const { selectedUser } = props;
    const [userDetails, setUserDetails] = useState([]);
+   const [msgBox, setMsgBox] = useState(false);
+   const [emailPayload, setEmailPayload] = useState({
+      receiverId: '',
+      emailBody: '',
+      lookingFor: 1,
+   });
+   const [flipButton, setFlipButton] = useState('Connect');
+   const sendEmail = () => {
+      console.log(localStorage);
+      console.log(emailPayload);
+      setMsgBox(false);
+      setFlipButton('Sending request >>>');
+      axios
+         .post(`/email/${localStorage.id}`, emailPayload, {
+            headers: {
+               Accept: 'application/json',
+               Authorization: localStorage.token,
+            },
+         })
+         .then((res) => {
+            if (res.data === 'Email sent successfully') {
+               setMsgBox(false);
+               setFlipButton('Request sent');
+            }
+            console.log(res.data);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+   };
+
+   const handleChange = (event) => {
+      const value = event.target.value;
+      console.log(value);
+      if (value === '1') {
+         setEmailPayload({
+            ...emailPayload,
+            ['lookingFor']: 1,
+         });
+      } else if (value === '2') {
+         setEmailPayload({
+            ...emailPayload,
+            ['lookingFor']: 2,
+         });
+      }
+      console.log(value);
+   };
 
    useEffect(() => {
       console.log(localStorage.token);
@@ -19,6 +75,10 @@ export default function GetSearchedUser(props) {
          })
          .then((res) => {
             setUserDetails(res.data);
+            setEmailPayload({
+               ...emailPayload,
+               ['receiverId']: res.data.id,
+            });
             console.log(res.data);
          })
          .catch((err) => {
@@ -36,7 +96,11 @@ export default function GetSearchedUser(props) {
                         <h3>
                            {userDetails.firstName} {userDetails.lastName}
                         </h3>
-                        <h2>Rating: {userDetails.rating}</h2>
+                        <h2>
+                           {userDetails.rating
+                              ? `Rating :${userDetails.rating}`
+                              : ' No ratings yet'}
+                        </h2>
                      </Card.Header>
                      <ListGroup.Item>
                         <h5>Bio</h5>
@@ -52,10 +116,61 @@ export default function GetSearchedUser(props) {
                      </ListGroup.Item>
                      <ListGroup variant='flush'>
                         <ListGroup.Item>
-                           <h5>Send a connection request</h5>
-                           <a href={'mailto:' + userDetails.email}>
-                              {userDetails.email}
-                           </a>
+                           {!msgBox && (
+                              <Button
+                                 onClick={() => {
+                                    setMsgBox(true);
+                                 }}
+                              >
+                                 {flipButton}
+                              </Button>
+                           )}
+
+                           {msgBox && (
+                              <div>
+                                 <InputGroup className='mb-3'>
+                                    <InputGroup.Text id='basic-addon3'>
+                                       Message
+                                    </InputGroup.Text>
+                                    <FormControl
+                                       id='email-body'
+                                       aria-describedby='basic-addon3'
+                                       onChange={(e) =>
+                                          setEmailPayload({
+                                             ...emailPayload,
+                                             ['emailBody']: e.target.value,
+                                          })
+                                       }
+                                    />
+                                 </InputGroup>
+                                 <form>
+                                    <div>
+                                       <InputGroup.Text id='basic-addon3'>
+                                          Looking for
+                                       </InputGroup.Text>
+                                       <Form.Check
+                                          inline
+                                          label='mentor'
+                                          name='userType'
+                                          type='radio'
+                                          value='1'
+                                          onChange={handleChange}
+                                       />
+                                       <Form.Check
+                                          inline
+                                          label='mentee'
+                                          name='userType'
+                                          type='radio'
+                                          value='2'
+                                          onChange={handleChange}
+                                       />
+                                    </div>
+                                 </form>
+                                 <Button onClick={() => sendEmail()}>
+                                    Send connection request
+                                 </Button>
+                              </div>
+                           )}
                         </ListGroup.Item>
                      </ListGroup>
                   </Card.Body>
