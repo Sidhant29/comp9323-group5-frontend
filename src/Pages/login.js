@@ -8,18 +8,6 @@ export default function Login() {
    const history = useHistory();
    const [formValues, setForm] = useState({ email: '', password: '' });
 
-   // const onsubmit = () => {
-   //    console.log(formValues);
-   //    loginUser(formValues).then((data) => {
-   //       if (data) {
-   //          console.log(data);
-   //          history.push('/home');
-   //       } else {
-   //          alert('err');
-   //       }
-   //    });
-   // };
-
    const onsubmit = () => {
       console.log(formValues);
       axios
@@ -27,6 +15,8 @@ export default function Login() {
          .then((res) => {
             if (res.data.token) {
                localStorage.setItem('token', res.data.token);
+               localStorage.setItem('userId', res.data.id);
+               console.log(res.data.id)
             }
             console.log(localStorage);
             history.push('/home');
