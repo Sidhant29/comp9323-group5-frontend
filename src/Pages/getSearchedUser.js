@@ -98,7 +98,7 @@ export default function GetSearchedUser(props) {
                         </h3>
                         <h2>
                            {userDetails.rating
-                              ? `Rating :${userDetails.rating}`
+                              ? `Rating: ${userDetails.rating}`
                               : ' No ratings yet'}
                         </h2>
                      </Card.Header>

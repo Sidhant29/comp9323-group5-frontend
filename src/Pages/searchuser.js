@@ -11,6 +11,7 @@ import {
    InputGroup,
    Form,
    Dropdown,
+   Badge,
 } from 'react-bootstrap';
 import axios from 'axios';
 import { urls } from '../Components/Constants/url';
@@ -22,13 +23,17 @@ export default function Searchuser(props) {
 
    const history = useHistory();
    const [userList, setuserList] = useState(0);
+   const [changeSkills, setChangeSkills] = useState(true);
 
    const handleChange = (event) => {
       const value = event.target.value;
       console.log(value);
       if (value === '1') {
+         setChangeSkills(true);
+
          setUserType(1);
       } else if (value === '2') {
+         setChangeSkills(false);
          setUserType(2);
       }
       console.log(value);
@@ -126,12 +131,25 @@ export default function Searchuser(props) {
                                        onClick={() => handleRouting(items.id)}
                                     >
                                        <h3 className='name'>{items.name}</h3>
-                                       <h3 className='name'>
-                                          Ratings:
+                                       <h4>
                                           {items.rating
-                                             ? items.rating
+                                             ? `Ratings: ${items.rating}`
                                              : ' No ratings yet'}
-                                       </h3>
+                                       </h4>
+                                       {changeSkills && (
+                                          <div>
+                                             <h5>
+                                                Skills: {items.acquiredSkills}
+                                             </h5>
+                                          </div>
+                                       )}
+                                       {!changeSkills && (
+                                          <div>
+                                             <h5>
+                                                Learning: {items.learningSkills}
+                                             </h5>
+                                          </div>
+                                       )}
                                     </ListGroup.Item>
                                  );
                               })
