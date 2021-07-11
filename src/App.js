@@ -8,6 +8,7 @@ import Navigation from './Components/navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CreateProject from './Pages/createProject';
 import UserProfile from './Pages/UserProfile';
+import ProjectPage from './Pages/projectPage';
 import Searchuser from './Pages/searchuser';
 import GetSearchedUser from './Pages/getSearchedUser';
 
