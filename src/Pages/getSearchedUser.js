@@ -29,7 +29,7 @@ export default function GetSearchedUser(props) {
       setMsgBox(false);
       setFlipButton('Sending request >>>');
       axios
-         .post(`/email/${localStorage.id}`, emailPayload, {
+         .post(`/email/${localStorage.userId}`, emailPayload, {
             headers: {
                Accept: 'application/json',
                Authorization: localStorage.token,
