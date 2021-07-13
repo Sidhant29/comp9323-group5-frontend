@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Card, Row, ListGroup, Col, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import { showToast } from '../Components/Constants/toastServices';
 
 export default function Login() {
    const history = useHistory();
@@ -18,11 +19,12 @@ export default function Login() {
                localStorage.setItem('email', res.data.email);
                localStorage.setItem('userId', res.data.id);
             }
-            console.log(localStorage);
+            showToast(`Hey ${res.data.email}`, 'success');
+
             history.push('/home');
          })
          .catch((err) => {
-            console.log(err);
+            showToast('Login error', 'error');
          });
    };
 
@@ -39,7 +41,7 @@ export default function Login() {
          <div className='wrapper'>
             <Row className='justify-content-md-center'>
                <Col>
-                  <Card className=' text-center' bg={'light'}>
+                  <Card className=' text-center' bg={'success'} id='login-card'>
                      <Card.Body className='container'>
                         <Card.Header
                            style={{ fontSize: '25px', fontStyle: 'italic' }}
@@ -95,11 +97,11 @@ export default function Login() {
                               />
                            </Form.Group>
                            <div className='button-placeholder'>
-                              <Button variant='primary' onClick={onsubmit}>
+                              <Button variant='warning' onClick={onsubmit}>
                                  Log in
                               </Button>
                               <Button
-                                 variant='primary'
+                                 variant='warning'
                                  type='submit'
                                  onClick={() => history.push('/signup')}
                               >

@@ -11,10 +11,11 @@ import UserProfile from './Pages/UserProfile';
 import ProjectPage from './Pages/projectPage';
 import Searchuser from './Pages/searchuser';
 import GetSearchedUser from './Pages/getSearchedUser';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
    const [input, setInput] = useState('');
-   const [selectedUser, setSelectedUser] = useState('');
    return (
       <Router>
          <Switch>
@@ -30,11 +31,11 @@ function App() {
             </Route>
             <Route exact path='/search_user'>
                <Navigation keyword={input} setKeyword={setInput} />
-               <Searchuser user={input} ifClicked={setSelectedUser} />
+               <Searchuser user={input} />
             </Route>
-            <Route exact path='/search_user/user'>
+            <Route exact path='/search_user/:userId'>
                <Navigation />
-               <GetSearchedUser selectedUser={selectedUser} />
+               <GetSearchedUser />
             </Route>
             <Route exact path='/create_project'>
                <Navigation />
@@ -45,6 +46,17 @@ function App() {
                <UserProfile />
             </Route>
          </Switch>
+         <ToastContainer
+            position='bottom-right'
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+         />
       </Router>
    );
 }

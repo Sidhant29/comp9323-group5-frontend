@@ -8,11 +8,13 @@ import {
    Button,
    Container,
 } from 'react-bootstrap';
+import { showToast } from '../Components/Constants/toastServices';
 
 export default function Navigation(props) {
    const { keyword, setKeyword } = props;
 
    const signOff = () => {
+      showToast(`Later ${localStorage.email}`, 'success');
       localStorage.removeItem('token');
    };
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+
 import {
    Card,
    Row,
@@ -14,7 +16,7 @@ import {
 import axios from 'axios';
 
 export default function GetSearchedUser(props) {
-   const { selectedUser } = props;
+   const { userId } = useParams();
    const [userDetails, setUserDetails] = useState([]);
    const [msgBox, setMsgBox] = useState(false);
    const [emailPayload, setEmailPayload] = useState({
@@ -67,7 +69,7 @@ export default function GetSearchedUser(props) {
    useEffect(() => {
       console.log(localStorage.token);
       axios
-         .get('/user' + `/${selectedUser}`, {
+         .get('/user' + `/${userId}`, {
             headers: {
                Accept: 'application/json',
                Authorization: localStorage.token,
@@ -90,91 +92,112 @@ export default function GetSearchedUser(props) {
       <Container fluid='md'>
          <Row className='justify-content-md-center'>
             <Col>
-               <Card className=' text-center' bg={'light'}>
-                  <Card.Body className='container'>
-                     <Card.Header>
-                        <h3>
-                           {userDetails.firstName} {userDetails.lastName}
-                        </h3>
-                        <h2>
-                           {userDetails.rating
-                              ? `Rating: ${userDetails.rating}`
-                              : ' No ratings yet'}
-                        </h2>
-                     </Card.Header>
-                     <ListGroup.Item>
-                        <h5>Bio</h5>
-                        <p>{userDetails.bio}</p>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <h5>Skilled at</h5>
-                        <p>{userDetails.acquiredSkills}</p>
-                     </ListGroup.Item>
-                     <ListGroup.Item>
-                        <h5>Love to learn</h5>
-                        <p>{userDetails.learningSkills}</p>
-                     </ListGroup.Item>
-                     <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                           {!msgBox && (
-                              <Button
-                                 onClick={() => {
-                                    setMsgBox(true);
-                                 }}
-                              >
-                                 {flipButton}
-                              </Button>
-                           )}
+               <div
+                  style={{
+                     margin: '5%',
+                     width: '30rem',
+                     alignSelf: 'center',
+                  }}
+               >
+                  <Card id='user-details'>
+                     <Card.Body className='container'>
+                        <Card.Header id='user-details-header'>
+                           <h3>
+                              {userDetails.firstName} {userDetails.lastName}
+                           </h3>
+                           <Card.Text>
+                              <p>{userDetails.bio}</p>
+                           </Card.Text>
+                        </Card.Header>
 
-                           {msgBox && (
-                              <div>
-                                 <InputGroup className='mb-3'>
-                                    <InputGroup.Text id='basic-addon3'>
-                                       Message
-                                    </InputGroup.Text>
-                                    <FormControl
-                                       id='email-body'
-                                       aria-describedby='basic-addon3'
-                                       onChange={(e) =>
-                                          setEmailPayload({
-                                             ...emailPayload,
-                                             ['emailBody']: e.target.value,
-                                          })
-                                       }
-                                    />
-                                 </InputGroup>
-                                 <form>
-                                    <div>
-                                       <InputGroup.Text id='basic-addon3'>
-                                          Looking for
-                                       </InputGroup.Text>
-                                       <Form.Check
-                                          inline
-                                          label='mentor'
-                                          name='userType'
-                                          type='radio'
-                                          value='1'
-                                          onChange={handleChange}
-                                       />
-                                       <Form.Check
-                                          inline
-                                          label='mentee'
-                                          name='userType'
-                                          type='radio'
-                                          value='2'
-                                          onChange={handleChange}
-                                       />
-                                    </div>
-                                 </form>
-                                 <Button onClick={() => sendEmail()}>
-                                    Send connection request
-                                 </Button>
-                              </div>
-                           )}
+                        <ListGroup.Item>
+                           <h2>
+                              {userDetails.rating
+                                 ? `Rating: ${userDetails.rating}`
+                                 : ' No ratings yet'}
+                           </h2>
                         </ListGroup.Item>
-                     </ListGroup>
-                  </Card.Body>
-               </Card>
+                        <ListGroup.Item>
+                           <h5>Skilled at</h5>
+                           <p>{userDetails.acquiredSkills}</p>
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                           <h5>Love to learn</h5>
+                           <p>{userDetails.learningSkills}</p>
+                        </ListGroup.Item>
+                        <ListGroup variant='flush'>
+                           <ListGroup.Item className=' text-center'>
+                              {!msgBox && (
+                                 <Button
+                                    variant='warning'
+                                    onClick={() => {
+                                       setMsgBox(true);
+                                    }}
+                                 >
+                                    {flipButton}
+                                 </Button>
+                              )}
+
+                              {msgBox && (
+                                 <div>
+                                    <InputGroup className='mb-3'>
+                                       <InputGroup.Text id='basic-addon3'>
+                                          Message
+                                       </InputGroup.Text>
+                                       <FormControl
+                                          id='email-body'
+                                          aria-describedby='basic-addon3'
+                                          onChange={(e) =>
+                                             setEmailPayload({
+                                                ...emailPayload,
+                                                ['emailBody']: e.target.value,
+                                             })
+                                          }
+                                       />
+                                    </InputGroup>
+                                    <form>
+                                       <div>
+                                          <InputGroup.Text id='basic-addon3'>
+                                             Looking for
+                                          </InputGroup.Text>
+                                          <Form.Check
+                                             inline
+                                             label='mentor'
+                                             name='userType'
+                                             type='radio'
+                                             value='1'
+                                             onChange={handleChange}
+                                          />
+                                          <Form.Check
+                                             inline
+                                             label='mentee'
+                                             name='userType'
+                                             type='radio'
+                                             value='2'
+                                             onChange={handleChange}
+                                          />
+                                       </div>
+                                    </form>
+                                    <Button
+                                       variant='warning'
+                                       onClick={() => sendEmail()}
+                                    >
+                                       Send connection request
+                                    </Button>
+                                    {'    '}
+                                    <Button
+                                       variant='danger'
+                                       onClick={() => setMsgBox(false)}
+                                    >
+                                       close
+                                    </Button>
+                                 </div>
+                              )}
+                           </ListGroup.Item>
+                        </ListGroup>
+                     </Card.Body>
+                  </Card>
+               </div>
             </Col>
          </Row>
       </Container>

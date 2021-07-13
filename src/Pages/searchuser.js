@@ -11,13 +11,12 @@ import {
    InputGroup,
    Form,
    Dropdown,
-   Badge,
 } from 'react-bootstrap';
 import axios from 'axios';
 import { urls } from '../Components/Constants/url';
 
 export default function Searchuser(props) {
-   const { user, ifClicked } = props;
+   const { user } = props;
    const [skill, setSkill] = useState('');
    const [userType, setUserType] = useState(0);
 
@@ -58,19 +57,18 @@ export default function Searchuser(props) {
    }, [user, skill, userType]);
 
    const handleRouting = (userId) => {
-      ifClicked(userId);
-      history.push(`/search_user/user`);
+      history.push(`/search_user/${userId}`);
    };
    return (
       <Container fluid='md'>
          <Row className='justify-content-md-center'>
             <Col>
-               <Card className=' text-center' bg={'light'}>
+               <Card className=' text-center' bg='success'>
                   <Card.Body className='container'>
                      <Card.Header>
                         <Dropdown>
                            <Dropdown.Toggle
-                              variant='success'
+                              variant='warning'
                               id='dropdown-basic'
                            >
                               Filters
@@ -125,32 +123,49 @@ export default function Searchuser(props) {
                               })
                               .map((items) => {
                                  return (
-                                    <ListGroup.Item
-                                       id='bootstrap-overrides'
-                                       key={items.id}
-                                       onClick={() => handleRouting(items.id)}
+                                    <div
+                                       style={{
+                                          width: '30rem',
+                                          textAlign: 'centre',
+                                          alignSelf: 'center',
+                                       }}
                                     >
-                                       <h3 className='name'>{items.name}</h3>
-                                       <h4>
-                                          {items.rating
-                                             ? `Ratings: ${items.rating}`
-                                             : ' No ratings yet'}
-                                       </h4>
-                                       {changeSkills && (
-                                          <div>
-                                             <h5>
-                                                Skills: {items.acquiredSkills}
-                                             </h5>
-                                          </div>
-                                       )}
-                                       {!changeSkills && (
-                                          <div>
-                                             <h5>
-                                                Learning: {items.learningSkills}
-                                             </h5>
-                                          </div>
-                                       )}
-                                    </ListGroup.Item>
+                                       <br />
+                                       <Card
+                                          id='user-search'
+                                          border='dark'
+                                          key={items.id}
+                                          onClick={() =>
+                                             handleRouting(items.id)
+                                          }
+                                       >
+                                          <Card.Header id='user-search-header'>
+                                             <h5> {items.name}</h5>
+                                          </Card.Header>
+                                          <ListGroup variant='flush'>
+                                             <ListGroup.Item>
+                                                {' '}
+                                                {items.rating
+                                                   ? `Ratings: ${items.rating}`
+                                                   : ' No ratings yet'}
+                                             </ListGroup.Item>
+                                             <ListGroup.Item>
+                                                {changeSkills && (
+                                                   <p>
+                                                      Skills:{' '}
+                                                      {items.acquiredSkills}
+                                                   </p>
+                                                )}
+                                                {!changeSkills && (
+                                                   <p>
+                                                      Learning:{' '}
+                                                      {items.learningSkills}
+                                                   </p>
+                                                )}
+                                             </ListGroup.Item>
+                                          </ListGroup>
+                                       </Card>
+                                    </div>
                                  );
                               })
                         ) : (
