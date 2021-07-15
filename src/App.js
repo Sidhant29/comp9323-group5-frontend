@@ -8,8 +8,9 @@ import Navigation from './Components/navbar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CreateProject from './Pages/createProject';
 import UserProfile from './Pages/UserProfile';
-import ProjectPage from './Pages/projectPage';
 import Searchuser from './Pages/searchuser';
+import ProjectPage from './Pages/projectPage1';
+
 import GetSearchedUser from './Pages/getSearchedUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,8 +27,12 @@ function App() {
                <Register />
             </Route>
             <Route exact path='/home'>
+               <Navigation keyword={input} setKeyword={setInput} />
+               <Home keywords={input} />
+            </Route>
+            <Route exact path='/search_project/:projectId'>
                <Navigation />
-               <Home />
+               <ProjectPage />
             </Route>
             <Route exact path='/search_user'>
                <Navigation keyword={input} setKeyword={setInput} />
