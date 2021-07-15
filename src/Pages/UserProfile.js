@@ -14,89 +14,72 @@ import {
 import React, { useEffect, useState } from "react";
 import ProjectList from "../Components/ProjectList";
 import axios from "axios";
-
-
+import { Redirect } from "react-router-dom";
 
 function UserProfile() {
   const [projectsLoading, setProjectsLoading] = useState(false);
-  const [userDetailsLoading, setUserDetailsLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: 0,
-    rating: null,
-    bio: "",
-  });
-  const [aquiredSkills, setAquiredSkills] = useState([""]);
-  const [desiredSkills, setDesiredSkills] = useState([""]);
   const [showDetails, setShowDetails] = useState(true);
   console.log(`/user/${localStorage.userId}`);
   console.log(localStorage.token);
-  useEffect(() => {
-    axios
-      .get(`/user/${localStorage.userId}`, {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      })
-      .then((response) => {
-        setUserDetails({
-          firstName: response.data.firstName,
-          lastname: response.data.lastName,
-          email: response.data.email,
-          bio: response.data.bio,
-          phoneNumber:response.data.phoneNumber,
-          acquiredSkills:aquiredSkills.join(),
-          learningSkills:desiredSkills.join()
+
+  function UserDetails(props) {
+    const [userDetailsLoading, setUserDetailsLoading] = useState(false);
+    const [aquiredSkills, setAquiredSkills] = useState([""]);
+    const [desiredSkills, setDesiredSkills] = useState([""]);
+    const [userDetails, setUserDetails] = useState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: 0,
+      rating: null,
+      bio: "",
+    });
+    const [editFirstName, setEditFirstName] = useState(false);
+    const [editLastName, setEditLastName] = useState(false);
+    const [editEmail, setEditEmail] = useState(false);
+    const [editPhoneNumber, setEditPhoneNumber] = useState(false);
+    const [editBio, setEditBio] = useState(false);
+    const [saveChanges, setSaveChanges] = useState(false);
+    useEffect(() => {
+      axios
+        .get(`/user/${localStorage.userId}`, {
+          headers: {
+            Authorization: localStorage.token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setUserDetails({
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
+            email: response.data.email,
+            bio: response.data.bio,
+            phoneNumber: response.data.phoneNumber,
+          });
+          setAquiredSkills(response.data.acquiredSkills.split(","));
+          setDesiredSkills(response.data.learningSkills.split(","));
+          setUserDetailsLoading(false);
+          console.log(response.data);
         });
-        setAquiredSkills(response.data.acquiredSkills.split(","));
-        setDesiredSkills(response.data.learningSkills.split(","));
-        setUserDetailsLoading(false);
-        console.log(response.data);
-      });
-  }, []);
+    }, [saveChanges]);
 
-  function editProfile(){
-    axios
-      .post(`/user/update/${localStorage.userId}`, {
-        ...userDetails,
-
-      } ,{
-        headers: {
-          Authorization: localStorage.token,
-        },
-      })
-      .then((response) => {
-        setUserDetailsLoading(false);
-        console.log(response.data);
-      });
-  }
-
-  function MainJumbotron() {
-    if (userDetailsLoading) {
-      return <Spinner animation="border" variant="primary" />;
-    } else {
-      return (
-        <Jumbotron fluid>
-          <Container>
-            <h1>{`${userDetails.firstName} ${userDetails.lastname}`}</h1>
-            <p>{userDetails.bio}</p>
-            I can Mentor<br/>
-            {aquiredSkills.map((skill)=>{
-              return (<Badge variant="success" style={{marginRight:"0.1rem"}}>{skill}</Badge>);
-            })}
-            <br/>I am interesred in learning<br/>
-            {desiredSkills.map((skill)=>{
-              return (<Badge variant="warning" style={{marginRight:"0.1rem"}}>{skill}</Badge>);
-            })}
-            
-          </Container>
-        </Jumbotron>
-      );
+    function editProfile() {
+      console.log({...userDetails,acquiredSkills:aquiredSkills.join(),learningSkills:desiredSkills.join()})
+      axios
+        .post(`/user/update/${localStorage.userId}`, {...userDetails,acquiredSkills:aquiredSkills.join(),learningSkills:desiredSkills.join()}, {
+          headers: {
+            Authorization: localStorage.token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data)
+          setUserDetailsLoading(false);
+          setSaveChanges(!saveChanges);
+        }).catch((error)=>{
+          console.log(error);
+        });
     }
-  }
-  function UserDetails() {
+
     if (userDetailsLoading) {
       return (
         <div style={{ margin: "auto auto" }}>
@@ -112,45 +95,176 @@ function UserProfile() {
                 <Row>
                   <Col>
                     <Form.Group>
-                      <Form.Label>First Name</Form.Label>
-                      <Form.Control placeholder={userDetails.firstName} />
+                      <Form.Label>
+                        First Name: <b>{userDetails.firstName}</b>
+                      </Form.Label>
+                      {editFirstName ? (
+                        <Button
+                          variant="link"
+                          style={{ color: "red" }}
+                          onClick={() => setEditFirstName(false)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="link"
+                          onClick={() => setEditFirstName(true)}
+                        >
+                          edit->
+                        </Button>
+                      )}
+                      {editFirstName ? (
+                        <Form.Control
+                          onChange={(e) =>
+                            setUserDetails({
+                              userDetails,
+                              firstName: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group>
-                      <Form.Label>Last Name</Form.Label>
-                      <Form.Control placeholder={userDetails.lastName} />
+                      <Form.Label>
+                        Last Name: <b>{userDetails.lastName}</b>
+                      </Form.Label>
+                      {editLastName ? (
+                        <Button
+                          variant="link"
+                          style={{ color: "red" }}
+                          onClick={() => setEditLastName(false)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="link"
+                          onClick={() => setEditLastName(true)}
+                        >
+                          edit->
+                        </Button>
+                      )}
+                      {editLastName ? (
+                        <Form.Control
+                          onChange={(e) =>
+                            setUserDetails({
+                              ...userDetails,
+                              lastName: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <Form.Group>
-                      <Form.Label>Email address</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder={userDetails.email}
-                      />
+                      <Form.Label>
+                        Email address: <b>{userDetails.email}</b>
+                      </Form.Label>
+                      {editEmail ? (
+                        <Button
+                          variant="link"
+                          style={{ color: "red" }}
+                          onClick={() => setEditEmail(false)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="link"
+                          onClick={() => setEditEmail(true)}
+                        >
+                          edit->
+                        </Button>
+                      )}
+                      {editEmail ? (
+                        <Form.Control
+                          type="email"
+                          onChange={(e) =>
+                            setUserDetails({
+                              ...userDetails,
+                              email: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
                     </Form.Group>
                   </Col>
                   <Col>
                     <Form.Group>
-                      <Form.Label>Phone Number</Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder={userDetails.phoneNumber}
-                      />
+                      <Form.Label>
+                        Phone Number: <b>{userDetails.phoneNumber}</b>
+                      </Form.Label>{" "}
+                      {editPhoneNumber ? (
+                        <Button
+                          variant="link"
+                          style={{ color: "red" }}
+                          onClick={() => setEditPhoneNumber(false)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="link"
+                          onClick={() => setEditPhoneNumber(true)}
+                        >
+                          edit->
+                        </Button>
+                      )}
+                      {editPhoneNumber ? (
+                        <Form.Control
+                          onChange={(e) =>
+                            setUserDetails({
+                              ...userDetails,
+                              phoneNumber: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
                     </Form.Group>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <Form.Group controlId="formBio">
-                      <Form.Label>Your Bio</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        placeholder={userDetails.bio}
-                      />
+                      <Form.Label>
+                        Your Bio: <br />
+                        <p>
+                          <b>{userDetails.bio}</b>
+                        </p>
+                      </Form.Label>
+                      {editBio ? (
+                        <Button
+                          variant="link"
+                          style={{ color: "red" }}
+                          onClick={() => setEditBio(false)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="link"
+                          onClick={() => setEditBio(true)}
+                        >
+                          edit->
+                        </Button>
+                      )}
+                      {editBio ? (
+                        <Form.Control
+                          as="textarea"
+                          onChange={(e) =>
+                            setUserDetails({
+                              ...userDetails,
+                              bio: e.target.value,
+                            })
+                          }
+                        />
+                      ) : null}
                     </Form.Group>
                   </Col>
                 </Row>
@@ -161,7 +275,7 @@ function UserProfile() {
             <Card>
               <Card.Header>
                 <Card.Title>MY SKILLS </Card.Title>
-                {aquiredSkills.map((element) => {
+                {aquiredSkills.filter((element)=>element!=="").map((element) => {
                   return (
                     <Button variant="success" style={{ margin: "0.25rem" }}>
                       {element}{" "}
@@ -191,10 +305,12 @@ function UserProfile() {
                   </Form.Group>
                   <Button
                     onClick={() => {
-                      setAquiredSkills([
+                      if(document.getElementById("formAquiredSkills").value!==""){
+                        setAquiredSkills([
                         ...aquiredSkills,
                         document.getElementById("formAquiredSkills").value,
                       ]);
+                      }
                     }}
                     variant="secondary"
                   >
@@ -206,7 +322,7 @@ function UserProfile() {
             <Card>
               <Card.Header>
                 <Card.Title>NOT MY SKILLS </Card.Title>
-                {desiredSkills.map((element) => {
+                {desiredSkills.filter((element)=>element!=="").map((element) => {
                   return (
                     <Button variant="warning" style={{ margin: "0.25rem" }}>
                       {element}{" "}
@@ -237,10 +353,12 @@ function UserProfile() {
                   </Form.Group>
                   <Button
                     onClick={() => {
+                      if(document.getElementById("formDesiredSkills").value!==""){
                       setDesiredSkills([
                         ...desiredSkills,
                         document.getElementById("formDesiredSkills").value,
                       ]);
+                      }
                     }}
                     variant="secondary"
                   >
@@ -250,13 +368,24 @@ function UserProfile() {
               </Card.Body>
             </Card>
           </CardDeck>
+          <Card.Body
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItem: "center",
+            }}
+          >
+            <Button 
+          
+          onClick={editProfile}>Save Changes</Button>
+          </Card.Body>
         </div>
       );
     }
   }
   return (
     <div style={{ margin: "2rem" }}>
-      <MainJumbotron />
+      {/* <MainJumbotron /> */}
       <Card>
         <Card.Header>
           <Nav variant="pills" defaultActiveKey="#first">
@@ -279,11 +408,6 @@ function UserProfile() {
             <ProjectList isLoading={projectsLoading} />
           )}
         </Card.Body>
-        <Card.Footer
-          style={{ display: "flex", justifyContent: "center", alignItem: "center" }}
-        >
-          <Button onClick={editProfile}>Save Changes</Button>
-        </Card.Footer>
       </Card>
     </div>
   );
