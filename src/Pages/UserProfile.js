@@ -12,12 +12,11 @@ import {
   Spinner,
 } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import ProjectList from "../Components/ProjectList";
+import MyProjectList from "../Components/MyProjectList";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 function UserProfile() {
-  const [projectsLoading, setProjectsLoading] = useState(false);
   const [showDetails, setShowDetails] = useState(true);
   console.log(`/user/${localStorage.userId}`);
   console.log(localStorage.token);
@@ -59,6 +58,11 @@ function UserProfile() {
           setAquiredSkills(response.data.acquiredSkills.split(","));
           setDesiredSkills(response.data.learningSkills.split(","));
           setUserDetailsLoading(false);
+          setEditFirstName(false);
+          setEditLastName(false);
+          setEditEmail(false);
+          setEditBio(false);
+          setEditPhoneNumber(false);
           console.log(response.data);
         });
     }, [saveChanges]);
@@ -405,7 +409,7 @@ function UserProfile() {
           {showDetails ? (
             <UserDetails />
           ) : (
-            <ProjectList isLoading={projectsLoading} />
+            <MyProjectList />
           )}
         </Card.Body>
       </Card>
