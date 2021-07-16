@@ -49,7 +49,11 @@ code {
 #user-details-header {
    color: whitesmoke;
 }
-
+#name-rating {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
 #login-card {
    color: whitesmoke;
 }

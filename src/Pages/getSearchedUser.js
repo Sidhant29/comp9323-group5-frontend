@@ -14,6 +14,8 @@ import {
    FormControl,
 } from 'react-bootstrap';
 import axios from 'axios';
+import Ratings from '../Components/Constants/ratings';
+import { showToast } from '../Components/Constants/toastServices';
 
 export default function GetSearchedUser(props) {
    const { userId } = useParams();
@@ -24,6 +26,7 @@ export default function GetSearchedUser(props) {
       emailBody: '',
       lookingFor: 1,
    });
+
    const [flipButton, setFlipButton] = useState('Connect');
    const sendEmail = () => {
       console.log(localStorage);
@@ -41,6 +44,7 @@ export default function GetSearchedUser(props) {
             if (res.data === 'Email sent successfully') {
                setMsgBox(false);
                setFlipButton('Request sent');
+               showToast(`Request sent 📬`, 'success');
             }
             console.log(res.data);
          })
@@ -66,8 +70,8 @@ export default function GetSearchedUser(props) {
       console.log(value);
    };
 
-   useEffect(() => {
-      console.log(localStorage.token);
+   const renderDetails = () => {
+      console.log('$$$');
       axios
          .get('/user' + `/${userId}`, {
             headers: {
@@ -86,6 +90,10 @@ export default function GetSearchedUser(props) {
          .catch((err) => {
             console.log(err);
          });
+   };
+
+   useEffect(() => {
+      renderDetails();
    }, []);
 
    return (
@@ -116,6 +124,9 @@ export default function GetSearchedUser(props) {
                                  ? `Rating: ${userDetails.rating}`
                                  : ' No ratings yet'}
                            </h2>
+                           <h3 onClick={renderDetails}>
+                              <Ratings userId={userId} />
+                           </h3>
                         </ListGroup.Item>
                         <ListGroup.Item>
                            <h5>Skilled at</h5>

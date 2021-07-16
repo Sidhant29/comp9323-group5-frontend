@@ -14,6 +14,7 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import { urls } from '../Components/Constants/url';
+import RatingConstant from '../Components/Constants/ratingConstant';
 
 export default function Searchuser(props) {
    const { user } = props;
@@ -23,6 +24,7 @@ export default function Searchuser(props) {
    const history = useHistory();
    const [userList, setuserList] = useState(0);
    const [changeSkills, setChangeSkills] = useState(true);
+   const [rating, setRating] = useState(0);
 
    const handleChange = (event) => {
       const value = event.target.value;
@@ -63,7 +65,7 @@ export default function Searchuser(props) {
       <Container fluid='md'>
          <Row className='justify-content-md-center'>
             <Col>
-               <Card className=' text-center' bg='success'>
+               <Card bg='success'>
                   <Card.Body className='container'>
                      <Card.Header>
                         <Dropdown>
@@ -139,8 +141,16 @@ export default function Searchuser(props) {
                                              handleRouting(items.id)
                                           }
                                        >
-                                          <Card.Header id='user-search-header'>
-                                             <h5> {items.name}</h5>
+                                          <Card.Header>
+                                             <div id='name-rating'>
+                                                <h5> {items.name}</h5>
+                                                <h4>
+                                                   {' '}
+                                                   <RatingConstant
+                                                      rating={items.rating}
+                                                   />
+                                                </h4>
+                                             </div>
                                           </Card.Header>
                                           <ListGroup variant='flush'>
                                              <ListGroup.Item>
