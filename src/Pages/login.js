@@ -4,7 +4,7 @@ import { Card, Row, ListGroup, Col, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import { showToast } from '../Components/Constants/toastServices';
-
+import bg from '../Components/bb.jpeg';
 export default function Login() {
    const history = useHistory();
    const [formValues, setForm] = useState({ email: '', password: '' });
@@ -30,18 +30,24 @@ export default function Login() {
 
    return (
       <div
-         className='container'
+         className='Login-component'
          style={{
-            width: '40vw',
-            margin: 'auto',
-            marginTop: '5vh',
-            textAlign: 'left',
+            backgroundImage: `url(${bg})`,
          }}
       >
-         <div className='wrapper'>
+         <div
+            className='wrapper'
+            style={{
+               width: '40vw',
+               margin: 'auto',
+               marginTop: '5vh',
+               textAlign: 'left',
+               backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            }}
+         >
             <Row className='justify-content-md-center'>
                <Col>
-                  <Card className=' text-center' bg={'success'} id='login-card'>
+                  <Card className=' text-center' bg={'dark'} id='login-card'>
                      <Card.Body className='container'>
                         <Card.Header
                            style={{ fontSize: '25px', fontStyle: 'italic' }}

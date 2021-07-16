@@ -62,10 +62,10 @@ export default function Searchuser(props) {
       history.push(`/search_user/${userId}`);
    };
    return (
-      <Container fluid='md'>
+      <Container fluid='md' id='Container'>
          <Row className='justify-content-md-center'>
             <Col>
-               <Card bg='success'>
+               <Card bg='dark'>
                   <Card.Body className='container'>
                      <Card.Header>
                         <Dropdown>

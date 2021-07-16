@@ -14,6 +14,7 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import { urls } from '../Components/Constants/url';
+import LookingFor from '../Components/Constants/lookingFor';
 
 export default function Home(props) {
    const { keywords } = props;
@@ -64,7 +65,7 @@ export default function Home(props) {
       <Container fluid='md'>
          <Row className='justify-content-md-center'>
             <Col>
-               <Card className=' text-center' bg='success'>
+               <Card bg='dark'>
                   <Card.Body className='container'>
                      <Card.Header>
                         <Dropdown>
@@ -152,7 +153,11 @@ export default function Home(props) {
                                           </ListGroup>
                                           <ListGroup variant='flush'>
                                              <ListGroup.Item>
-                                                Looking for
+                                                <LookingFor
+                                                   participants={
+                                                      items.participants
+                                                   }
+                                                />
                                              </ListGroup.Item>
                                           </ListGroup>
                                           <ListGroup variant='flush'>

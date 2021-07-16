@@ -107,7 +107,7 @@ export default function GetSearchedUser(props) {
                      alignSelf: 'center',
                   }}
                >
-                  <Card id='user-details'>
+                  <Card id='user-details' bg='dark'>
                      <Card.Body className='container'>
                         <Card.Header id='user-details-header'>
                            <h3>
