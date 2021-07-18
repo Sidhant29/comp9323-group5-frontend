@@ -8,9 +8,5 @@ export default function LookingFor(props) {
    } else if (participants === 3) {
       display = 'Mentor & Mentee';
    }
-   return (
-      <div>
-         <h6>{display}</h6>
-      </div>
-   );
+   return <div>{display}</div>;
 }

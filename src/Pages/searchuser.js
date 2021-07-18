@@ -15,6 +15,8 @@ import {
 import axios from 'axios';
 import { urls } from '../Components/Constants/url';
 import RatingConstant from '../Components/Constants/ratingConstant';
+import SkillsBadge from '../Components/Constants/skillsBadge';
+import bg from '../Components/network.jpg';
 
 export default function Searchuser(props) {
    const { user } = props;
@@ -62,130 +64,165 @@ export default function Searchuser(props) {
       history.push(`/search_user/${userId}`);
    };
    return (
-      <Container fluid='md' id='Container'>
-         <Row className='justify-content-md-center'>
-            <Col>
-               <Card bg='dark'>
-                  <Card.Body className='container'>
-                     <Card.Header>
-                        <Dropdown>
-                           <Dropdown.Toggle
-                              variant='warning'
-                              id='dropdown-basic'
-                           >
-                              Filters
-                           </Dropdown.Toggle>
+      <div
+         className='Home-component'
+         style={{
+            backgroundImage: `url(${bg})`,
+         }}
+      >
+         <Container fluid='md'>
+            <Row className='justify-content-md-center'>
+               <Col>
+                  <div
+                     style={{
+                        margin: '5%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                     }}
+                  >
+                     <Card bg='dark'>
+                        <Card.Body className='container'>
+                           <Card.Header>
+                              <Dropdown>
+                                 <Dropdown.Toggle
+                                    variant='warning'
+                                    id='dropdown-basic'
+                                 >
+                                    Filters
+                                 </Dropdown.Toggle>
 
-                           <Dropdown.Menu>
-                              <InputGroup className='mb-3'>
-                                 <InputGroup.Text id='basic-addon3'>
-                                    search by skill
-                                 </InputGroup.Text>
-                                 <FormControl
-                                    id='search-skills'
-                                    aria-describedby='basic-addon3'
-                                    placeholder='python'
-                                    onChange={(e) => setSkill(e.target.value)}
-                                 />
-                              </InputGroup>
-                              <form>
-                                 <div>
-                                    <Form.Check
-                                       inline
-                                       label='mentor'
-                                       name='userType'
-                                       type='radio'
-                                       value='1'
-                                       onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                       inline
-                                       label='mentee'
-                                       name='userType'
-                                       type='radio'
-                                       value='2'
-                                       onChange={handleChange}
-                                    />
-                                 </div>
-                              </form>
-                           </Dropdown.Menu>
-                        </Dropdown>
-                     </Card.Header>
-                     <ListGroup variant='flush'>
-                        {userList ? (
-                           userList
-                              .filter((contact) => {
-                                 return (
-                                    contact.name
-                                       .toString()
-                                       .toLowerCase()
-                                       .indexOf(user.toString().toLowerCase()) >
-                                    -1
-                                 );
-                              })
-                              .map((items) => {
-                                 return (
-                                    <div
-                                       style={{
-                                          width: '30rem',
-                                          textAlign: 'centre',
-                                          alignSelf: 'center',
-                                       }}
-                                    >
-                                       <br />
-                                       <Card
-                                          id='user-search'
-                                          border='dark'
-                                          key={items.id}
-                                          onClick={() =>
-                                             handleRouting(items.id)
+                                 <Dropdown.Menu>
+                                    <InputGroup className='mb-3'>
+                                       <InputGroup.Text id='basic-addon3'>
+                                          search by skill
+                                       </InputGroup.Text>
+                                       <FormControl
+                                          id='search-skills'
+                                          aria-describedby='basic-addon3'
+                                          placeholder='python'
+                                          onChange={(e) =>
+                                             setSkill(e.target.value)
                                           }
-                                       >
-                                          <Card.Header>
-                                             <div id='name-rating'>
-                                                <h5> {items.name}</h5>
-                                                <h4>
-                                                   {' '}
-                                                   <RatingConstant
-                                                      rating={items.rating}
-                                                   />
-                                                </h4>
-                                             </div>
-                                          </Card.Header>
-                                          <ListGroup variant='flush'>
-                                             <ListGroup.Item>
-                                                {' '}
-                                                {items.rating
-                                                   ? `Ratings: ${items.rating}`
-                                                   : ' No ratings yet'}
-                                             </ListGroup.Item>
-                                             <ListGroup.Item>
-                                                {changeSkills && (
-                                                   <p>
-                                                      Skills:{' '}
-                                                      {items.acquiredSkills}
-                                                   </p>
-                                                )}
-                                                {!changeSkills && (
-                                                   <p>
-                                                      Learning:{' '}
-                                                      {items.learningSkills}
-                                                   </p>
-                                                )}
-                                             </ListGroup.Item>
-                                          </ListGroup>
-                                       </Card>
-                                    </div>
-                                 );
-                              })
-                        ) : (
-                           <h3>no results</h3>
-                        )}
-                     </ListGroup>
-                  </Card.Body>
-               </Card>
-            </Col>
-         </Row>
-      </Container>
+                                       />
+                                    </InputGroup>
+                                    <form>
+                                       <div>
+                                          <Form.Check
+                                             inline
+                                             label='mentor'
+                                             name='userType'
+                                             type='radio'
+                                             value='1'
+                                             onChange={handleChange}
+                                          />
+                                          <Form.Check
+                                             inline
+                                             label='mentee'
+                                             name='userType'
+                                             type='radio'
+                                             value='2'
+                                             onChange={handleChange}
+                                          />
+                                       </div>
+                                    </form>
+                                 </Dropdown.Menu>
+                              </Dropdown>
+                           </Card.Header>
+                           <ListGroup variant='flush'>
+                              {userList ? (
+                                 userList
+                                    .filter((contact) => {
+                                       return (
+                                          contact.name
+                                             .toString()
+                                             .toLowerCase()
+                                             .indexOf(
+                                                user.toString().toLowerCase()
+                                             ) > -1
+                                       );
+                                    })
+                                    .map((items) => {
+                                       return (
+                                          <div
+                                             style={{
+                                                width: '30rem',
+                                                textAlign: 'centre',
+                                                alignSelf: 'center',
+                                             }}
+                                          >
+                                             <br />
+                                             <Card
+                                                id='user-search'
+                                                border='dark'
+                                                key={items.id}
+                                                onClick={() =>
+                                                   handleRouting(items.id)
+                                                }
+                                             >
+                                                <Card.Header>
+                                                   <div id='name-rating'>
+                                                      <h5> {items.name}</h5>
+                                                      <h4>
+                                                         {' '}
+                                                         <RatingConstant
+                                                            rating={
+                                                               items.rating
+                                                            }
+                                                         />
+                                                      </h4>
+                                                   </div>
+                                                </Card.Header>
+                                                <ListGroup variant='flush'>
+                                                   <ListGroup.Item>
+                                                      <h5>
+                                                         {items.rating
+                                                            ? `Ratings: ${items.rating}`
+                                                            : ' No ratings yet'}
+                                                      </h5>
+                                                   </ListGroup.Item>
+                                                   <ListGroup.Item>
+                                                      {changeSkills && (
+                                                         <h5>
+                                                            Skills
+                                                            <SkillsBadge
+                                                               skills={
+                                                                  items.acquiredSkills
+                                                               }
+                                                               type='success'
+                                                            />
+                                                         </h5>
+                                                      )}
+                                                      {!changeSkills && (
+                                                         <h5>
+                                                            Learning
+                                                            {
+                                                               items.learningSkills
+                                                            }
+                                                            <SkillsBadge
+                                                               skills={
+                                                                  items.learningSkills
+                                                               }
+                                                               type='warning'
+                                                            />
+                                                         </h5>
+                                                      )}
+                                                   </ListGroup.Item>
+                                                </ListGroup>
+                                             </Card>
+                                          </div>
+                                       );
+                                    })
+                              ) : (
+                                 <h3>no results</h3>
+                              )}
+                           </ListGroup>
+                        </Card.Body>
+                     </Card>
+                  </div>
+               </Col>
+            </Row>
+         </Container>
+      </div>
    );
 }

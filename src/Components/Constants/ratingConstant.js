@@ -10,8 +10,6 @@ export default function RatingConstant(props) {
       edit: false,
    };
    return (
-      <div>
-         {rating ? <ReactStars {...firstExample} /> : <h4>No ratings yet</h4>}
-      </div>
+      <div>{rating ? <ReactStars {...firstExample} /> : <h4>{''}</h4>}</div>
    );
 }
