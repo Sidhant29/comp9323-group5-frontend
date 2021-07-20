@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import bg from '../Components/connect.jpg';
+import { useHistory } from 'react-router';
 
 import {
    Card,
@@ -21,9 +22,13 @@ import { showToast } from '../Components/Constants/toastServices';
 
 export default function GetSearchedUser(props) {
    const { userId } = useParams();
+   const history = useHistory();
    const [userDetails, setUserDetails] = useState([]);
    const [aquiredSkills, setAquiredSkills] = useState(['']);
    const [desiredSkills, setDesiredSkills] = useState(['']);
+   const [projectList, setProjectList] = useState([0]);
+   const [showProject, setShowProject] = useState(false);
+
    const [msgBox, setMsgBox] = useState(false);
    const [emailPayload, setEmailPayload] = useState({
       receiverId: '',
@@ -87,6 +92,12 @@ export default function GetSearchedUser(props) {
             setUserDetails(res.data);
             setAquiredSkills(res.data.acquiredSkills.split(','));
             setDesiredSkills(res.data.learningSkills.split(','));
+            if (res.data.projectDetailsList) {
+               setShowProject(true);
+               setProjectList(res.data.projectDetailsList);
+               console.log(res.data.projectDetailsList);
+               console.log(showProject);
+            }
             setEmailPayload({
                ...emailPayload,
                ['receiverId']: res.data.id,
@@ -96,6 +107,9 @@ export default function GetSearchedUser(props) {
          .catch((err) => {
             console.log(err);
          });
+   };
+   const handleRouting = (projectId) => {
+      history.push(`/search_project/${projectId}`);
    };
 
    useEffect(() => {
@@ -177,6 +191,28 @@ export default function GetSearchedUser(props) {
                                     );
                                  })}
                            </ListGroup.Item>
+                           {showProject && (
+                              <ListGroup.Item>
+                                 <h3>Projects</h3>
+                                 {projectList
+                                    .filter((element) => element !== '')
+                                    .map((element) => {
+                                       return (
+                                          <Button
+                                             variant='primary'
+                                             style={{
+                                                margin: '0.25rem',
+                                             }}
+                                             onClick={() =>
+                                                handleRouting(element.id)
+                                             }
+                                          >
+                                             {element.title}{' '}
+                                          </Button>
+                                       );
+                                    })}
+                              </ListGroup.Item>
+                           )}
                            <ListGroup variant='flush'>
                               <ListGroup.Item className=' text-center'>
                                  {!msgBox && (
