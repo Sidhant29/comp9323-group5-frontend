@@ -57,11 +57,9 @@ code {
 
 .Login-component {
    width: 100%;
-   height: 100%;
+   height: 150%;
    background-repeat: repeat;
-
-   /* Center and scale the image nicely */
-   /* background-position: center; */
+   background-position: top;
    background-size: cover;
 
    position: absolute;
@@ -69,6 +67,7 @@ code {
 
 .Home-component {
    background-repeat: repeat;
+   background-size: cover;
 
    width: 100%;
    height: 200%;

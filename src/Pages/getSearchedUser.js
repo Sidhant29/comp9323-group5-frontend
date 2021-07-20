@@ -118,7 +118,7 @@ export default function GetSearchedUser(props) {
 
    return (
       <div
-         className='Login-component'
+         className='Home-component'
          style={{
             backgroundImage: `url(${bg})`,
          }}
@@ -228,45 +228,48 @@ export default function GetSearchedUser(props) {
 
                                  {msgBox && (
                                     <div>
-                                       <InputGroup className='mb-3'>
-                                          <InputGroup.Text id='basic-addon3'>
-                                             Message
-                                          </InputGroup.Text>
-                                          <FormControl
-                                             id='email-body'
-                                             aria-describedby='basic-addon3'
-                                             onChange={(e) =>
-                                                setEmailPayload({
-                                                   ...emailPayload,
-                                                   ['emailBody']:
-                                                      e.target.value,
-                                                })
-                                             }
-                                          />
-                                       </InputGroup>
+                                       <InputGroup.Text id='basic-addon3'>
+                                          Message
+                                       </InputGroup.Text>
+                                       <FormControl
+                                          as='textarea'
+                                          rows={3}
+                                          id='email-body'
+                                          aria-describedby='basic-addon3'
+                                          onChange={(e) =>
+                                             setEmailPayload({
+                                                ...emailPayload,
+                                                ['emailBody']: e.target.value,
+                                             })
+                                          }
+                                       />
+                                       <br />
                                        <form>
                                           <div>
                                              <InputGroup.Text id='basic-addon3'>
                                                 Looking for
                                              </InputGroup.Text>
-                                             <Form.Check
-                                                inline
-                                                label='mentor'
-                                                name='userType'
-                                                type='radio'
-                                                value='1'
-                                                onChange={handleChange}
-                                             />
-                                             <Form.Check
-                                                inline
-                                                label='mentee'
-                                                name='userType'
-                                                type='radio'
-                                                value='2'
-                                                onChange={handleChange}
-                                             />
+                                             <ListGroup.Item>
+                                                <Form.Check
+                                                   inline
+                                                   label='mentor'
+                                                   name='userType'
+                                                   type='radio'
+                                                   value='1'
+                                                   onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                   inline
+                                                   label='mentee'
+                                                   name='userType'
+                                                   type='radio'
+                                                   value='2'
+                                                   onChange={handleChange}
+                                                />
+                                             </ListGroup.Item>
                                           </div>
                                        </form>
+                                       <br />
                                        <Button
                                           variant='warning'
                                           onClick={() => sendEmail()}

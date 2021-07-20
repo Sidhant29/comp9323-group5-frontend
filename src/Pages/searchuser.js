@@ -84,50 +84,36 @@ export default function Searchuser(props) {
                      <Card bg='dark'>
                         <Card.Body className='container'>
                            <Card.Header>
-                              <Dropdown>
-                                 <Dropdown.Toggle
-                                    variant='warning'
-                                    id='dropdown-basic'
-                                 >
-                                    Filters
-                                 </Dropdown.Toggle>
-
-                                 <Dropdown.Menu>
-                                    <InputGroup className='mb-3'>
-                                       <InputGroup.Text id='basic-addon3'>
-                                          search by skill
-                                       </InputGroup.Text>
-                                       <FormControl
-                                          id='search-skills'
-                                          aria-describedby='basic-addon3'
-                                          placeholder='python'
-                                          onChange={(e) =>
-                                             setSkill(e.target.value)
-                                          }
+                              <InputGroup className='mb-3'>
+                                 <FormControl
+                                    id='search-skills'
+                                    aria-describedby='basic-addon3'
+                                    placeholder='search by skill'
+                                    onChange={(e) => setSkill(e.target.value)}
+                                 />
+                              </InputGroup>
+                              <ListGroup.Item>
+                                 <form>
+                                    <div>
+                                       <Form.Check
+                                          inline
+                                          label='mentor'
+                                          name='userType'
+                                          type='radio'
+                                          value='1'
+                                          onChange={handleChange}
                                        />
-                                    </InputGroup>
-                                    <form>
-                                       <div>
-                                          <Form.Check
-                                             inline
-                                             label='mentor'
-                                             name='userType'
-                                             type='radio'
-                                             value='1'
-                                             onChange={handleChange}
-                                          />
-                                          <Form.Check
-                                             inline
-                                             label='mentee'
-                                             name='userType'
-                                             type='radio'
-                                             value='2'
-                                             onChange={handleChange}
-                                          />
-                                       </div>
-                                    </form>
-                                 </Dropdown.Menu>
-                              </Dropdown>
+                                       <Form.Check
+                                          inline
+                                          label='mentee'
+                                          name='userType'
+                                          type='radio'
+                                          value='2'
+                                          onChange={handleChange}
+                                       />
+                                    </div>
+                                 </form>
+                              </ListGroup.Item>
                            </Card.Header>
                            <ListGroup variant='flush'>
                               {userList ? (

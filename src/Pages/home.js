@@ -85,28 +85,16 @@ export default function Home(props) {
                      <Card bg='dark'>
                         <Card.Body className='container'>
                            <Card.Header>
-                              <Dropdown>
-                                 <Dropdown.Toggle
-                                    variant='warning'
-                                    id='dropdown-basic'
-                                 >
-                                    Filters
-                                 </Dropdown.Toggle>
-
-                                 <Dropdown.Menu>
-                                    <InputGroup className='mb-3'>
-                                       <InputGroup.Text id='basic-addon3'>
-                                          search by skill
-                                       </InputGroup.Text>
-                                       <FormControl
-                                          id='search-skills'
-                                          aria-describedby='basic-addon3'
-                                          placeholder='python'
-                                          onChange={(e) =>
-                                             setSkill(e.target.value)
-                                          }
-                                       />
-                                    </InputGroup>
+                              <InputGroup className='mb-3'>
+                                 <FormControl
+                                    id='search-skills'
+                                    aria-describedby='basic-addon3'
+                                    placeholder='search by skills required'
+                                    onChange={(e) => setSkill(e.target.value)}
+                                 />
+                              </InputGroup>
+                              <div>
+                                 <ListGroup.Item>
                                     <form>
                                        <div>
                                           <Form.Check
@@ -127,8 +115,8 @@ export default function Home(props) {
                                           />
                                        </div>
                                     </form>
-                                 </Dropdown.Menu>
-                              </Dropdown>
+                                 </ListGroup.Item>
+                              </div>
                            </Card.Header>
                            <ListGroup variant='flush'>
                               {projectList ? (
@@ -166,7 +154,6 @@ export default function Home(props) {
                                                 <Card.Header id='project-search-header'>
                                                    <h4> {items.title}</h4>
                                                 </Card.Header>
-                                                <ListGroup variant='flush'></ListGroup>
                                                 <ListGroup variant='flush'>
                                                    <ListGroup.Item>
                                                       <h5>Looking for</h5>

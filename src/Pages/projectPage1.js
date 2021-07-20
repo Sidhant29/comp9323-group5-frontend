@@ -38,7 +38,7 @@ export default function ProjectPage() {
       setMsgBox(false);
       setFlipButton('Sending request >>>');
       axios
-         .post(`/email/${projectId}`, emailPayload, {
+         .post(`/email/project/${localStorage.userId}`, emailPayload, {
             headers: {
                Accept: 'application/json',
                Authorization: localStorage.token,
@@ -104,7 +104,7 @@ export default function ProjectPage() {
 
    return (
       <div
-         className='Login-component'
+         className='Home-component'
          style={{
             backgroundImage: `url(${bg})`,
          }}
@@ -208,25 +208,26 @@ export default function ProjectPage() {
 
                            {msgBox && (
                               <div>
-                                 <InputGroup className='mb-3'>
-                                    <InputGroup.Text id='basic-addon3'>
-                                       Message
-                                    </InputGroup.Text>
-                                    <FormControl
-                                       id='email-body'
-                                       aria-describedby='basic-addon3'
-                                       onChange={(e) =>
-                                          setEmailPayload({
-                                             ...emailPayload,
-                                             ['emailBody']: e.target.value,
-                                          })
-                                       }
-                                    />
-                                 </InputGroup>
+                                 <InputGroup.Text id='basic-addon3'>
+                                    Tell us a little about yourself
+                                 </InputGroup.Text>{' '}
+                                 <FormControl
+                                    as='textarea'
+                                    rows={6}
+                                    id='email-body'
+                                    aria-describedby='basic-addon3'
+                                    onChange={(e) =>
+                                       setEmailPayload({
+                                          ...emailPayload,
+                                          ['emailBody']: e.target.value,
+                                       })
+                                    }
+                                 />
+                                 <br />
                                  <form>
                                     <div>
                                        <InputGroup.Text id='basic-addon3'>
-                                          Applying for
+                                          Tell us what are you applying for
                                        </InputGroup.Text>
                                        <ListGroup.Item>
                                           <Form.Check
@@ -248,6 +249,7 @@ export default function ProjectPage() {
                                        </ListGroup.Item>
                                     </div>
                                  </form>
+                                 <br />
                                  <Button
                                     variant='warning'
                                     onClick={() => sendEmail()}
