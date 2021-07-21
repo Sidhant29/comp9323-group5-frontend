@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Badge } from "react-bootstrap";
 import { Card, Col, Row, CardColumns, Button, Spinner } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
 
 export default function MyProjectList() {
   
@@ -66,9 +65,11 @@ export default function MyProjectList() {
                 </Button>
                 <Button
                   variant="link"
-    
-                ><Link to={`/project/update/${project.id}`}>Edit -></Link>
-                  
+                  onClick={() => {
+                    console.log("clicked");
+                  }}
+                >
+                  Edit
                 </Button>
               </Card.Header>
               <Card.Body>

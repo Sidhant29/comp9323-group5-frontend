@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 import MyProjectList from "../Components/MyProjectList";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
-
+import RatingConstant from "../Components/Constants/ratingConstant";
 function UserProfile() {
   const [showDetails, setShowDetails] = useState(true);
   console.log(`/user/${localStorage.userId}`);
@@ -96,6 +96,12 @@ function UserProfile() {
           <Card style={{ marginBottom: "1rem" }}>
             <Card.Body>
               <Form>
+              <Row>
+              <Col>
+              <h4>{userDetails.email}</h4>
+              <RatingConstant rating={userDetails.rating}/>
+              </Col>
+              </Row>
                 <Row>
                   <Col>
                     <Form.Group>
@@ -165,40 +171,6 @@ function UserProfile() {
                   </Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <Form.Group>
-                      <Form.Label>
-                        Email address: <b>{userDetails.email}</b>
-                      </Form.Label>
-                      {editEmail ? (
-                        <Button
-                          variant="link"
-                          style={{ color: "red" }}
-                          onClick={() => setEditEmail(false)}
-                        >
-                          x
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="link"
-                          onClick={() => setEditEmail(true)}
-                        >
-                          edit->
-                        </Button>
-                      )}
-                      {editEmail ? (
-                        <Form.Control
-                          type="email"
-                          onChange={(e) =>
-                            setUserDetails({
-                              ...userDetails,
-                              email: e.target.value,
-                            })
-                          }
-                        />
-                      ) : null}
-                    </Form.Group>
-                  </Col>
                   <Col>
                     <Form.Group>
                       <Form.Label>

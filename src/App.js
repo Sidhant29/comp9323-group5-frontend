@@ -10,7 +10,7 @@ import CreateProject from './Pages/createProject';
 import UserProfile from './Pages/UserProfile';
 import Searchuser from './Pages/searchuser';
 import ProjectPage from './Pages/projectPage1';
-
+import EditProject from './Pages/EditProject';
 import GetSearchedUser from './Pages/getSearchedUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,6 +37,10 @@ function App() {
             <Route exact path='/search_user'>
                <Navigation keyword={input} setKeyword={setInput} />
                <Searchuser user={input} />
+            </Route>
+            <Route exact path='/project/update/:id'>
+               <Navigation />
+               <EditProject />
             </Route>
             <Route exact path='/search_user/:userId'>
                <Navigation />
