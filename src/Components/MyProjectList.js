@@ -47,7 +47,9 @@ export default function MyProjectList() {
       </div>
     );
   }
-  
+  if(projects==="NO PROJECTS FOUND"){
+    return <h4>{projects}</h4>
+  }
   return (
     <div className="text-center">
       <CardColumns>
