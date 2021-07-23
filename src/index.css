@@ -72,3 +72,29 @@ code {
    width: 100%;
    height: 200%;
 }
+
+/* quick reset */
+* {
+   margin: 0;
+   padding: 0;
+   border: 0;
+}
+
+/* relevant styles */
+.img__wrap {
+   display: flex;
+   justify-content: space-between;
+}
+.img__description {
+   color: aqua;
+   visibility: hidden;
+   opacity: 0;
+
+   /* transition effect. not necessary */
+   transition: opacity 0.2s, visibility 0.2s;
+}
+
+.img__wrap:hover .img__description {
+   visibility: visible;
+   opacity: 1;
+}

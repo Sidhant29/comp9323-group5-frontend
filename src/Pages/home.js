@@ -10,19 +10,19 @@ import {
    FormControl,
    InputGroup,
    Form,
-   Dropdown,
-   Badge,
+   Image,
    Button,
 } from 'react-bootstrap';
 import axios from 'axios';
 import LookingFor from '../Components/Constants/lookingFor';
 import SkillsBadge from '../Components/Constants/skillsBadge';
 import bg from '../Components/learn.jpg';
+import cm from '../Components/checkmark.png';
 
 export default function Home(props) {
    const { keywords } = props;
    const [skill, setSkill] = useState('');
-   const [userType, setUserType] = useState(0);
+   const [userType, setUserType] = useState('');
 
    const history = useHistory();
    const [projectList, setProjectList] = useState(0);
@@ -43,6 +43,7 @@ export default function Home(props) {
    };
 
    useEffect(() => {
+      console.log(keywords, skill, userType);
       axios
          .get(
             '/searchProjects' +
@@ -152,7 +153,39 @@ export default function Home(props) {
                                                 }
                                              >
                                                 <Card.Header id='project-search-header'>
-                                                   <h4> {items.title}</h4>
+                                                   <h4>
+                                                      {items.recommended ? (
+                                                         <div class='img__wrap'>
+                                                            <img
+                                                               style={{
+                                                                  maxWidth:
+                                                                     '30px',
+                                                                  maxHeight:
+                                                                     '20px',
+                                                               }}
+                                                               class='img__img'
+                                                               src={cm}
+                                                            />
+                                                            <p class='img__description'>
+                                                               {`  Matches your
+                                                               skills`}
+                                                            </p>
+                                                         </div>
+                                                      ) : (
+                                                         //    <Image
+                                                         //       src={cm}
+                                                         //       roundedCircle
+                                                         //       style={{
+                                                         //          maxWidth: '30px',
+                                                         //          maxHeight:
+                                                         //             '20px',
+                                                         //       }}
+                                                         //    />
+                                                         // )
+                                                         ''
+                                                      )}{' '}
+                                                      {items.title}
+                                                   </h4>
                                                 </Card.Header>
                                                 <ListGroup variant='flush'>
                                                    <ListGroup.Item>
