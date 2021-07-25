@@ -60,14 +60,9 @@ code {
    color: white;
 }
 
-<<<<<<< HEAD
 #nav-link:hover {
    color: #ffc107;
-=======
-#nav-link:hover{
-   color:#ffc107;
    text-decoration: underline;
->>>>>>> 0831a27d93a0617081b9850f7d7a3aa67401328e
 }
 
 .Login-component {
@@ -80,16 +75,10 @@ code {
    position: absolute;
 }
 
-<<<<<<< HEAD
-.Home-component {
-   background-color: turquoise;
-   /* background-repeat: repeat; */
-   /* background-size: cover; */
-=======
-#root{
-   background-color: #EEEEEE;
+#root {
+   background-color: #eeeeee;
    position: absolute;
->>>>>>> 0831a27d93a0617081b9850f7d7a3aa67401328e
+
    width: 100%;
    height: 100%;
 }

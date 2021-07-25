@@ -90,12 +90,6 @@ export default function ProjectPage() {
          .then((res) => {
             setProjects(res.data);
             setAquiredSkills(res.data.skills.split(','));
-
-            //   setEmailPayload({
-            //      ...emailPayload,
-            //      ['projectId']: res.data.id,
-            //   });
-            console.log(res.data);
          })
          .catch((err) => {
             console.log(err);
@@ -103,174 +97,152 @@ export default function ProjectPage() {
    }, []);
 
    return (
-      <div
-         className='Home-component'
+      <Card
+         bg='dark'
          style={{
-            backgroundImage: `url(${bg})`,
+            height: '150vh',
+            width: '100%',
          }}
       >
-         <Container fluid='md'>
-            <Row className='justify-content-md-center'>
-               <Col>
-                  <div
+         <Card.Body className='container'>
+            <Card.Header id='user-details-header'>
+               <h3>{projects.title}</h3>
+            </Card.Header>
+            <ListGroup.Item>
+               <Card.Text>{projects.description}</Card.Text>
+            </ListGroup.Item>
+            <ListGroup.Item>
+               <Card.Text>
+                  <h3>Skills required</h3>
+
+                  {aquiredSkills
+                     .filter((element) => element !== '')
+                     .map((element) => {
+                        return (
+                           <Button
+                              variant='success'
+                              style={{
+                                 margin: '0.25rem',
+                                 pointerEvents: 'none',
+                              }}
+                           >
+                              {element}{' '}
+                           </Button>
+                        );
+                     })}
+               </Card.Text>
+            </ListGroup.Item>
+            <ListGroup.Item>
+               <Card.Text>
+                  <h3>Looking for</h3>
+
+                  <Button
                      style={{
-                        margin: '1%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignSelf: 'center',
+                        margin: '0.1rem',
+                        pointerEvents: 'none',
                      }}
+                     variant='danger'
                   >
-                     <Card bg='dark'>
-                        <Card.Body className='container'>
-                           <Card.Header id='user-details-header'>
-                              <h3>{projects.title}</h3>
-                           </Card.Header>
-                           <ListGroup.Item>
-                              <Card.Text>{projects.description}</Card.Text>
-                           </ListGroup.Item>
-                           <ListGroup.Item>
-                              <Card.Text>
-                                 <h3>Skills required</h3>
+                     <LookingFor participants={projects.participants} />{' '}
+                  </Button>
+               </Card.Text>
+            </ListGroup.Item>
+            <ListGroup.Item>
+               <Card.Text>
+                  <h3>Posted by</h3>
 
-                                 {aquiredSkills
-                                    .filter((element) => element !== '')
-                                    .map((element) => {
-                                       return (
-                                          <Button
-                                             variant='success'
-                                             style={{
-                                                margin: '0.25rem',
-                                                pointerEvents: 'none',
-                                             }}
-                                          >
-                                             {element}{' '}
-                                          </Button>
-                                       );
-                                    })}
-                              </Card.Text>
-                           </ListGroup.Item>
-                           <ListGroup.Item>
-                              <Card.Text>
-                                 <h3>Looking for</h3>
+                  <h4>
+                     <Button
+                        variant='primary'
+                        style={{
+                           margin: '0.25rem',
+                        }}
+                        onClick={() => handleRouting(projects.user_id)}
+                     >
+                        {projects.user_name}
+                     </Button>
+                  </h4>
+               </Card.Text>
+            </ListGroup.Item>
+            <ListGroup.Item>
+               <h3>Posted on</h3>
+               <h3>
+                  <small className='text-muted'>{projects.created_date}</small>
+               </h3>
+            </ListGroup.Item>
 
-                                 <Button
-                                    style={{
-                                       margin: '0.1rem',
-                                       pointerEvents: 'none',
-                                    }}
-                                    variant='danger'
-                                 >
-                                    <LookingFor
-                                       participants={projects.participants}
-                                    />{' '}
-                                 </Button>
-                              </Card.Text>
-                           </ListGroup.Item>
-                           <ListGroup.Item>
-                              <Card.Text>
-                                 <h3>Posted by</h3>
+            <ListGroup variant='flush'>
+               <ListGroup.Item className=' text-center'>
+                  {!msgBox && (
+                     <Button
+                        variant='warning'
+                        onClick={() => {
+                           setMsgBox(true);
+                        }}
+                     >
+                        {flipButton}
+                     </Button>
+                  )}
 
-                                 <h4>
-                                    <Button
-                                       variant='primary'
-                                       style={{
-                                          margin: '0.25rem',
-                                       }}
-                                       onClick={() =>
-                                          handleRouting(projects.user_id)
-                                       }
-                                    >
-                                       {projects.user_name}
-                                    </Button>
-                                 </h4>
-                              </Card.Text>
-                           </ListGroup.Item>
-                           <ListGroup.Item>
-                              <h3>Posted on</h3>
-                              <h3>
-                                 <small className='text-muted'>
-                                    {projects.created_date}
-                                 </small>
-                              </h3>
-                           </ListGroup.Item>
-                        </Card.Body>
-                        <Card.Footer>
-                           {!msgBox && (
-                              <Button
-                                 variant='warning'
-                                 onClick={() => {
-                                    setMsgBox(true);
-                                 }}
-                              >
-                                 {flipButton}
-                              </Button>
-                           )}
-
-                           {msgBox && (
-                              <div>
-                                 <InputGroup.Text id='basic-addon3'>
-                                    Tell us a little about yourself
-                                 </InputGroup.Text>{' '}
-                                 <FormControl
-                                    as='textarea'
-                                    rows={6}
-                                    id='email-body'
-                                    aria-describedby='basic-addon3'
-                                    onChange={(e) =>
-                                       setEmailPayload({
-                                          ...emailPayload,
-                                          ['emailBody']: e.target.value,
-                                       })
-                                    }
+                  {msgBox && (
+                     <div>
+                        <InputGroup.Text id='basic-addon3'>
+                           Tell us a little about yourself
+                        </InputGroup.Text>{' '}
+                        <FormControl
+                           as='textarea'
+                           rows={6}
+                           id='email-body'
+                           aria-describedby='basic-addon3'
+                           onChange={(e) =>
+                              setEmailPayload({
+                                 ...emailPayload,
+                                 ['emailBody']: e.target.value,
+                              })
+                           }
+                        />
+                        <br />
+                        <form>
+                           <div>
+                              <InputGroup.Text id='basic-addon3'>
+                                 Tell us what are you applying for
+                              </InputGroup.Text>
+                              <ListGroup.Item>
+                                 <Form.Check
+                                    inline
+                                    label='mentor'
+                                    name='userType'
+                                    type='radio'
+                                    value='1'
+                                    onChange={handleChange}
                                  />
-                                 <br />
-                                 <form>
-                                    <div>
-                                       <InputGroup.Text id='basic-addon3'>
-                                          Tell us what are you applying for
-                                       </InputGroup.Text>
-                                       <ListGroup.Item>
-                                          <Form.Check
-                                             inline
-                                             label='mentor'
-                                             name='userType'
-                                             type='radio'
-                                             value='1'
-                                             onChange={handleChange}
-                                          />
-                                          <Form.Check
-                                             inline
-                                             label='mentee'
-                                             name='userType'
-                                             type='radio'
-                                             value='2'
-                                             onChange={handleChange}
-                                          />
-                                       </ListGroup.Item>
-                                    </div>
-                                 </form>
-                                 <br />
-                                 <Button
-                                    variant='warning'
-                                    onClick={() => sendEmail()}
-                                 >
-                                    Send connection request
-                                 </Button>
-                                 {'    '}
-                                 <Button
-                                    variant='danger'
-                                    onClick={() => setMsgBox(false)}
-                                 >
-                                    close
-                                 </Button>
-                              </div>
-                           )}
-                        </Card.Footer>
-                     </Card>
-                  </div>
-               </Col>
-            </Row>
-         </Container>
-      </div>
+                                 <Form.Check
+                                    inline
+                                    label='mentee'
+                                    name='userType'
+                                    type='radio'
+                                    value='2'
+                                    onChange={handleChange}
+                                 />
+                              </ListGroup.Item>
+                           </div>
+                        </form>
+                        <br />
+                        <Button variant='warning' onClick={() => sendEmail()}>
+                           Send connection request
+                        </Button>
+                        {'    '}
+                        <Button
+                           variant='danger'
+                           onClick={() => setMsgBox(false)}
+                        >
+                           close
+                        </Button>
+                     </div>
+                  )}
+               </ListGroup.Item>
+            </ListGroup>
+         </Card.Body>
+      </Card>
    );
 }

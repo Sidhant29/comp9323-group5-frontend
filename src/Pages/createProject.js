@@ -35,15 +35,21 @@ export default function CreateProject() {
    }
 
    return (
-      <Card bg="dark"  style={{width:"100%",height:"100vh"}} className='translucent'>
+      <Card
+         bg='dark'
+         style={{ width: '100%', height: '100vh' }}
+         className='translucent'
+      >
          <Card.Header>
-         <h1 style={{color:"white"}}>Create a New Project</h1>
+            <h1 style={{ color: '#ffc107' }}>Create new Projects</h1>
          </Card.Header>
-         
+
          <Card.Body>
             <Form>
                <Form.Group controlId='formTitle'>
-                  <Form.Label style={{color:"white"}}>Project Title</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Title
+                  </Form.Label>
                   <Form.Control
                      type='text'
                      placeholder='Project Title'
@@ -56,7 +62,9 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group className='mb-3' controlId='formDesc'>
-                  <Form.Label style={{color:"white"}}>Project Description</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Description
+                  </Form.Label>
                   <Form.Control
                      as='textarea'
                      rows={3}
@@ -70,7 +78,9 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formVideo'>
-                  <Form.Label style={{color:"white"}}>Project Video</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Video
+                  </Form.Label>
                   <Form.Control
                      type='url'
                      placeholder='URL of your project video'
@@ -83,11 +93,11 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formParticipants'>
-                  <Form.Label style={{color:"white"}}>Seeking</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>Seeking</Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentor'
                         name='participant'
@@ -101,7 +111,7 @@ export default function CreateProject() {
                         id={`inline-radio-1`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentee'
                         name='participant'
@@ -115,7 +125,7 @@ export default function CreateProject() {
                         id={`inline-radio-2`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentor & Mentee'
                         name='participant'
@@ -132,7 +142,7 @@ export default function CreateProject() {
                </Form.Group>
                <Form>
                   <Form.Group controlId='formSkillsrequired'>
-                     <Form.Label style={{color:"white"}}>
+                     <Form.Label style={{ color: 'white' }}>
                         Skills required to complete the project
                      </Form.Label>
                      <Form.Control type='text' placeholder='Data Analysis' />

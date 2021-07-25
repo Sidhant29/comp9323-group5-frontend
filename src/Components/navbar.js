@@ -20,10 +20,15 @@ export default function Navigation(props) {
 
    return (
       <Router>
-         <Navbar collapseOnSelect expand='lg' style={{backgroundColor:"black"}} variant='dark'>
+         <Navbar
+            collapseOnSelect
+            expand='lg'
+            style={{ backgroundColor: 'black' }}
+            variant='dark'
+         >
             <Container>
                <Navbar.Brand href='/home'>Find projects</Navbar.Brand>
-               <Navbar.Brand href='/search_user'>Look-up</Navbar.Brand>
+               <Navbar.Brand href='/search_user'>Search user</Navbar.Brand>
                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
                <Navbar.Collapse id='responsive-navbar-nav'>
                   <Nav className='me-auto'>
