@@ -56,12 +56,12 @@ code {
    color: whitesmoke;
 }
 
-#nav-link{
-   color:white
+#nav-link {
+   color: white;
 }
 
-#nav-link:hover{
-   color:#ffc107;
+#nav-link:hover {
+   color: #ffc107;
 }
 
 .Login-component {
@@ -77,16 +77,9 @@ code {
 .Home-component {
    background-color: turquoise;
    /* background-repeat: repeat; */
-   /* background-size: cover; */   
+   /* background-size: cover; */
    width: 100%;
    height: 200%;
-}
-
-/* quick reset */
-* {
-   margin: 0;
-   padding: 0;
-   border: 0;
 }
 
 /* relevant styles */
