@@ -72,13 +72,14 @@ export default function Searchuser(props) {
         <Row className="">
           <Col>
             <div> */}
-              <Card bg="dark" style={{margin:"2rem"}}>
+              <Card bg="dark" style={{width:"100%",height:"100vh"}}>
               <Card.Header>
               <Card.Title><h1 style={{color:"#ffc107"}}>USER SEARCH</h1></Card.Title></Card.Header>
                 <Card.Body >
-                  <Card.Header>
+                  <Card.Header style={{width:"60vw"}}>
                     <InputGroup className="mb-3">
                       <FormControl
+                        
                         id="search-skills"
                         aria-describedby="basic-addon3"
                         placeholder="search by skill"
