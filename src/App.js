@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
    const [input, setInput] = useState('');
    return (
+      <div className="Home-component">
       <Router>
          <Switch>
             <Route exact path='/'>
@@ -67,6 +68,7 @@ function App() {
             pauseOnHover
          />
       </Router>
+      </div>
    );
 }
 

@@ -362,16 +362,16 @@ function UserProfile() {
   return (
     <div style={{ margin: "2rem" }}>
       {/* <MainJumbotron /> */}
-      <Card>
+      <Card bg="dark">
         <Card.Header>
           <Nav variant="pills" defaultActiveKey="#first">
             <Nav.Item>
-              <Nav.Link onClick={() => setShowDetails(true)}>
+              <Nav.Link id="nav-link" onClick={() => setShowDetails(true)}>
                 My Details
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onClick={() => setShowDetails(false)}>
+              <Nav.Link id="nav-link" onClick={() => setShowDetails(false)}>
                 My Projects
               </Nav.Link>
             </Nav.Item>

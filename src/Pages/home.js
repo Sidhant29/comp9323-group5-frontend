@@ -69,7 +69,7 @@ export default function Home(props) {
       <div
          className='Home-component'
          style={{
-            backgroundImage: `url(${bg})`,
+            backgroundColor:"#FFD369",
          }}
       >
          <Container fluid='md'>
