@@ -20,7 +20,7 @@ export default function Navigation(props) {
 
    return (
       <Router>
-         <Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
+         <Navbar collapseOnSelect expand='lg' style={{backgroundColor:"black"}} variant='dark'>
             <Container>
                <Navbar.Brand href='/home'>Find projects</Navbar.Brand>
                <Navbar.Brand href='/search_user'>Look-up</Navbar.Brand>

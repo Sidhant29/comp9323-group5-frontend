@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Card, Badge } from 'react-bootstrap';
+import { useHistory, useParams } from 'react-router-dom';
 
-export default function CreateProject() {
+export default function EditProject() {
+    let { id } = useParams(); 
    const [skillsRequired, setSkillsRequired] = useState([]);
-
    const [projectDetails, setProjectDetails] = useState({
       title: '',
       description: '',
       skills: '',
+      project_status:1,
       user_id: Number(localStorage.userId),
       participants: 0,
       url: '',
    });
+   let history = useHistory();
+
+ useEffect(()=>{
+    axios.get(`/myProjects?id=${localStorage.userId}`,{
+        headers:{
+          Authorization: localStorage.token,
+        }
+      }).then((response)=>{
+        console.log(id)
+        let project = response.data.filter((project)=>project.id==id)[0]
+        console.log(project)
+        setProjectDetails(project);
+        console.log(project)
+        setSkillsRequired(project.skills.split(','))
+      })
+ },[])
 
    async function handleSubmit() {
       if (!(Array.isArray(skillsRequired) && skillsRequired.length)) {
@@ -21,13 +39,20 @@ export default function CreateProject() {
       }
       console.log({ ...projectDetails, skills: skillsRequired.join() });
       axios
-         .post(`/createProject`, projectDetails, {
+         .post(`/project/update/${id}`, { 
+            title:projectDetails.title,
+            description:projectDetails.description,
+            url:projectDetails.url,
+            project_status:1,
+            participants:projectDetails.participants,
+            skills: skillsRequired.join() }, {
             headers: {
                Authorization: localStorage.token,
             },
          })
          .then((response) => {
-            alert('Project Successfully Created');
+            alert('Project Successfully Updated');
+            history.push('/user_profile')
          })
          .catch((error) => {
             console.log(error);
@@ -35,18 +60,15 @@ export default function CreateProject() {
    }
 
    return (
-      <Card bg="dark"  style={{width:"100%",height:"100vh"}} className='translucent'>
-         <Card.Header>
-         <h1 style={{color:"white"}}>Create a New Project</h1>
-         </Card.Header>
-         
+      // <Alert >
+      <Card className='translucent'>
          <Card.Body>
             <Form>
                <Form.Group controlId='formTitle'>
-                  <Form.Label style={{color:"white"}}>Project Title</Form.Label>
+                  <Form.Label>Project Title: <b>{projectDetails.title}</b></Form.Label>
                   <Form.Control
                      type='text'
-                     placeholder='Project Title'
+                     placeholder='New Project Title'
                      onChange={(e) =>
                         setProjectDetails({
                            ...projectDetails,
@@ -56,10 +78,11 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group className='mb-3' controlId='formDesc'>
-                  <Form.Label style={{color:"white"}}>Project Description</Form.Label>
+                  <Form.Label>Project Description: <b>{projectDetails.description}</b></Form.Label>
                   <Form.Control
                      as='textarea'
                      rows={3}
+                     placeholder = "New Description"
                      onChange={(e) =>
                         setProjectDetails({
                            ...projectDetails,
@@ -70,7 +93,7 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formVideo'>
-                  <Form.Label style={{color:"white"}}>Project Video</Form.Label>
+                  <Form.Label>Project Video: <b>{projectDetails.url}</b></Form.Label>
                   <Form.Control
                      type='url'
                      placeholder='URL of your project video'
@@ -83,15 +106,15 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formParticipants'>
-                  <Form.Label style={{color:"white"}}>Seeking</Form.Label>
+                  <Form.Label>Seeking</Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
                      <Form.Check
-                     style={{color:"white"}}
                         inline
                         label='Mentor'
                         name='participant'
                         type='radio'
+
                         onClick={() =>
                            setProjectDetails({
                               ...projectDetails,
@@ -101,7 +124,6 @@ export default function CreateProject() {
                         id={`inline-radio-1`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
                         inline
                         label='Mentee'
                         name='participant'
@@ -115,7 +137,6 @@ export default function CreateProject() {
                         id={`inline-radio-2`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
                         inline
                         label='Mentor & Mentee'
                         name='participant'
@@ -132,7 +153,7 @@ export default function CreateProject() {
                </Form.Group>
                <Form>
                   <Form.Group controlId='formSkillsrequired'>
-                     <Form.Label style={{color:"white"}}>
+                     <Form.Label>
                         Skills required to complete the project
                      </Form.Label>
                      <Form.Control type='text' placeholder='Data Analysis' />
@@ -142,7 +163,7 @@ export default function CreateProject() {
                         .map((element) => {
                            return (
                               <Button
-                                 variant='primary'
+                                 variant='dark'
                                  style={{ margin: '0.25rem' }}
                               >
                                  {element}{' '}
