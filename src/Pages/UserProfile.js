@@ -297,7 +297,7 @@ function UserProfile() {
             </Card>
             <Card>
               <Card.Header>
-                <Card.Title>NOT MY SKILLS </Card.Title>
+                <Card.Title>DESIRED SKILLS </Card.Title>
                 {desiredSkills.filter((element)=>element!=="").map((element) => {
                   return (
                     <Button variant="warning" style={{ margin: "0.25rem" }}>

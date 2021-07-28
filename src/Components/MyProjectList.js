@@ -40,6 +40,34 @@ export default function MyProjectList() {
     })
   },[])
 
+  function apiChangeStatus(project){
+    let proj = project
+    console.log(proj)
+    if(proj.project_status==0){
+      proj.project_status=1 
+    }else{
+      proj = {...proj,project_status:0}
+    }
+    axios
+         .post(`/project/update/${proj.id}`, { 
+            title:proj.title,
+            description:proj.description,
+            url:proj.url,
+            project_status:proj.project_status,
+            participants:proj.participants,
+            skills: proj.skills }, {
+            headers: {
+               Authorization: localStorage.token,
+            },
+         })
+         .then((response) => {
+            alert(`${project.title} updated`);
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+  }
+
   if (isLoading) {
     return (
       <div style={{ margin: "auto auto" }}>
@@ -47,9 +75,11 @@ export default function MyProjectList() {
       </div>
     );
   }
+
   if(projects==="NO PROJECTS FOUND"){
     return <h4>{projects}</h4>
   }
+
   return (
     <div className="text-center">
       <CardColumns>
@@ -57,15 +87,25 @@ export default function MyProjectList() {
           return (
             <Card>
               <Card.Header className="text-right">
-                <Button
+                {project.project_status==1?(<Button
+                  variant="link"
+                  style={{ color: "green" }}
+                  onClick={() => {
+                    apiChangeStatus(project)
+                  }}
+                >
+                  Go Offline
+                </Button>):
+                (<Button
                   variant="link"
                   style={{ color: "red" }}
                   onClick={() => {
-                    console.log("clicked");
+                    apiChangeStatus(project)
                   }}
                 >
-                  Delete
-                </Button>
+                  Go Online
+                </Button>)
+                }
                 <Button
                   variant="link"
     
