@@ -1,3 +1,7 @@
+html {
+   height: 100%;
+   width: 100%;
+}
 body {
    margin: 0;
    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -5,6 +9,8 @@ body {
       'Helvetica Neue', sans-serif;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
+   height: 100%;
+   width: 100%;
 }
 
 code {
@@ -24,17 +30,32 @@ code {
 }
 
 #user-search {
-   width: '30rem';
    text-align: 'centre';
    align-self: 'center';
+   flex: 1 0 0%;
 }
 
 #user-search:hover {
    opacity: 1;
    cursor: pointer;
    background-color: #ffc107;
+}
 
-   /* transition: opacity 0.2s ease; */
+#row {
+   justify-content: center;
+}
+
+#col-md-4-user {
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+}
+
+#col-md-4-project {
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   padding: 1%;
 }
 
 #user-search-header:hover {
@@ -45,6 +66,8 @@ code {
 } */
 #user-details-header {
    color: whitesmoke;
+   display: flex;
+   justify-content: space-between;
 }
 #name-rating {
    display: flex;
@@ -77,10 +100,12 @@ code {
 
 #root {
    background-color: #eeeeee;
-   position: absolute;
+   /* position: absolute; */
 
    width: 100%;
    height: 100%;
+   max-width: 1128px;
+   margin: auto;
 }
 .Home-component {
    display: grid;

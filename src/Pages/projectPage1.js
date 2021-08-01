@@ -17,11 +17,13 @@ import { useParams } from 'react-router';
 import axios from 'axios';
 import LookingFor from '../Components/Constants/lookingFor';
 import { showToast } from '../Components/Constants/toastServices';
-import bg from '../Components/projects.jpg';
+import GetSearchedUser from './getSearchedUser';
 
 export default function ProjectPage() {
    const { projectId } = useParams();
    const history = useHistory();
+   const [modalShow, setModalShow] = React.useState(false);
+   const [selectedUser, setSelectedUser] = useState('');
 
    const [msgBox, setMsgBox] = useState(false);
    const [projects, setProjects] = useState([]);
@@ -75,7 +77,11 @@ export default function ProjectPage() {
    };
 
    const handleRouting = (userId) => {
-      history.push(`/search_user/${userId}`);
+      setModalShow(true);
+      setSelectedUser(userId);
+      console.log(userId);
+
+      // history.push(`/search_user/${userId}`);
    };
 
    useEffect(() => {
@@ -100,8 +106,8 @@ export default function ProjectPage() {
       <Card
          bg='dark'
          style={{
-            height: '150vh',
             width: '100%',
+            alignItems: 'center',
          }}
       >
          <Card.Body className='container'>
@@ -243,6 +249,13 @@ export default function ProjectPage() {
                </ListGroup.Item>
             </ListGroup>
          </Card.Body>
+         {modalShow && (
+            <GetSearchedUser
+               show={modalShow}
+               onHide={() => setModalShow(false)}
+               userId={selectedUser}
+            />
+         )}
       </Card>
    );
 }

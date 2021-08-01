@@ -66,61 +66,49 @@ export default function Home(props) {
       history.push(`/search_project/${projectId}`);
    };
    return (
-      <div className='Home-component'>
-         {/* <Container fluid='md'>
-            <Row className='justify-content-md-center'>
-               <Col>
-                  <div
-                     style={{
-                        margin: '5%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignSelf: 'center',
-                     }}
-                  > */}
-         <Card bg='dark' style={{ width: '100%', height: '140vh' }}>
+      <Card bg='dark' style={{ width: '100%' }}>
+         <Card.Header>
+            <Card.Title>
+               <h1 style={{ color: '#ffc107' }}>Search projects</h1>
+            </Card.Title>
+         </Card.Header>
+         <Card.Body>
             <Card.Header>
-               <Card.Title>
-                  <h1 style={{ color: '#ffc107' }}>Search projects</h1>
-               </Card.Title>
+               <InputGroup className='mb-3'>
+                  <FormControl
+                     id='search-skills'
+                     aria-describedby='basic-addon3'
+                     placeholder='search by skills required'
+                     onChange={(e) => setSkill(e.target.value)}
+                  />
+               </InputGroup>
+               <div>
+                  <ListGroup.Item>
+                     <form>
+                        <div>
+                           <Form.Check
+                              inline
+                              label='mentor'
+                              name='userType'
+                              type='radio'
+                              value='1'
+                              onChange={handleChange}
+                           />
+                           <Form.Check
+                              inline
+                              label='mentee'
+                              name='userType'
+                              type='radio'
+                              value='2'
+                              onChange={handleChange}
+                           />
+                        </div>
+                     </form>
+                  </ListGroup.Item>
+               </div>
             </Card.Header>
-            <Card.Body>
-               <Card.Header style={{ width: '60vw' }}>
-                  <InputGroup className='mb-3'>
-                     <FormControl
-                        id='search-skills'
-                        aria-describedby='basic-addon3'
-                        placeholder='search by skills required'
-                        onChange={(e) => setSkill(e.target.value)}
-                     />
-                  </InputGroup>
-                  <div>
-                     <ListGroup.Item>
-                        <form>
-                           <div>
-                              <Form.Check
-                                 inline
-                                 label='mentor'
-                                 name='userType'
-                                 type='radio'
-                                 value='1'
-                                 onChange={handleChange}
-                              />
-                              <Form.Check
-                                 inline
-                                 label='mentee'
-                                 name='userType'
-                                 type='radio'
-                                 value='2'
-                                 onChange={handleChange}
-                              />
-                           </div>
-                        </form>
-                     </ListGroup.Item>
-                  </div>
-               </Card.Header>
-               <CardDeck>
-                  {/* <ListGroup variant='flush'> */}
+            <Card.Body className=''>
+               <Row id='row'>
                   {projectList ? (
                      projectList
                         .filter((contact) => {
@@ -134,14 +122,7 @@ export default function Home(props) {
                         })
                         .map((items) => {
                            return (
-                              <div
-                                 style={{
-                                    // width: '30rem',
-                                    textAlign: 'centre',
-                                    alignSelf: 'center',
-                                 }}
-                              >
-                                 <br />
+                              <Col xs={12} md={6} lg={5} id='col-md-4-project'>
                                  <Card
                                     id='user-search'
                                     border='dark'
@@ -171,7 +152,6 @@ export default function Home(props) {
                                           {items.title}
                                        </h4>
                                     </Card.Header>
-                                    {/* <ListGroup variant='flush'> */}
                                     <ListGroup.Item>
                                        <h5>Looking for</h5>
                                        <Button
@@ -194,27 +174,20 @@ export default function Home(props) {
                                           type='success'
                                        />
                                     </ListGroup.Item>
-                                    {/* </ListGroup> */}
-                                    {/* <ListGroup variant='flush'> */}
                                     <ListGroup.Item>
                                        {items.createdDate}
                                     </ListGroup.Item>
-                                    {/* </ListGroup> */}
                                  </Card>
-                              </div>
+                              </Col>
                            );
                         })
                   ) : (
                      <h3>no results</h3>
                   )}
                   {/* </ListGroup> */}
-               </CardDeck>
+               </Row>
             </Card.Body>
-         </Card>
-         {/* </div>
-               </Col>
-            </Row>
-         </Container> */}
-      </div>
+         </Card.Body>
+      </Card>
    );
 }
