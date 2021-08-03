@@ -14,7 +14,6 @@ import EditProject from './Pages/EditProject';
 import GetSearchedUser from './Pages/getSearchedUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import PopupModel from './Pages/popupModel';
 import TopUsers from './Pages/topUsers';
 
 function App() {
@@ -60,9 +59,6 @@ function App() {
                <Route exact path='/user_profile'>
                   <Navigation />
                   <UserProfile />
-               </Route>
-               <Route exact path='/aa'>
-                  <PopupModel />
                </Route>
             </Switch>
             <ToastContainer
