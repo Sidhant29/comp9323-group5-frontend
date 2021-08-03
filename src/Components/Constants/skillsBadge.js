@@ -5,7 +5,6 @@ export default function SkillsBadge(props) {
    const { skills, type } = props;
    const [anySkills] = useState(skills.split(','));
    const [check, setCheck] = useState(false);
-   console.log(anySkills);
 
    //    useEffect(() => {
    //       if (skills.length === 0) {

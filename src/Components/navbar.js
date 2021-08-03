@@ -26,35 +26,32 @@ export default function Navigation(props) {
             style={{ backgroundColor: 'black' }}
             variant='dark'
          >
-            <Container>
+            <Container style={{ display: 'flex' }}>
                <Navbar.Brand href='/home'>Find projects</Navbar.Brand>
                <Navbar.Brand href='/search_user'>Search user</Navbar.Brand>
                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-               <Navbar.Collapse id='responsive-navbar-nav'>
-                  <Nav className='me-auto'>
-                     <Form className='d-flex'>
-                        <FormControl
-                           type='text'
-                           placeholder='Search'
-                           value={keyword}
-                           onChange={(e) => setKeyword(e.target.value)}
-                           className='mr-sm-2'
-                        />
-                        <Button variant='outline-info'>Search</Button>
-                     </Form>
-                  </Nav>
-                  <Nav>
-                     <Nav.Link href='/create_project'>Create project</Nav.Link>
-                  </Nav>
-                  <Nav>
-                     <Nav.Link href='/user_profile'>My account</Nav.Link>
-                  </Nav>
-                  <Nav>
-                     <Nav.Link href='/' onClick={signOff}>
-                        Logout
-                     </Nav.Link>
-                  </Nav>
-               </Navbar.Collapse>
+               <Nav className='me-auto'>
+                  <Form className='d-flex'>
+                     <FormControl
+                        type='text'
+                        placeholder='Search'
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
+                        className='mr-sm-2'
+                     />
+                     <Button variant='outline-info'>Search</Button>
+                  </Form>
+               </Nav>
+               <Navbar.Brand href='/leaderBoard'>🥇</Navbar.Brand>
+               <Navbar.Brand href='/create_project'>
+                  Create project
+               </Navbar.Brand>
+               <Navbar.Brand href='/user_profile'>My account</Navbar.Brand>
+               <Nav>
+                  <Nav.Link href='/' onClick={signOff}>
+                     Logout
+                  </Nav.Link>
+               </Nav>
             </Container>
          </Navbar>
       </Router>

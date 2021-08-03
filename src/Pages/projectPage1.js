@@ -24,6 +24,11 @@ export default function ProjectPage() {
    const history = useHistory();
    const [modalShow, setModalShow] = React.useState(false);
    const [selectedUser, setSelectedUser] = useState('');
+   const userId = localStorage.userId;
+   const [commentData, setCommentData] = useState({
+      userId: userId,
+      comment: '',
+   });
 
    const [msgBox, setMsgBox] = useState(false);
    const [projects, setProjects] = useState([]);
@@ -82,6 +87,24 @@ export default function ProjectPage() {
       console.log(userId);
 
       // history.push(`/search_user/${userId}`);
+   };
+
+   const postComment = () => {
+      axios
+         .post(`/projectcomment/${projectId}`, commentData, {
+            headers: {
+               Accept: 'application/json',
+               Authorization: localStorage.token,
+            },
+         })
+         .then((res) => {
+            if (res.data) {
+               showToast(`Comment posted`, 'success');
+            }
+         })
+         .catch((err) => {
+            console.log(err);
+         });
    };
 
    useEffect(() => {
@@ -176,7 +199,6 @@ export default function ProjectPage() {
                   <small className='text-muted'>{projects.created_date}</small>
                </h3>
             </ListGroup.Item>
-
             <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
                   {!msgBox && (
@@ -248,6 +270,23 @@ export default function ProjectPage() {
                   )}
                </ListGroup.Item>
             </ListGroup>
+            <ListGroup.Item>
+               <FormControl
+                  as='textarea'
+                  id='comment-body'
+                  placeholder='make your comments/questions here 💬'
+                  aria-describedby='basic-addon3'
+                  onChange={(e) =>
+                     setCommentData({
+                        ...commentData,
+                        ['comment']: e.target.value,
+                     })
+                  }
+               />
+               <Button variant='danger' onClick={postComment}>
+                  post
+               </Button>
+            </ListGroup.Item>
          </Card.Body>
          {modalShow && (
             <GetSearchedUser

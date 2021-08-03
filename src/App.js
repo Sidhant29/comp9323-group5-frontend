@@ -15,6 +15,7 @@ import GetSearchedUser from './Pages/getSearchedUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PopupModel from './Pages/popupModel';
+import TopUsers from './Pages/topUsers';
 
 function App() {
    const [input, setInput] = useState('');
@@ -40,6 +41,10 @@ function App() {
                   <Navigation keyword={input} setKeyword={setInput} />
                   <Searchuser user={input} />
                </Route>
+               <Route exact path='/leaderBoard'>
+                  <TopUsers />
+               </Route>
+
                <Route exact path='/project/update/:id'>
                   <Navigation />
                   <EditProject />

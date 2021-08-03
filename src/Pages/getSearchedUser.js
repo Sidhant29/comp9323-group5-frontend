@@ -96,7 +96,7 @@ export default function GetSearchedUser(props) {
                setShowProject(true);
                setProjectList(res.data.projectDetailsList);
                console.log(res.data.projectDetailsList);
-               console.log(showProject);
+               console.log(res.data);
             }
             setEmailPayload({
                ...emailPayload,
