@@ -19,46 +19,62 @@ import TopUsers from './Pages/topUsers';
 function App() {
    const [input, setInput] = useState('');
    return (
-      <div className='Home-component'>
+      
          <Router>
             <Switch>
                <Route exact path='/'>
+               <div className='Home-component'>
                   <Login />
+               </div>
                </Route>
                <Route exact path='/signup'>
                   <Register />
                </Route>
                <Route exact path='/home'>
+               <div className='Home-component'>
                   <Navigation keyword={input} setKeyword={setInput} />
                   <Home keywords={input} />
+               </div>
                </Route>
                <Route exact path='/search_project/:projectId'>
+               <div className='Home-component'>
                   <Navigation />
                   <ProjectPage />
+               </div>
                </Route>
                <Route exact path='/search_user'>
+               <div className='Home-component'>
                   <Navigation keyword={input} setKeyword={setInput} />
                   <Searchuser user={input} />
+               </div>
                </Route>
                <Route exact path='/leaderBoard'>
                   <TopUsers />
                </Route>
 
                <Route exact path='/project/update/:id'>
+               <div className='Home-component'>
                   <Navigation />
                   <EditProject />
+               </div>
                </Route>
                <Route exact path='/search_user/:userId'>
+               <div className='Home-component'>
                   <Navigation />
                   <GetSearchedUser />
+               </div>
                </Route>
                <Route exact path='/create_project'>
+               <div className='Home-component'>
                   <Navigation />
                   <CreateProject />
+                  </div>
                </Route>
                <Route exact path='/user_profile'>
+               <div className='Home-component'>
                   <Navigation />
                   <UserProfile />
+                  </div>
                </Route>
             </Switch>
             <ToastContainer
@@ -73,7 +89,6 @@ function App() {
                pauseOnHover
             />
          </Router>
-      </div>
    );
 }
 
