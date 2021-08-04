@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import ReactPlayer from 'react-player';
 
 import {
    Card,
@@ -118,6 +119,7 @@ export default function ProjectPage() {
          })
          .then((res) => {
             setProjects(res.data);
+            console.log(res.data);
             setAquiredSkills(res.data.skills.split(','));
          })
          .catch((err) => {
@@ -140,6 +142,13 @@ export default function ProjectPage() {
             <ListGroup.Item>
                <Card.Text>{projects.description}</Card.Text>
             </ListGroup.Item>
+            {projects.url && (
+               <ListGroup.Item
+                  style={{ display: 'flex', justifyContent: 'center' }}
+               >
+                  <ReactPlayer url={projects.url} controls={true} />
+               </ListGroup.Item>
+            )}
             <ListGroup.Item>
                <Card.Text>
                   <h3>Skills required</h3>

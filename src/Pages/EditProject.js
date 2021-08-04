@@ -2,35 +2,41 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Card, Badge } from 'react-bootstrap';
 import { useHistory, useParams } from 'react-router-dom';
+import { showToast } from '../Components/Constants/toastServices';
 
 export default function EditProject() {
-    let { id } = useParams(); 
+   let { id } = useParams();
    const [skillsRequired, setSkillsRequired] = useState([]);
    const [projectDetails, setProjectDetails] = useState({
       title: '',
       description: '',
       skills: '',
-      project_status:1,
+      project_status: 1,
       user_id: Number(localStorage.userId),
       participants: 0,
       url: '',
    });
    let history = useHistory();
+   const [buttonName, setButtonName] = useState('Completed');
 
- useEffect(()=>{
-    axios.get(`/myProjects?id=${localStorage.userId}`,{
-        headers:{
-          Authorization: localStorage.token,
-        }
-      }).then((response)=>{
-        console.log(id)
-        let project = response.data.filter((project)=>project.id==id)[0]
-        console.log(project)
-        setProjectDetails(project);
-        console.log(project)
-        setSkillsRequired(project.skills.split(','))
-      })
- },[])
+   useEffect(() => {
+      axios
+         .get(`/myProjects?id=${localStorage.userId}`, {
+            headers: {
+               Authorization: localStorage.token,
+            },
+         })
+         .then((response) => {
+            console.log(id);
+            let project = response.data.filter(
+               (project) => project.id == id
+            )[0];
+            console.log(project);
+            setProjectDetails(project);
+            console.log(project);
+            setSkillsRequired(project.skills.split(','));
+         });
+   }, []);
 
    async function handleSubmit() {
       if (!(Array.isArray(skillsRequired) && skillsRequired.length)) {
@@ -39,36 +45,65 @@ export default function EditProject() {
       }
       console.log({ ...projectDetails, skills: skillsRequired.join() });
       axios
-         .post(`/project/update/${id}`, { 
-            title:projectDetails.title,
-            description:projectDetails.description,
-            url:projectDetails.url,
-            project_status:1,
-            participants:projectDetails.participants,
-            skills: skillsRequired.join() }, {
-            headers: {
-               Authorization: localStorage.token,
+         .post(
+            `/project/update/${id}`,
+            {
+               title: projectDetails.title,
+               description: projectDetails.description,
+               url: projectDetails.url,
+               project_status: 1,
+               participants: projectDetails.participants,
+               skills: skillsRequired.join(),
             },
-         })
+            {
+               headers: {
+                  Authorization: localStorage.token,
+               },
+            }
+         )
          .then((response) => {
             alert('Project Successfully Updated');
-            history.push('/user_profile')
+            history.push('/user_profile');
          })
          .catch((error) => {
             console.log(error);
          });
    }
 
+   const closeProject = () => {
+      console.log(id);
+      axios
+         .post(`/closeproject/${id}`, {
+            headers: {
+               Accept: 'application/json',
+               Authorization: localStorage.token,
+            },
+         })
+         .then((response) => {
+            showToast('Kudos 🙌 to your team', 'success');
+            setButtonName('Closed');
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   };
+
    return (
       // <Alert >
-      <Card bg="dark"  style={{width:"100%",height:"100vh"}} className='translucent'>
-      <Card.Header>
-         <h1 style={{color:"white"}}>Update Project</h1>
+      <Card
+         bg='dark'
+         style={{ width: '100%', height: '100vh' }}
+         className='translucent'
+      >
+         <Card.Header>
+            <h1 style={{ color: 'white' }}>Update Project</h1>
          </Card.Header>
          <Card.Body>
             <Form>
                <Form.Group controlId='formTitle'>
-                  <Form.Label style={{color:"white"}}>Project Title: <b>{projectDetails.title}</b></Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Title: <b>{projectDetails.title}</b>
+                  </Form.Label>
                   <Form.Control
                      type='text'
                      placeholder='New Project Title'
@@ -81,11 +116,13 @@ export default function EditProject() {
                   />
                </Form.Group>
                <Form.Group className='mb-3' controlId='formDesc'>
-                  <Form.Label style={{color:"white"}}>Project Description: <b>{projectDetails.description}</b></Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Description: <b>{projectDetails.description}</b>
+                  </Form.Label>
                   <Form.Control
                      as='textarea'
                      rows={3}
-                     placeholder = "New Description"
+                     placeholder='New Description'
                      onChange={(e) =>
                         setProjectDetails({
                            ...projectDetails,
@@ -96,7 +133,9 @@ export default function EditProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formVideo'>
-                  <Form.Label style={{color:"white"}}>Project Video: <b>{projectDetails.url}</b></Form.Label>
+                  <Form.Label style={{ color: 'white' }}>
+                     Project Video: <b>{projectDetails.url}</b>
+                  </Form.Label>
                   <Form.Control
                      type='url'
                      placeholder='URL of your project video'
@@ -109,16 +148,15 @@ export default function EditProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formParticipants'>
-                  <Form.Label style={{color:"white"}}>Seeking</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>Seeking</Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentor'
                         name='participant'
                         type='radio'
-
                         onClick={() =>
                            setProjectDetails({
                               ...projectDetails,
@@ -128,7 +166,7 @@ export default function EditProject() {
                         id={`inline-radio-1`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentee'
                         name='participant'
@@ -142,7 +180,7 @@ export default function EditProject() {
                         id={`inline-radio-2`}
                      />
                      <Form.Check
-                     style={{color:"white"}}
+                        style={{ color: 'white' }}
                         inline
                         label='Mentor & Mentee'
                         name='participant'
@@ -159,7 +197,7 @@ export default function EditProject() {
                </Form.Group>
                <Form>
                   <Form.Group controlId='formSkillsrequired'>
-                     <Form.Label style={{color:"white"}}>
+                     <Form.Label style={{ color: 'white' }}>
                         Skills required to complete the project
                      </Form.Label>
                      <Form.Control type='text' placeholder='Data Analysis' />
@@ -209,9 +247,18 @@ export default function EditProject() {
                   </Form.Group>
                </Form>
                <br />
-               <Button variant='success' onClick={handleSubmit}>
-                  Submit
-               </Button>
+               {projectDetails.status && (
+                  <div>
+                     <Button variant='success' onClick={handleSubmit}>
+                        Submit
+                     </Button>
+                     <br />
+                     <br />
+                     <Button variant='warning' onClick={closeProject}>
+                        {buttonName}
+                     </Button>{' '}
+                  </div>
+               )}
             </Form>
          </Card.Body>
       </Card>
