@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Card, Badge } from 'react-bootstrap';
+import { showToast } from '../Components/Constants/toastServices';
 
 export default function CreateProject() {
    const [skillsRequired, setSkillsRequired] = useState([]);
@@ -13,21 +14,30 @@ export default function CreateProject() {
       participants: 0,
       url: '',
    });
+   projectDetails['skills'] = skillsRequired.toString();
 
    async function handleSubmit() {
       if (!(Array.isArray(skillsRequired) && skillsRequired.length)) {
-         alert('Skills cannot be empty');
+         showToast('Skills cannot be empty', 'danger');
+
          return null;
+      } else {
+         setProjectDetails({
+            ...projectDetails,
+            skills: skillsRequired.join(),
+         });
       }
-      console.log({ ...projectDetails, skills: skillsRequired.join() });
+      console.log(projectDetails);
+
       axios
          .post(`/createProject`, projectDetails, {
             headers: {
+               Accept: 'application/json',
                Authorization: localStorage.token,
             },
          })
          .then((response) => {
-            alert('Project Successfully Created');
+            showToast('Project Successfully Created', 'success');
          })
          .catch((error) => {
             console.log(error);
