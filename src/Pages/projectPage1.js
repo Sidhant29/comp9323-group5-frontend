@@ -129,18 +129,29 @@ export default function ProjectPage() {
 
    return (
       <Card
-         bg='dark'
+         // bg='dark'
          style={{
+            minHeight:"100vh",
             width: '100%',
             alignItems: 'center',
+            backgroundColor:"#242526"
          }}
       >
-         <Card.Body className='container'>
-            <Card.Header id='user-details-header'>
-               <h3>{projects.title}</h3>
+         <Card.Body className='container' style={{ maxWidth: "60vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+            <Card.Header>
+               <h2 style={{color:"white"}}><u>{projects.title}</u></h2>
+               <span style={{color:"white"}}>Posted by:</span>
+               <Button
+                        variant='link'
+                        onClick={() => handleRouting(projects.user_id)}
+                     >
+                        {projects.user_name}
+                     </Button><br/>
+                     <small className='text-muted'>Posted On: {projects.created_date}</small>
             </Card.Header>
             <ListGroup.Item>
-               <Card.Text>{projects.description}</Card.Text>
+            <h4>About the project:</h4>
+               <Card.Text><h5>{projects.description}</h5></Card.Text>
             </ListGroup.Item>
             {projects.url && (
                <ListGroup.Item
@@ -150,9 +161,10 @@ export default function ProjectPage() {
                </ListGroup.Item>
             )}
             <ListGroup.Item>
+            <Row>
+            <Col>
                <Card.Text>
-                  <h3>Skills required</h3>
-
+               <h4>Skills Required:</h4>
                   {aquiredSkills
                      .filter((element) => element !== '')
                      .map((element) => {
@@ -169,10 +181,10 @@ export default function ProjectPage() {
                         );
                      })}
                </Card.Text>
-            </ListGroup.Item>
-            <ListGroup.Item>
+               </Col>
+               <Col>
                <Card.Text>
-                  <h3>Looking for</h3>
+                  <h4>Looking for:</h4>
 
                   <Button
                      style={{
@@ -184,29 +196,8 @@ export default function ProjectPage() {
                      <LookingFor participants={projects.participants} />{' '}
                   </Button>
                </Card.Text>
-            </ListGroup.Item>
-            <ListGroup.Item>
-               <Card.Text>
-                  <h3>Posted by</h3>
-
-                  <h4>
-                     <Button
-                        variant='primary'
-                        style={{
-                           margin: '0.25rem',
-                        }}
-                        onClick={() => handleRouting(projects.user_id)}
-                     >
-                        {projects.user_name}
-                     </Button>
-                  </h4>
-               </Card.Text>
-            </ListGroup.Item>
-            <ListGroup.Item>
-               <h3>Posted on</h3>
-               <h3>
-                  <small className='text-muted'>{projects.created_date}</small>
-               </h3>
+               </Col>
+            </Row>
             </ListGroup.Item>
             <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
