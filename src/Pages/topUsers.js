@@ -46,8 +46,7 @@ export default function TopUsers() {
                   <th>#</th>
                   <th>First Name</th>
                   <th>Last Name</th>
-                  <th>Score</th>
-                  <th>Rating</th>
+                  <th>Points</th>
                </tr>
             </thead>
             <tbody>
@@ -59,9 +58,6 @@ export default function TopUsers() {
                         <td>{element.firstName}</td>
                         <td>{element.lastName}</td>
                         <td>{element.score}</td>
-                        <td>
-                           {element.rating ? element.rating : 'no ratings yet'}
-                        </td>
                      </tr>
                   );
                })}

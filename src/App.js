@@ -15,80 +15,85 @@ import GetSearchedUser from './Pages/getSearchedUser';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TopUsers from './Pages/topUsers';
+import Notifications from './Components/myRequests';
 
 function App() {
    const [input, setInput] = useState('');
    return (
-      
-         <Router>
-            <Switch>
-               <Route exact path='/'>
+      <Router>
+         <Switch>
+            <Route exact path='/'>
                <div className='Home-component'>
                   <Login />
                </div>
-               </Route>
-               <Route exact path='/signup'>
-                  <Register />
-               </Route>
-               <Route exact path='/home'>
+            </Route>
+            <Route exact path='/signup'>
+               <Register />
+            </Route>
+            <Route exact path='/home'>
                <div className='Home-component'>
                   <Navigation keyword={input} setKeyword={setInput} />
                   <Home keywords={input} />
                </div>
-               </Route>
-               <Route exact path='/search_project/:projectId'>
+            </Route>
+            <Route exact path='/search_project/:projectId'>
                <div className='Home-component'>
                   <Navigation />
                   <ProjectPage />
                </div>
-               </Route>
-               <Route exact path='/search_user'>
+            </Route>
+            <Route exact path='/search_user'>
                <div className='Home-component'>
                   <Navigation keyword={input} setKeyword={setInput} />
                   <Searchuser user={input} />
                </div>
-               </Route>
-               <Route exact path='/leaderBoard'>
-                  <TopUsers />
-               </Route>
+            </Route>
+            <Route exact path='/leaderBoard'>
+               <Navigation />
+               <TopUsers />
+            </Route>
+            <Route exact path='/request'>
+               <Navigation />
+               <Notifications />
+            </Route>
 
-               <Route exact path='/project/update/:id'>
+            <Route exact path='/project/update/:id'>
                <div className='Home-component'>
                   <Navigation />
                   <EditProject />
                </div>
-               </Route>
-               <Route exact path='/search_user/:userId'>
+            </Route>
+            <Route exact path='/search_user/:userId'>
                <div className='Home-component'>
                   <Navigation />
                   <GetSearchedUser />
                </div>
-               </Route>
-               <Route exact path='/create_project'>
+            </Route>
+            <Route exact path='/create_project'>
                <div className='Home-component'>
                   <Navigation />
                   <CreateProject />
-                  </div>
-               </Route>
-               <Route exact path='/user_profile'>
+               </div>
+            </Route>
+            <Route exact path='/user_profile'>
                <div className='Home-component'>
                   <Navigation />
                   <UserProfile />
-                  </div>
-               </Route>
-            </Switch>
-            <ToastContainer
-               position='bottom-right'
-               autoClose={2000}
-               hideProgressBar={false}
-               newestOnTop={false}
-               closeOnClick
-               rtl={false}
-               pauseOnFocusLoss
-               draggable
-               pauseOnHover
-            />
-         </Router>
+               </div>
+            </Route>
+         </Switch>
+         <ToastContainer
+            position='bottom-right'
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+         />
+      </Router>
    );
 }
 

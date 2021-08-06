@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {
    Nav,
@@ -14,9 +15,12 @@ import connect from '../Components/global-connection.png';
 import create from '../Components/study.png';
 import logout from '../Components/logout.png';
 import myaccount from '../Components/avatar.png';
+import request from '../Components/request.png';
+import Notifications from './myRequests';
 
 export default function Navigation(props) {
    const { keyword, setKeyword } = props;
+   const [modalShow, setModalShow] = useState(false);
 
    const signOff = () => {
       showToast(`Later ${localStorage.email}`, 'success');
@@ -53,19 +57,6 @@ export default function Navigation(props) {
                   />
                </Navbar.Brand>
                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-               <Nav className='me-auto'>
-                  <Form className='d-flex'>
-                     <FormControl
-                        type='text'
-                        placeholder='Search'
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                        className='mr-sm-2'
-                     />
-                     <Button variant='outline-info'>Search</Button>
-                  </Form>
-               </Nav>
-               <Navbar.Brand href='/leaderBoard'>🥇</Navbar.Brand>
                <Navbar.Brand href='/create_project'>
                   Create
                   <img
@@ -77,6 +68,7 @@ export default function Navigation(props) {
                   />
                   project
                </Navbar.Brand>
+               <Navbar.Brand href='/leaderBoard'>🥇</Navbar.Brand>
                <Navbar.Brand href='/user_profile'>
                   {' '}
                   <img
@@ -87,6 +79,21 @@ export default function Navigation(props) {
                      alt='React Bootstrap logo'
                   />
                </Navbar.Brand>
+               <Nav>
+                  <Nav.Link onClick={() => setModalShow(true)}>
+                     <img
+                        src={request}
+                        width='30'
+                        height='30'
+                        className='d-inline-block align-top'
+                        alt='React Bootstrap logo'
+                     />
+                     <Notifications
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                     />
+                  </Nav.Link>
+               </Nav>
                <Nav>
                   <Nav.Link href='/' onClick={signOff}>
                      <img

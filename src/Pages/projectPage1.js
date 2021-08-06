@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import ReactPlayer from 'react-player';
-
+import GetComments from '../Components/Constants/getComments';
 import {
    Card,
    Col,
@@ -19,6 +19,7 @@ import axios from 'axios';
 import LookingFor from '../Components/Constants/lookingFor';
 import { showToast } from '../Components/Constants/toastServices';
 import GetSearchedUser from './getSearchedUser';
+import comment from '../Components/chat.png';
 
 export default function ProjectPage() {
    const { projectId } = useParams();
@@ -38,13 +39,13 @@ export default function ProjectPage() {
       emailBody: '',
       lookingFor: 1,
    });
-   const [flipButton, setFlipButton] = useState('Connect');
+   const [flipButton, setFlipButton] = useState('Apply');
    const [aquiredSkills, setAquiredSkills] = useState(['']);
 
    const sendEmail = () => {
       console.log(emailPayload);
       setMsgBox(false);
-      setFlipButton('Sending request >>>');
+      setFlipButton('Sending application >>>');
       axios
          .post(`/email/project/${localStorage.userId}`, emailPayload, {
             headers: {
@@ -55,8 +56,8 @@ export default function ProjectPage() {
          .then((res) => {
             if (res.data === 'Email sent successfully') {
                setMsgBox(false);
-               setFlipButton('Request sent');
-               showToast(`Request sent 📬`, 'success');
+               setFlipButton('Application sent');
+               showToast(`Application sent 📬`, 'success');
             }
             console.log(res.data);
          })
@@ -86,8 +87,6 @@ export default function ProjectPage() {
       setModalShow(true);
       setSelectedUser(userId);
       console.log(userId);
-
-      // history.push(`/search_user/${userId}`);
    };
 
    const postComment = () => {
@@ -131,27 +130,39 @@ export default function ProjectPage() {
       <Card
          // bg='dark'
          style={{
-            minHeight:"100vh",
+            minHeight: '100vh',
             width: '100%',
             alignItems: 'center',
-            backgroundColor:"#242526"
+            backgroundColor: '#242526',
          }}
       >
-         <Card.Body className='container' style={{ maxWidth: "60vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+         <Card.Body
+            className='container'
+            style={{
+               maxWidth: '60vw',
+               margin: 'auto',
+               backgroundColor: '#3A3B3C',
+            }}
+         >
             <Card.Header>
-               <h2 style={{color:"white"}}><u>{projects.title}</u></h2>
-               <span style={{color:"white"}}>Posted by:</span>
+               <h2 style={{ color: 'white' }}>
+                  <u>{projects.title}</u>
+               </h2>
+               <span style={{ color: 'white' }}>Posted by:</span>
                <Button
-                        variant='link'
-                        onClick={() => handleRouting(projects.user_id)}
-                     >
-                        {projects.user_name}
-                     </Button><br/>
-                     <small className='text-muted'>Posted On: {projects.created_date}</small>
+                  variant='link'
+                  onClick={() => handleRouting(projects.user_id)}
+               >
+                  {projects.user_name}
+               </Button>
+               <br />
+               <small className='text-muted'>
+                  Posted On: {projects.created_date}
+               </small>
             </Card.Header>
             <ListGroup.Item>
-            <h4>About the project:</h4>
-               <Card.Text><h5>{projects.description}</h5></Card.Text>
+               <h4>About the project:</h4>
+               <Card.Text>{projects.description}</Card.Text>
             </ListGroup.Item>
             {projects.url && (
                <ListGroup.Item
@@ -161,43 +172,43 @@ export default function ProjectPage() {
                </ListGroup.Item>
             )}
             <ListGroup.Item>
-            <Row>
-            <Col>
-               <Card.Text>
-               <h4>Skills Required:</h4>
-                  {aquiredSkills
-                     .filter((element) => element !== '')
-                     .map((element) => {
-                        return (
-                           <Button
-                              variant='success'
-                              style={{
-                                 margin: '0.25rem',
-                                 pointerEvents: 'none',
-                              }}
-                           >
-                              {element}{' '}
-                           </Button>
-                        );
-                     })}
-               </Card.Text>
-               </Col>
-               <Col>
-               <Card.Text>
-                  <h4>Looking for:</h4>
+               <Row>
+                  <Col>
+                     <Card.Text>
+                        <h4>Skills Required:</h4>
+                        {aquiredSkills
+                           .filter((element) => element !== '')
+                           .map((element) => {
+                              return (
+                                 <Button
+                                    variant='success'
+                                    style={{
+                                       margin: '0.25rem',
+                                       pointerEvents: 'none',
+                                    }}
+                                 >
+                                    {element}{' '}
+                                 </Button>
+                              );
+                           })}
+                     </Card.Text>
+                  </Col>
+                  <Col>
+                     <Card.Text>
+                        <h4>Looking for:</h4>
 
-                  <Button
-                     style={{
-                        margin: '0.1rem',
-                        pointerEvents: 'none',
-                     }}
-                     variant='danger'
-                  >
-                     <LookingFor participants={projects.participants} />{' '}
-                  </Button>
-               </Card.Text>
-               </Col>
-            </Row>
+                        <Button
+                           style={{
+                              margin: '0.1rem',
+                              pointerEvents: 'none',
+                           }}
+                           variant='danger'
+                        >
+                           <LookingFor participants={projects.participants} />{' '}
+                        </Button>
+                     </Card.Text>
+                  </Col>
+               </Row>
             </ListGroup.Item>
             <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
@@ -270,22 +281,50 @@ export default function ProjectPage() {
                   )}
                </ListGroup.Item>
             </ListGroup>
-            <ListGroup.Item>
-               <FormControl
-                  as='textarea'
-                  id='comment-body'
-                  placeholder='make your comments/questions here 💬'
-                  aria-describedby='basic-addon3'
-                  onChange={(e) =>
-                     setCommentData({
-                        ...commentData,
-                        ['comment']: e.target.value,
-                     })
-                  }
-               />
-               <Button variant='danger' onClick={postComment}>
-                  post
-               </Button>
+            <GetComments projectId={projectId} />
+            <ListGroup.Item
+               style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+               }}
+            >
+               <form
+                  style={{
+                     display: 'flex',
+                     flexDirection: 'row',
+                     justifyContent: 'space-between',
+                     alignItems: 'center',
+                     flex: 1,
+                  }}
+               >
+                  <img
+                     src={comment}
+                     width='30'
+                     height='30'
+                     className='d-inline-block align-top'
+                     alt='React Bootstrap logo'
+                  />
+                  <FormControl
+                     id='comment-body'
+                     placeholder='   Add a comment...'
+                     aria-describedby='basic-addon3'
+                     onChange={(e) =>
+                        setCommentData({
+                           ...commentData,
+                           ['comment']: e.target.value,
+                        })
+                     }
+                     style={{
+                        border: 'none',
+                        outline: 'none',
+                     }}
+                  />
+                  <Button variant='warning' type='reset' onClick={postComment}>
+                     post
+                  </Button>
+               </form>
             </ListGroup.Item>
          </Card.Body>
          {modalShow && (
