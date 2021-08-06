@@ -38,7 +38,7 @@ export default function ProjectPage() {
       emailBody: '',
       lookingFor: 1,
    });
-   const [flipButton, setFlipButton] = useState('Connect');
+   const [flipButton, setFlipButton] = useState('Connect With the User');
    const [aquiredSkills, setAquiredSkills] = useState(['']);
 
    const sendEmail = () => {
@@ -137,7 +137,7 @@ export default function ProjectPage() {
             backgroundColor:"#242526"
          }}
       >
-         <Card.Body className='container' style={{ maxWidth: "60vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+         <Card.Body className='container' style={{ maxWidth: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
             <Card.Header>
                <h2 style={{color:"white"}}><u>{projects.title}</u></h2>
                <span style={{color:"white"}}>Posted by:</span>
@@ -202,14 +202,18 @@ export default function ProjectPage() {
             <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
                   {!msgBox && (
+                     <div className="d-grid gap-2">
                      <Button
                         variant='warning'
+                        style={{width:"100%"}}
+                        size="lg"
                         onClick={() => {
                            setMsgBox(true);
                         }}
                      >
                         {flipButton}
                      </Button>
+                     </div>
                   )}
 
                   {msgBox && (

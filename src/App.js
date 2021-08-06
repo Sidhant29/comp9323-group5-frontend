@@ -31,8 +31,8 @@ function App() {
                   <Register />
                </Route>
                <Route exact path='/home'>
+               <Navigation keyword={input} setKeyword={setInput} />
                <div className='Home-component'>
-                  <Navigation keyword={input} setKeyword={setInput} />
                   <Home keywords={input} />
                </div>
                </Route>

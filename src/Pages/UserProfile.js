@@ -362,22 +362,22 @@ function UserProfile() {
   return (
     <div >
       {/* <MainJumbotron /> */}
-      <Card style={{width:"100%",height:"100vh"}} bg="dark">
-        <Card.Header>
-          <Nav variant="pills" defaultActiveKey="#first">
+      <Card style={{ width: "100%", backgroundColor:"#242526", minHeight:"100vh" }}>
+        <Card.Header  style={{ width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+          <Nav >
             <Nav.Item>
               <Nav.Link id="nav-link" onClick={() => setShowDetails(true)}>
-                <h3>My Details</h3>
+                {showDetails?(<h3 style={{color:"#ffc107"}}>My Details</h3>):(<h3>My Details</h3>)}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link id="nav-link" onClick={() => setShowDetails(false)}>
-                <h3>My Projects</h3>
+              {showDetails?(<h3 >My Projects</h3>):(<h3 style={{color:"#ffc107"}}>My Projects</h3>)}
               </Nav.Link>
             </Nav.Item>
           </Nav>
         </Card.Header>
-        <Card.Body>
+        <Card.Body style={{ width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
           {showDetails ? (
             <UserDetails />
           ) : (

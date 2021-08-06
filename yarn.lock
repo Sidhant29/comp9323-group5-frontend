@@ -7159,6 +7159,7 @@
     "warning" "^4.0.3"
 
 "react-parallax@^3.3.0":
+  "integrity" "sha512-gI7YdblxdbhZ1ISqaWzIqlPSuQLX76QFbzWKmeA0hCprjephVdVD35gCN+Fu8v0p3cfw+DFTN/PE+jYgcCOLUw=="
   "version" "3.3.0"
 
 "react-player@^2.9.0":
