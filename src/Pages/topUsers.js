@@ -43,7 +43,7 @@ export default function TopUsers() {
          <Table striped bordered hover>
             <thead>
                <tr>
-                  <th>#</th>
+                  <th>Rank</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Points</th>

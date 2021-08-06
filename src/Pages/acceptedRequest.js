@@ -46,31 +46,46 @@ export default function AcceptedRequest() {
 
    return (
       <div className='text-center'>
-         <CardColumns>
-            {request ? (
-               request.map((message) => {
-                  return (
-                     <Card>
-                        <Card.Header className='text-right'>
-                           {message.userName}
-                        </Card.Header>
-                        <Card.Body>
-                           <Card.Title>Project</Card.Title>
-                           <Card.Text>{message.projectName}</Card.Text>
-                           <Card.Title>Message</Card.Title>
-                           <Card.Text>{message.participantType}</Card.Text>
-                           <Card.Title>Date</Card.Title>
-                           <Card.Text>{message.requestedDate}</Card.Text>
-                        </Card.Body>
-                     </Card>
-                  );
-               })
-            ) : (
+         <Card bg='dark'>
+            <Card.Body className='container'>
                <Card>
-                  <Card.Title>No requests accepted so far!!</Card.Title>
+                  <Card.Header>
+                     <div>
+                        <h3>Accepted Requests</h3>
+                     </div>
+                  </Card.Header>
+
+                  {request ? (
+                     request.map((message) => {
+                        return (
+                           <Table striped bordered hover>
+                              <thead>
+                                 <tr>
+                                    <th>Sender Name</th>
+                                    <th>Project Name</th>
+                                    <th>Message</th>
+                                    <th>Date</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>{message.userName}</td>
+                                    <td>{message.projectName}</td>
+                                    <td>{message.messageToUser}</td>
+                                    <td>{message.requestedDate}</td>
+                                 </tr>
+                              </tbody>
+                           </Table>
+                        );
+                     })
+                  ) : (
+                     <Card>
+                        <Card.Title>No requests accepted so far!!</Card.Title>
+                     </Card>
+                  )}
                </Card>
-            )}
-         </CardColumns>
+            </Card.Body>
+         </Card>
       </div>
    );
 }

@@ -27,16 +27,14 @@ export default function GetSearchedUser(props) {
    const [desiredSkills, setDesiredSkills] = useState(['']);
    const [projectList, setProjectList] = useState([0]);
    const [showProject, setShowProject] = useState(false);
-
    const [msgBox, setMsgBox] = useState(false);
    const [emailPayload, setEmailPayload] = useState({
       receiverId: '',
       emailBody: '',
       lookingFor: 1,
    });
-   console.log(props.userId);
-
    const [flipButton, setFlipButton] = useState('Connect');
+
    const sendEmail = () => {
       console.log(localStorage);
       console.log(emailPayload);
@@ -241,7 +239,7 @@ export default function GetSearchedUser(props) {
                            <form>
                               <div>
                                  <InputGroup.Text id='basic-addon3'>
-                                    Looking for
+                                    Seeking for a
                                  </InputGroup.Text>
                                  <ListGroup.Item>
                                     <Form.Check

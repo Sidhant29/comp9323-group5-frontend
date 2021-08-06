@@ -91,7 +91,7 @@ export default function Home(props) {
                      fontSize: '5em',
                   }}
                >
-                  SEARCH for PROJECTS
+                  DISCOVER PROJECTS
                </div>
             </div>
          </Parallax>

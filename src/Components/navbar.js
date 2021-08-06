@@ -1,17 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {
-   OverlayTrigger,
-   Popover,
-   Nav,
-   Navbar,
-   Form,
-   FormControl,
-   Button,
-   Container,
-   Tooltip,
-} from 'react-bootstrap';
+import { OverlayTrigger, Nav, Navbar, Tooltip } from 'react-bootstrap';
 import { showToast } from '../Components/Constants/toastServices';
 import search from '../Components/binoculars.png';
 import connect from '../Components/global-connection.png';
@@ -23,7 +13,7 @@ import Notifications from './myRequests';
 
 export default function Navigation(props) {
    const { keyword, setKeyword } = props;
-   const [modalShow, setModalShow] = useState(false);
+   const [modalShow, setModalShow] = React.useState(false);
 
    const signOff = () => {
       showToast(`Later ${localStorage.email}`, 'success');
@@ -52,6 +42,10 @@ export default function Navigation(props) {
 
    const tooltipLogout = () => {
       return <Tooltip>Logout, See you soon!</Tooltip>;
+   };
+
+   const tooltipRequests = () => {
+      return <Tooltip>Check for new connection requests</Tooltip>;
    };
 
    return (
@@ -137,25 +131,26 @@ export default function Navigation(props) {
                </Navbar.Brand>
             </OverlayTrigger>
             <OverlayTrigger
-               overlay={tooltipLogout()}
+               overlay={tooltipRequests()}
                trigger='hover'
                placement='bottom'
             >
-               <Nav>
-                  <Nav.Link onClick={() => setModalShow(true)}>
-                     <img
-                        src={request}
-                        width='30'
-                        height='30'
-                        className='d-inline-block align-top'
-                        alt='React Bootstrap logo'
-                     />
+               <Navbar.Brand onClick={() => setModalShow(true)}>
+                  My Requests{' '}
+                  <img
+                     src={request}
+                     width='30'
+                     height='30'
+                     className='d-inline-block align-top'
+                     alt='React Bootstrap logo'
+                  />
+                  {modalShow && (
                      <Notifications
                         show={modalShow}
                         onHide={() => setModalShow(false)}
                      />
-                  </Nav.Link>
-               </Nav>
+                  )}
+               </Navbar.Brand>
             </OverlayTrigger>
             <OverlayTrigger
                overlay={tooltipLogout()}

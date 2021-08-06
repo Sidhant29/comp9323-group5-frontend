@@ -15,12 +15,14 @@ import AcceptedRequest from '../Pages/acceptedRequest';
 export default function Notifications(props) {
    const [request, setRequest] = useState(0);
    const [apRequest, setApRequest] = useState(0);
+   const [show, setShow] = useState(false);
 
    const [isLoading, setIsLoading] = useState(true);
    const approve = 'AP';
    const reject = 'RJ';
 
    useEffect(() => {
+      console.log(props);
       axios
          .get('/users/pendingRequests' + `/${localStorage.userId}/PD`, {
             headers: {
@@ -31,6 +33,7 @@ export default function Notifications(props) {
          .then((res) => {
             setRequest(res.data);
             setIsLoading(false);
+            setShow(true);
          })
          .catch((err) => {
             console.log(err);
@@ -70,71 +73,95 @@ export default function Notifications(props) {
    }
 
    return (
-      <Modal {...props} aria-labelledby='contained-modal-title-vcenter'>
-         <Modal.Header closeButton>
-            <Modal.Title id='contained-modal-title-vcenter'>
-               Using Grid in Modal
-            </Modal.Title>
-         </Modal.Header>
-         <Modal.Body className='show-grid'>
-            <div className='text-center'>
-               <CardColumns>
-                  {request ? (
-                     request.map((message) => {
-                        return (
+      <Modal
+         show={props.show}
+         onHide={props.onHide}
+         size='lg'
+         aria-labelledby='contained-modal-title-vcenter'
+         centered
+      >
+         <div className='text-center'>
+            <Card bg='dark'>
+               <Card.Body className='container'>
+                  {/* <Card.Header id='user-details-header'>
+                  <div>
+                     <h3>My Requests</h3>
+                  </div>
+                  <div>
+                     <Button variant='danger' onClick={props.onHide}>
+                        X
+                     </Button>
+                  </div>
+               </Card.Header> */}
+                  <Card>
+                     <Card.Header>
+                        <div>
+                           <h3>Pending Requests</h3>
+                        </div>
+                     </Card.Header>
+                     {request ? (
+                        request.map((message) => {
+                           return (
+                              <Table striped bordered hover>
+                                 <thead>
+                                    <tr>
+                                       <th>Sender Name</th>
+                                       <th>Project Name</th>
+                                       <th>Message</th>
+                                       <th>Date</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>{message.userName}</td>
+                                       <td>{message.projectName}</td>
+                                       <td>{message.messageToUser}</td>
+                                       <td>{message.requestedDate}</td>
+                                       <td>
+                                          <Button
+                                             variant='success'
+                                             onClick={() =>
+                                                sendResponse(
+                                                   message.connectionId,
+                                                   approve
+                                                )
+                                             }
+                                          >
+                                             Accept
+                                          </Button>
+                                       </td>
+                                       <td>
+                                          {' '}
+                                          <Button
+                                             variant='danger'
+                                             onClick={() =>
+                                                sendResponse(
+                                                   message.connectionId,
+                                                   reject
+                                                )
+                                             }
+                                          >
+                                             Decline
+                                          </Button>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </Table>
+                           );
+                        })
+                     ) : (
+                        <div>
                            <Card>
-                              <Card.Header className='text-right'>
-                                 {message.userName}
-                              </Card.Header>
-                              <Card.Body>
-                                 <Card.Title>Project</Card.Title>
-                                 <Card.Text>{message.projectName}</Card.Text>
-                                 <Card.Title>Message</Card.Title>
-                                 <Card.Text>
-                                    {message.participantType}
-                                 </Card.Text>
-                                 <Card.Title>Date</Card.Title>
-                                 <Card.Text>{message.requestedDate}</Card.Text>
-                              </Card.Body>
-                              <Card.Footer>
-                                 <Button
-                                    variant='success'
-                                    onClick={() =>
-                                       sendResponse(
-                                          message.connectionId,
-                                          approve
-                                       )
-                                    }
-                                 >
-                                    Accept
-                                 </Button>
-                                 <Button
-                                    variant='danger'
-                                    onClick={() =>
-                                       sendResponse(
-                                          message.connectionId,
-                                          reject
-                                       )
-                                    }
-                                 >
-                                    Decline
-                                 </Button>
-                              </Card.Footer>
+                              <Card.Title>No new requests!!</Card.Title>
                            </Card>
-                        );
-                     })
-                  ) : (
-                     <Card>
-                        <Card.Title>No new requests!!</Card.Title>
-                     </Card>
-                  )}
-               </CardColumns>
-               <AcceptedRequest />
-            </div>
-         </Modal.Body>
-         <Modal.Footer>
-            <Button onClick={props.onHide}>Close</Button>
-         </Modal.Footer>
+                        </div>
+                     )}
+                  </Card>
+               </Card.Body>
+            </Card>
+            <AcceptedRequest />
+         </div>
       </Modal>
    );
 }
