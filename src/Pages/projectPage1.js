@@ -39,11 +39,8 @@ export default function ProjectPage() {
       emailBody: '',
       lookingFor: 1,
    });
-<<<<<<< HEAD
+
    const [flipButton, setFlipButton] = useState('Apply');
-=======
-   const [flipButton, setFlipButton] = useState('Connect With the User');
->>>>>>> 555b83e2fa05af5ca3579609717a589b02912ba7
    const [aquiredSkills, setAquiredSkills] = useState(['']);
 
    const sendEmail = () => {
@@ -140,18 +137,14 @@ export default function ProjectPage() {
             backgroundColor: '#242526',
          }}
       >
-<<<<<<< HEAD
          <Card.Body
             className='container'
             style={{
-               maxWidth: '60vw',
+               maxWidth: '80vw',
                margin: 'auto',
                backgroundColor: '#3A3B3C',
             }}
          >
-=======
-         <Card.Body className='container' style={{ maxWidth: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
->>>>>>> 555b83e2fa05af5ca3579609717a589b02912ba7
             <Card.Header>
                <h2 style={{ color: 'white' }}>
                   <u>{projects.title}</u>
@@ -221,17 +214,17 @@ export default function ProjectPage() {
             <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
                   {!msgBox && (
-                     <div className="d-grid gap-2">
-                     <Button
-                        variant='warning'
-                        style={{width:"100%"}}
-                        size="lg"
-                        onClick={() => {
-                           setMsgBox(true);
-                        }}
-                     >
-                        {flipButton}
-                     </Button>
+                     <div className='d-grid gap-2'>
+                        <Button
+                           variant='warning'
+                           style={{ width: '100%' }}
+                           size='lg'
+                           onClick={() => {
+                              setMsgBox(true);
+                           }}
+                        >
+                           {flipButton}
+                        </Button>
                      </div>
                   )}
 

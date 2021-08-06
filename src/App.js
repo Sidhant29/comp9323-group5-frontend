@@ -26,20 +26,12 @@ function App() {
                <div className='Home-component'>
                   <Login />
                </div>
-<<<<<<< HEAD
             </Route>
             <Route exact path='/signup'>
                <Register />
             </Route>
             <Route exact path='/home'>
-=======
-               </Route>
-               <Route exact path='/signup'>
-                  <Register />
-               </Route>
-               <Route exact path='/home'>
                <Navigation keyword={input} setKeyword={setInput} />
->>>>>>> 555b83e2fa05af5ca3579609717a589b02912ba7
                <div className='Home-component'>
                   <Home keywords={input} />
                </div>
