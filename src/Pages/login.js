@@ -47,7 +47,7 @@ export default function Login() {
          >
             <Row className='justify-content-md-center'>
                <Col>
-                  <Card className=' text-center' bg={'dark'} id='login-card'>
+                  <Card className=' text-center' style={{backgroundColor:"#3A3B3C"}} id='login-card'>
                      <Card.Body className='container'>
                         <Card.Header
                            style={{ fontSize: '25px', fontStyle: 'italic' }}

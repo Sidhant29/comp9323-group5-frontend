@@ -52,7 +52,7 @@ export default function Register() {
                textAlign: 'left',
             }}
          >
-            <Card className='translucent' bg={'dark'} id='login-card'>
+            <Card className='translucent' style={{backgroundColor:"#3A3B3C"}} id='login-card'>
                <Card.Body>
                   <Card.Header
                      style={{ fontSize: '25px', fontStyle: 'italic' }}

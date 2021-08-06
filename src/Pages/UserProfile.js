@@ -418,9 +418,153 @@ function UserProfile() {
             <Card.Body>
                {showDetails ? <UserDetails /> : <MyProjectList />}
             </Card.Body>
+<<<<<<< HEAD
          </Card>
       </div>
    );
+=======
+          </Card>
+          <CardDeck>
+            <Card>
+              <Card.Header>
+                <Card.Title>MY SKILLS </Card.Title>
+                {aquiredSkills.filter((element)=>element!=="").map((element) => {
+                  return (
+                    <Button variant="success" style={{ margin: "0.25rem" }}>
+                      {element}{" "}
+                      <Badge
+                        onClick={(event) => {
+                          let newArray = [...aquiredSkills].filter(
+                            (item) => item !== element
+                          );
+                          setAquiredSkills(newArray);
+                        }}
+                        variant="dark"
+                      >
+                        x
+                      </Badge>
+                    </Button>
+                  );
+                })}
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Form.Group controlId="formAquiredSkills">
+                    <Form.Control
+                      inline
+                      type="text"
+                      placeholder="Enter skills you wan to mentor for"
+                    />
+                  </Form.Group>
+                  <Button
+                    onClick={() => {
+                      if(document.getElementById("formAquiredSkills").value!==""){
+                        setAquiredSkills([
+                        ...aquiredSkills,
+                        document.getElementById("formAquiredSkills").value,
+                      ]);
+                      }
+                    }}
+                    variant="secondary"
+                  >
+                    Add Skill
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Card.Title>NOT MY SKILLS </Card.Title>
+                {desiredSkills.filter((element)=>element!=="").map((element) => {
+                  return (
+                    <Button variant="warning" style={{ margin: "0.25rem" }}>
+                      {element}{" "}
+                      <Badge
+                        onClick={(event) => {
+                          console.log(event.target.innerText);
+                          let newArray = [...desiredSkills].filter(
+                            (item) => item !== element
+                          );
+                          setDesiredSkills(newArray);
+                        }}
+                        variant="dark"
+                      >
+                        x
+                      </Badge>
+                    </Button>
+                  );
+                })}
+              </Card.Header>
+              <Card.Body>
+                <Form>
+                  <Form.Group controlId="formDesiredSkills">
+                    <Form.Control
+                      inline
+                      type="text"
+                      placeholder="Enter skills you want to learn"
+                    />
+                  </Form.Group>
+                  <Button
+                    onClick={() => {
+                      if(document.getElementById("formDesiredSkills").value!==""){
+                      setDesiredSkills([
+                        ...desiredSkills,
+                        document.getElementById("formDesiredSkills").value,
+                      ]);
+                      }
+                    }}
+                    variant="secondary"
+                  >
+                    Add Skill
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </CardDeck>
+          <Card.Body
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItem: "center",
+            }}
+          >
+            <Button 
+          
+          onClick={editProfile}>Save Changes</Button>
+          </Card.Body>
+        </div>
+      );
+    }
+  }
+  return (
+    <div >
+      {/* <MainJumbotron /> */}
+      <Card style={{ width: "100%", backgroundColor:"#242526", minHeight:"100vh" }}>
+        <Card.Header  style={{ width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+          <Nav >
+            <Nav.Item>
+              <Nav.Link id="nav-link" onClick={() => setShowDetails(true)}>
+                {showDetails?(<h3 style={{color:"#ffc107"}}>My Details</h3>):(<h3>My Details</h3>)}
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link id="nav-link" onClick={() => setShowDetails(false)}>
+              {showDetails?(<h3 >My Projects</h3>):(<h3 style={{color:"#ffc107"}}>My Projects</h3>)}
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Card.Header>
+        <Card.Body style={{ width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+          {showDetails ? (
+            <UserDetails />
+          ) : (
+            <MyProjectList />
+          )}
+        </Card.Body>
+      </Card>
+    </div>
+  );
+>>>>>>> 555b83e2fa05af5ca3579609717a589b02912ba7
 }
 
 export default UserProfile;
