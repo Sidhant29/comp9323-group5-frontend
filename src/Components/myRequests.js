@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import {
    Card,
+   ListGroup,
    Table,
    Modal,
    CardColumns,
@@ -10,7 +11,7 @@ import {
    Spinner,
 } from 'react-bootstrap';
 import { showToast } from '../Components/Constants/toastServices';
-import AcceptedRequest from '../Pages/acceptedRequest';
+import Avatars from './Constants/avatars';
 
 export default function Notifications(props) {
    const [request, setRequest] = useState(0);
@@ -22,7 +23,6 @@ export default function Notifications(props) {
    const reject = 'RJ';
 
    useEffect(() => {
-      console.log(props);
       axios
          .get('/users/pendingRequests' + `/${localStorage.userId}/PD`, {
             headers: {
@@ -43,7 +43,6 @@ export default function Notifications(props) {
    }, []);
 
    const sendResponse = (connectionId, status) => {
-      console.log(connectionId, status);
       axios
          .post(`/user/updateConnections/${connectionId}/${status}`, {
             headers: {
@@ -54,9 +53,9 @@ export default function Notifications(props) {
          .then((res) => {
             console.log(res.data);
             if (res.data === 'Connection request Approved') {
-               showToast(`Accepted`, 'success');
+               showToast(`Request Accepted`, 'success');
             } else {
-               showToast(`Rejected`, 'success');
+               showToast(`Request Declined`, 'success');
             }
          })
          .catch((err) => {
@@ -83,84 +82,92 @@ export default function Notifications(props) {
          <div className='text-center'>
             <Card bg='dark'>
                <Card.Body className='container'>
-                  {/* <Card.Header id='user-details-header'>
-                  <div>
-                     <h3>My Requests</h3>
-                  </div>
-                  <div>
-                     <Button variant='danger' onClick={props.onHide}>
-                        X
-                     </Button>
-                  </div>
-               </Card.Header> */}
-                  <Card>
-                     <Card.Header>
-                        <div>
-                           <h3>Pending Requests</h3>
-                        </div>
-                     </Card.Header>
-                     {request ? (
-                        request.map((message) => {
-                           return (
-                              <Table striped bordered hover>
-                                 <thead>
-                                    <tr>
-                                       <th>Sender Name</th>
-                                       <th>Project Name</th>
-                                       <th>Message</th>
-                                       <th>Date</th>
-                                       <th>Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td>{message.userName}</td>
-                                       <td>{message.projectName}</td>
-                                       <td>{message.messageToUser}</td>
-                                       <td>{message.requestedDate}</td>
-                                       <td>
-                                          <Button
-                                             variant='success'
-                                             onClick={() =>
-                                                sendResponse(
-                                                   message.connectionId,
-                                                   approve
-                                                )
-                                             }
-                                          >
-                                             Accept
-                                          </Button>
-                                       </td>
-                                       <td>
-                                          {' '}
-                                          <Button
-                                             variant='danger'
-                                             onClick={() =>
-                                                sendResponse(
-                                                   message.connectionId,
-                                                   reject
-                                                )
-                                             }
-                                          >
-                                             Decline
-                                          </Button>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </Table>
-                           );
-                        })
-                     ) : (
-                        <div>
+                  <Card.Header id='user-details-header'>
+                     <div>
+                        <h3>My requests</h3>
+                     </div>
+                     <div>
+                        <Button variant='danger' onClick={props.onHide}>
+                           X
+                        </Button>
+                     </div>
+                  </Card.Header>
+
+                  {request ? (
+                     request.map((message) => {
+                        return (
                            <Card>
-                              <Card.Title>No new requests!!</Card.Title>
+                              <ListGroup.Item>
+                                 <Card.Title
+                                    style={{
+                                       display: 'flex',
+                                       alignItems: 'baseline',
+                                       justifyContent: 'center',
+                                    }}
+                                 >
+                                    {' '}
+                                    <Avatars name={message.userName} />
+                                    <p style={{ marginLeft: '2px' }}>
+                                       {message.userName}
+                                    </p>
+                                 </Card.Title>
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                 {' '}
+                                 <Card.Text>
+                                    {message.messageToUser}
+                                 </Card.Text>{' '}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                 {' '}
+                                 <Card.Text>
+                                    {message.requestedDate}
+                                 </Card.Text>{' '}
+                              </ListGroup.Item>
+                              <Card.Footer
+                                 style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-around',
+                                 }}
+                              >
+                                 <Button
+                                    variant='success'
+                                    onClick={() =>
+                                       sendResponse(
+                                          message.connectionId,
+                                          approve
+                                       )
+                                    }
+                                 >
+                                    Accept
+                                 </Button>
+                                 <Button
+                                    variant='danger'
+                                    onClick={() =>
+                                       sendResponse(
+                                          message.connectionId,
+                                          reject
+                                       )
+                                    }
+                                 >
+                                    Decline
+                                 </Button>
+                              </Card.Footer>
                            </Card>
-                        </div>
-                     )}
-                  </Card>
+                        );
+                     })
+                  ) : (
+                     <div>
+                        <Card>
+                           <ListGroup.Item>
+                              <Card.Title>No new requests!!</Card.Title>
+                           </ListGroup.Item>
+                        </Card>
+                     </div>
+                  )}
                </Card.Body>
             </Card>
-            <AcceptedRequest />
          </div>
       </Modal>
    );

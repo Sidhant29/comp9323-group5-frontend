@@ -72,14 +72,19 @@ export default function GetComments(props) {
                                     }}
                                  >
                                     <Avatars name={comment.username} />
-                                    <b>{comment.username}</b>
+                                    <b style={{ marginLeft: '1%' }}>
+                                       {comment.username}
+                                    </b>
 
-                                    <div style={{ marginLeft: '3%' }}>
+                                    <div style={{ marginLeft: '2%' }}>
                                        {comment.comment}
                                     </div>
                                  </div>
                                  <div>
-                                    <small className='text-muted'>
+                                    <small
+                                       className='text-muted'
+                                       style={{ marginLeft: '2%' }}
+                                    >
                                        {comment.createdDate}
                                     </small>
                                  </div>

@@ -48,6 +48,7 @@ export default function Navigation(props) {
       return <Tooltip>Check for new connection requests</Tooltip>;
    };
 
+   console.log(modalShow);
    return (
       <Router>
          <Navbar
@@ -144,14 +145,16 @@ export default function Navigation(props) {
                      className='d-inline-block align-top'
                      alt='React Bootstrap logo'
                   />
-                  {modalShow && (
-                     <Notifications
-                        show={modalShow}
-                        onHide={() => setModalShow(false)}
-                     />
-                  )}
                </Navbar.Brand>
             </OverlayTrigger>
+            <div>
+               {modalShow && (
+                  <Notifications
+                     show={modalShow}
+                     onHide={() => setModalShow(false)}
+                  />
+               )}
+            </div>
             <OverlayTrigger
                overlay={tooltipLogout()}
                trigger='hover'

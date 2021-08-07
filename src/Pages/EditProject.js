@@ -247,18 +247,20 @@ export default function EditProject() {
                   </Form.Group>
                </Form>
                <br />
-               {projectDetails.status && (
-                  <div>
-                     <Button variant='success' onClick={handleSubmit}>
-                        Submit
-                     </Button>
-                     <br />
-                     <br />
-                     <Button variant='warning' onClick={closeProject}>
-                        {buttonName}
-                     </Button>{' '}
-                  </div>
-               )}
+               <div
+                  style={{
+                     display: 'flex',
+                     flexDirection: 'row',
+                     justifyContent: 'center',
+                  }}
+               >
+                  <Button variant='success' onClick={handleSubmit}>
+                     Update changes
+                  </Button>
+                  <Button variant='warning' onClick={closeProject}>
+                     {buttonName}
+                  </Button>{' '}
+               </div>
             </Form>
          </Card.Body>
       </Card>
