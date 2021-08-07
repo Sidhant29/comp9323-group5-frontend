@@ -91,14 +91,11 @@ export default function EditProject() {
    return (
       // <Alert >
       <Card
-         bg='dark'
-         style={{ width: '100%', height: '100vh' }}
+         style={{ width: '100%', backgroundColor: '#242526', minHeight:"100vh" }}
          className='translucent'
       >
-         <Card.Header>
-            <h1 style={{ color: 'white' }}>Update Project</h1>
-         </Card.Header>
-         <Card.Body>
+         <Card.Body style={{ minHeight:"100vh" ,width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
+         <h1 style={{ color: '#ffc107', textAlign:"center" }}>Update Project</h1>
             <Form>
                <Form.Group controlId='formTitle'>
                   <Form.Label style={{ color: 'white' }}>
