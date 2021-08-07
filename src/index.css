@@ -74,7 +74,9 @@
 #nav-link {
    color: white;
 }
-
+#author:hover{
+   color: blue;
+}
 #nav-link:hover {
    color: #ffc107;
    text-decoration: underline;

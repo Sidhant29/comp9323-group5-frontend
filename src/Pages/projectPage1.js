@@ -153,13 +153,14 @@ export default function ProjectPage() {
                <h2 style={{ color: 'white' }}>
                   <u>{projects.title}</u>
                </h2>
-               <span style={{ color: 'white' }}>Posted by:</span>
+               <span style={{ color: 'white', alignItems:"center" }}>Posted by:
                <Button
                   variant='link'
                   onClick={() => handleRouting(projects.user_id)}
                >
-                  {projects.user_name}
+                  {` `+projects.user_name}
                </Button>
+               </span>
                <br />
                <small className='text-muted'>
                   Posted On: {projects.created_date}
