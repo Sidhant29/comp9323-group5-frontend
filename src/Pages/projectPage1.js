@@ -23,6 +23,10 @@ import comment from '../Components/chat.png';
 
 export default function ProjectPage() {
    const { projectId } = useParams();
+   if(localStorage.userId){
+      let user = localStorage.getItem("userId")
+      console.log(`userId ${user}`)
+   }
    const history = useHistory();
    const [modalShow, setModalShow] = React.useState(false);
    const [selectedUser, setSelectedUser] = useState('');
@@ -215,7 +219,7 @@ export default function ProjectPage() {
                <ListGroup.Item className=' text-center'>
                   {!msgBox && (
                      <div className='d-grid gap-2'>
-                        <Button
+                        {projects.user_id!=localStorage.getItem("userId")?(<Button
                            variant='warning'
                            style={{ width: '100%' }}
                            size='lg'
@@ -224,7 +228,7 @@ export default function ProjectPage() {
                            }}
                         >
                            {flipButton}
-                        </Button>
+                        </Button>):(null)}
                      </div>
                   )}
 
