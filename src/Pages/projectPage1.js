@@ -149,13 +149,21 @@ export default function ProjectPage() {
                <h2 style={{ color: 'white' }}>
                   <u>{projects.title}</u>
                </h2>
-               <span style={{ color: 'white' }}>Posted by:</span>
-               <Button
-                  variant='link'
-                  onClick={() => handleRouting(projects.user_id)}
+               <div
+                  style={{
+                     display: 'flex',
+                     flexDirection: 'row',
+                     alignItems: 'center',
+                  }}
                >
-                  {projects.user_name}
-               </Button>
+                  <span style={{ color: 'white' }}>Posted by:</span>
+                  <Button
+                     variant='link'
+                     onClick={() => handleRouting(projects.user_id)}
+                  >
+                     {projects.user_name}
+                  </Button>
+               </div>
                <br />
                <small className='text-muted'>
                   Posted On: {projects.created_date}
