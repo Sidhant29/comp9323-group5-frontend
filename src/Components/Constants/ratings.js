@@ -11,6 +11,7 @@ export default function Ratings(props) {
    });
 
    const postRating = () => {
+      console.log(payload);
       axios
          .post('/user/rating', payload, {
             headers: {
@@ -29,11 +30,9 @@ export default function Ratings(props) {
          });
    };
 
-   const ratingChanged = (newRating, userId) => {
-      setPayload({
-         ...payload,
-         ['rating']: newRating,
-      });
+   const ratingChanged = (newRating) => {
+      console.log(newRating);
+      payload['rating'] = newRating;
       postRating();
    };
    return (

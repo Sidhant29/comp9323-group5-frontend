@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Badge } from 'react-bootstrap';
 import { Card, Col, Row, CardColumns, Button, Spinner } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
-import { showToast } from '../Components/Constants/toastServices';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 export default function MyProjectList() {
    const [projects, setProjects] = useState([
@@ -17,6 +17,7 @@ export default function MyProjectList() {
    ]);
    const payload = {};
    const [isLoading, setIsLoading] = useState(true);
+   const history = useHistory();
 
    let renderParticipant = (participant) => {
       switch (participant) {
@@ -29,6 +30,10 @@ export default function MyProjectList() {
          default:
             return 'Mentor and Mentee';
       }
+   };
+
+   const handleRouting = (projectId) => {
+      history.push(`/search_project/${projectId}`);
    };
 
    useEffect(() => {
@@ -57,49 +62,60 @@ export default function MyProjectList() {
    }
    return (
       <div className='text-center'>
-         <CardColumns>
+         <Row id='row' style={{ margin: '10px' }}>
             {projects.map((project) => {
                return (
-                  <Card>
-                     <Card.Header className='text-right'>
-                        <Button variant='link'>
-                           <Link to={`/project/update/${project.id}`}>
-                              Edit
-                           </Link>
-                        </Button>
-                     </Card.Header>
-                     <Card.Body>
-                        <Card.Title>{project.title}</Card.Title>
-                        <Card.Text>{project.description}</Card.Text>
-                        <Card.Text>
-                           Looking For{' '}
-                           <Badge variant='dark'>
-                              {renderParticipant(project.participants)}
-                           </Badge>
-                        </Card.Text>
-                        <Card.Text>
-                           <small className='text-muted'>
-                              {project.created}
-                           </small>
-                        </Card.Text>
-                     </Card.Body>
-                     <Card.Footer>
-                        <small>Skills Involved in the Project</small>
-                        <br />
-                        {project.skills.split(',').map((skill) => (
-                           <Badge
-                              style={{ margin: '0.1rem' }}
-                              variant='success'
-                           >
-                              {skill}
-                           </Badge>
-                        ))}
-                        <br />
-                     </Card.Footer>
-                  </Card>
+                  <Col
+                     xs={12}
+                     md={6}
+                     lg={5}
+                     id='col-md-4-project'
+                     style={{ minWidth: '200px' }}
+                  >
+                     <Card id='my-projects'>
+                        <Card.Header className='text-right'>
+                           <Button variant='link'>
+                              <Link to={`/project/update/${project.id}`}>
+                                 Edit
+                              </Link>
+                           </Button>
+                        </Card.Header>
+                        <Card.Body
+                           id='my-project-body'
+                           onClick={() => handleRouting(project.id)}
+                        >
+                           <Card.Title>{project.title}</Card.Title>
+                           <Card.Text>{project.description}</Card.Text>
+                           <Card.Text>
+                              Looking For{' '}
+                              <Badge variant='dark'>
+                                 {renderParticipant(project.participants)}
+                              </Badge>
+                           </Card.Text>
+                           <Card.Text>
+                              <small className='text-muted'>
+                                 {project.created}
+                              </small>
+                           </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                           <small>Skills Involved in the Project</small>
+                           <br />
+                           {project.skills.split(',').map((skill) => (
+                              <Badge
+                                 style={{ margin: '0.1rem' }}
+                                 variant='success'
+                              >
+                                 {skill}
+                              </Badge>
+                           ))}
+                           <br />
+                        </Card.Footer>
+                     </Card>
+                  </Col>
                );
             })}
-         </CardColumns>
+         </Row>
       </div>
    );
 }

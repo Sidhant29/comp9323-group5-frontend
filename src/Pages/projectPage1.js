@@ -254,7 +254,7 @@ export default function ProjectPage() {
                               <ListGroup.Item>
                                  <Form.Check
                                     inline
-                                    label='mentor'
+                                    label='Mentor'
                                     name='userType'
                                     type='radio'
                                     value='1'
@@ -262,7 +262,7 @@ export default function ProjectPage() {
                                  />
                                  <Form.Check
                                     inline
-                                    label='mentee'
+                                    label='Mentee'
                                     name='userType'
                                     type='radio'
                                     value='2'
@@ -280,7 +280,7 @@ export default function ProjectPage() {
                            variant='danger'
                            onClick={() => setMsgBox(false)}
                         >
-                           close
+                           Close
                         </Button>
                      </div>
                   )}
@@ -327,7 +327,7 @@ export default function ProjectPage() {
                      }}
                   />
                   <Button variant='warning' type='reset' onClick={postComment}>
-                     post
+                     Post
                   </Button>
                </form>
             </ListGroup.Item>

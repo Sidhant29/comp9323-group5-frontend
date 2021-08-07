@@ -15,6 +15,18 @@
    flex: 1 0 0%;
 }
 
+#my-projects {
+   text-align: 'centre';
+   align-self: 'center';
+   flex: 1 0 0%;
+}
+
+#my-project-body:hover {
+   opacity: 1;
+   cursor: pointer;
+   background-color: #ffc107;
+}
+
 #user-search:hover {
    opacity: 1;
    cursor: pointer;

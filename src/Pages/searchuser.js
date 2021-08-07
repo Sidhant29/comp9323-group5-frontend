@@ -48,8 +48,13 @@ export default function Searchuser(props) {
    useEffect(() => {
       axios
          .get(
-            urls.searchUser +
-               `?name=${user}&skill=${skill}&userType=${userType}`
+            `searchUser/${localStorage.userId}/?name=${user}&skill=${skill}&userType=${userType}`,
+            {
+               headers: {
+                  Accept: 'application/json',
+                  Authorization: localStorage.token,
+               },
+            }
          )
          .then((res) => {
             if (res.data !== 'NO RECORDS FOUND') {
@@ -140,7 +145,7 @@ export default function Searchuser(props) {
                            <Form.Check
                               style={{ color: 'white' }}
                               inline
-                              label='mentor'
+                              label='Mentor'
                               name='userType'
                               type='radio'
                               value='1'
@@ -149,7 +154,7 @@ export default function Searchuser(props) {
                            <Form.Check
                               style={{ color: 'white' }}
                               inline
-                              label='mentee'
+                              label='Mentee'
                               name='userType'
                               type='radio'
                               value='2'
@@ -189,14 +194,13 @@ export default function Searchuser(props) {
                                        <Card.Title>
                                           {' '}
                                           <h4>{items.name}</h4>{' '}
-                                          <RatingConstant
-                                             rating={items.rating}
-                                          />
                                        </Card.Title>
 
                                        <Card.Title>
                                           {items.rating ? (
-                                             `Ratings: ${items.rating}`
+                                             <RatingConstant
+                                                rating={items.rating}
+                                             />
                                           ) : (
                                              <h6>
                                                 <i>No ratings yet</i>
@@ -215,8 +219,7 @@ export default function Searchuser(props) {
                                        )}
                                        {!changeSkills && (
                                           <Card.Text>
-                                             Learning
-                                             {items.learningSkills}
+                                             Love to learn
                                              <SkillsBadge
                                                 skills={items.learningSkills}
                                                 type='warning'

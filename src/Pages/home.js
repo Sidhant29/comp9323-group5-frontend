@@ -139,7 +139,7 @@ export default function Home(props) {
                               <Form.Check
                                  inline
                                  style={{ color: 'white' }}
-                                 label='mentor'
+                                 label='Mentor'
                                  name='userType'
                                  type='radio'
                                  value='1'
@@ -148,7 +148,7 @@ export default function Home(props) {
                               <Form.Check
                                  inline
                                  style={{ color: 'white' }}
-                                 label='mentee'
+                                 label='Mentee'
                                  name='userType'
                                  type='radio'
                                  value='2'

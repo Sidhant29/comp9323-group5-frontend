@@ -319,7 +319,7 @@ function UserProfile() {
                   </Card>
                   <Card>
                      <Card.Header>
-                        <Card.Title>NOT MY SKILLS </Card.Title>
+                        <Card.Title>LOVE TO LEARN </Card.Title>
                         {desiredSkills
                            .filter((element) => element !== '')
                            .map((element) => {

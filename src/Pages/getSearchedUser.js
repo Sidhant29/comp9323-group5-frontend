@@ -239,12 +239,12 @@ export default function GetSearchedUser(props) {
                            <form>
                               <div>
                                  <InputGroup.Text id='basic-addon3'>
-                                    Seeking for a
+                                    Seeking for
                                  </InputGroup.Text>
                                  <ListGroup.Item>
                                     <Form.Check
                                        inline
-                                       label='mentor'
+                                       label='Mentor'
                                        name='userType'
                                        type='radio'
                                        value='1'
@@ -252,7 +252,7 @@ export default function GetSearchedUser(props) {
                                     />
                                     <Form.Check
                                        inline
-                                       label='mentee'
+                                       label='Mentee'
                                        name='userType'
                                        type='radio'
                                        value='2'
