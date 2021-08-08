@@ -50,7 +50,7 @@ export default function EditProject() {
                title: projectDetails.title,
                description: projectDetails.description,
                url: projectDetails.url,
-               project_status: 1,
+               project_status: projectDetails.project_status,
                participants: projectDetails.participants,
                skills: skillsRequired.join(),
             },
@@ -207,7 +207,7 @@ export default function EditProject() {
 
                <Form.Group controlId='formParticipants'>
                   <Form.Label style={{ color: 'white' }}>
-                     Status {projectDetails.project_status}
+                     Status 
                   </Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
@@ -302,7 +302,7 @@ export default function EditProject() {
                >
                   <Button variant='success' onClick={handleSubmit}>
                      Update changes
-                  </Button>
+                  </Button>{' '}
                   <Button variant='warning' onClick={closeProject}>
                      {buttonName}
                   </Button>{' '}
