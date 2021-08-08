@@ -20,7 +20,7 @@ export default function Login() {
                localStorage.setItem('userId', res.data.id);
             }
             showToast(`Hey ${res.data.email}`, 'success');
-
+            console.log(res.data);
             history.push('/home');
          })
          .catch((err) => {
@@ -47,7 +47,11 @@ export default function Login() {
          >
             <Row className='justify-content-md-center'>
                <Col>
-                  <Card className=' text-center' style={{backgroundColor:"#3A3B3C"}} id='login-card'>
+                  <Card
+                     className=' text-center'
+                     style={{ backgroundColor: '#3A3B3C' }}
+                     id='login-card'
+                  >
                      <Card.Body className='container'>
                         <Card.Header
                            style={{ fontSize: '25px', fontStyle: 'italic' }}

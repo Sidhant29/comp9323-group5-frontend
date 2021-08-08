@@ -42,7 +42,7 @@ export default function GetSearchedUser(props) {
       setMsgBox(false);
       setFlipButton('Sending request >>>');
       axios
-         .post(`/email/${props.userId}`, emailPayload, {
+         .post(`/email/${localStorage.userId}`, emailPayload, {
             headers: {
                Accept: 'application/json',
                Authorization: localStorage.token,
@@ -58,6 +58,8 @@ export default function GetSearchedUser(props) {
          })
          .catch((err) => {
             console.log(err);
+            showToast(`Request already sent`, 'danger');
+            setFlipButton('Request already sent');
          });
    };
 

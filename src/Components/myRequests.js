@@ -24,6 +24,7 @@ export default function Notifications(props) {
          .then((res) => {
             setRequest(res.data);
             setIsLoading(false);
+            console.log(res.data);
          })
          .catch((err) => {
             console.log(err);
