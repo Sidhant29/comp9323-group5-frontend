@@ -13,6 +13,7 @@ export default function MyProjectList() {
          created: '',
          skills: [],
          lookingFor: '',
+         project_status: ''
       },
    ]);
    const payload = {};
@@ -74,6 +75,7 @@ export default function MyProjectList() {
                   >
                      <Card id='my-projects'>
                         <Card.Header className='text-right'>
+                           {project.projectStatus==1?(<Badge variant="success">Online</Badge>):(<Badge variant="danger">Offline</Badge>)}
                            <Button variant='link'>
                               <Link to={`/project/update/${project.id}`}>
                                  Edit

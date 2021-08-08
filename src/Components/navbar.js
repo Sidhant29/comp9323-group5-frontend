@@ -10,6 +10,7 @@ import logout from '../Components/logout.png';
 import myaccount from '../Components/avatar.png';
 import request from '../Components/request.png';
 import Notifications from './myRequests';
+import MentorConnect from '../Components/MentorConnect.jpg'
 
 export default function Navigation(props) {
    const { keyword, setKeyword } = props;
@@ -58,6 +59,15 @@ export default function Navigation(props) {
             style={{ backgroundColor: '#242526' }}
             variant='dark'
          >
+            <Navbar.Brand>
+            <img
+                        src={MentorConnect}
+                        width='50'
+                        height='50'
+                        className='d-inline-block align-top'
+                        alt='React Bootstrap logo'
+                     />
+            </Navbar.Brand>
             <OverlayTrigger
                overlay={tooltipFindProj()}
                trigger='hover'
