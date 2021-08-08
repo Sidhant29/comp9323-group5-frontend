@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Card, Badge } from 'react-bootstrap';
 import { showToast } from '../Components/Constants/toastServices';
+import { useHistory } from 'react-router';
 
 export default function CreateProject() {
    const [skillsRequired, setSkillsRequired] = useState([]);
+   const history = useHistory();
 
    const [projectDetails, setProjectDetails] = useState({
       title: '',
       description: '',
       skills: '',
       user_id: Number(localStorage.userId),
-      participants: 0,
+      participants: '',
       url: '',
    });
    projectDetails['skills'] = skillsRequired.toString();
@@ -27,6 +29,18 @@ export default function CreateProject() {
             skills: skillsRequired.join(),
          });
       }
+
+      if (!projectDetails.title) {
+         showToast('Project title cannot be empty', 'danger');
+
+         return null;
+      } else if (!projectDetails.description) {
+         showToast('Project description cannot be empty', 'danger');
+         return null;
+      } else if (!projectDetails.participants) {
+         showToast('Seeking is not selected select atlease one', 'danger');
+         return null;
+      }
       console.log(projectDetails);
 
       axios
@@ -38,6 +52,16 @@ export default function CreateProject() {
          })
          .then((response) => {
             showToast('Project Successfully Created', 'success');
+            document.getElementById('create-project-form').reset();
+            setSkillsRequired([]);
+            setProjectDetails({
+               title: '',
+               description: '',
+               skills: '',
+               user_id: Number(localStorage.userId),
+               participants: 0,
+               url: '',
+            });
          })
          .catch((error) => {
             console.log(error);
@@ -45,16 +69,22 @@ export default function CreateProject() {
    }
 
    return (
-      <Card
-         style={{ width: "100%", backgroundColor:"#242526" }}
-      >
-         
-         <Card.Body style={{ minHeight:"100vh" ,minWidth: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
-         <h1 style={{ color: '#ffc107', textAlign:"center" }}>Create new Projects</h1>
-            <Form>
+      <Card style={{ width: '100%', backgroundColor: '#242526' }}>
+         <Card.Body
+            style={{
+               minHeight: '100vh',
+               minWidth: '80vw',
+               margin: 'auto',
+               backgroundColor: '#3A3B3C',
+            }}
+         >
+            <h1 style={{ color: '#ffc107', textAlign: 'center' }}>
+               Create new Projects
+            </h1>
+            <Form id='create-project-form'>
                <Form.Group controlId='formTitle'>
                   <Form.Label style={{ color: 'white' }}>
-                     Project Title
+                     *Project Title
                   </Form.Label>
                   <Form.Control
                      type='text'
@@ -69,7 +99,7 @@ export default function CreateProject() {
                </Form.Group>
                <Form.Group className='mb-3' controlId='formDesc'>
                   <Form.Label style={{ color: 'white' }}>
-                     Project Description
+                     *Project Description
                   </Form.Label>
                   <Form.Control
                      as='textarea'
@@ -81,6 +111,7 @@ export default function CreateProject() {
                         })
                      }
                      placeholder='Tell us about your project'
+                     required
                   />
                </Form.Group>
                <Form.Group controlId='formVideo'>
@@ -99,7 +130,7 @@ export default function CreateProject() {
                   />
                </Form.Group>
                <Form.Group controlId='formParticipants'>
-                  <Form.Label style={{ color: 'white' }}>Seeking</Form.Label>
+                  <Form.Label style={{ color: 'white' }}>*Seeking</Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
                      <Form.Check
@@ -149,7 +180,7 @@ export default function CreateProject() {
                <Form>
                   <Form.Group controlId='formSkillsrequired'>
                      <Form.Label style={{ color: 'white' }}>
-                        Skills required to complete the project
+                        *Skills required to complete the project
                      </Form.Label>
                      <Form.Control type='text' placeholder='Data Analysis' />
                      <br />

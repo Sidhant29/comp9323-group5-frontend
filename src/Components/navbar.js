@@ -136,7 +136,7 @@ export default function Navigation(props) {
                trigger='hover'
                placement='bottom'
             >
-               <Navbar.Brand onClick={() => setModalShow(true)}>
+               <Navbar.Brand onClick={() => setModalShow(true)} id='my-request'>
                   My Requests{' '}
                   <img
                      src={request}

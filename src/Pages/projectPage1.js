@@ -68,6 +68,8 @@ export default function ProjectPage() {
          })
          .catch((err) => {
             console.log(err);
+            showToast(`Application already sent`, 'danger');
+            setFlipButton('Application already sent');
          });
    };
 
@@ -160,11 +162,11 @@ export default function ProjectPage() {
                      alignItems: 'center',
                   }}
                >
-                  <span style={{ color: 'white' }}>Posted by:</span>
                   <Button
                      variant='link'
                      onClick={() => handleRouting(projects.user_id)}
                   >
+                     <span style={{ color: 'white' }}>Posted by: </span>
                      {projects.user_name}
                   </Button>
                </div>

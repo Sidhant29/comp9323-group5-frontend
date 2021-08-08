@@ -25,6 +25,34 @@ export default function Register() {
 
    const onsubmit = () => {
       console.log(formValues);
+
+      if (!formValues.firstName || !formValues.lastName) {
+         showToast('First name or Last name cannot be empty', 'danger');
+
+         return null;
+      } else if (!formValues.email) {
+         showToast('Email id cannot be empty', 'danger');
+         return null;
+      } else if (!formValues.bio) {
+         showToast('Bio cannot be empty', 'danger');
+         return null;
+      } else if (!formValues.bio) {
+         showToast('Bio cannot be empty', 'danger');
+         return null;
+      } else if (!formValues.acquiredSkills || !formValues.learningSkills) {
+         showToast(
+            'Skills you possess or Skills you want to learn cannot be empty',
+            'danger'
+         );
+         return null;
+      } else if (!formValues.phoneNumber) {
+         showToast('Mobile cannot be empty', 'danger');
+         return null;
+      } else if (!formValues.password) {
+         showToast('Password cannot be empty', 'danger');
+         return null;
+      }
+      console.log(formValues);
       axios
          .post('/register', formValues)
          .then((res) => {
@@ -52,7 +80,11 @@ export default function Register() {
                textAlign: 'left',
             }}
          >
-            <Card className='translucent' style={{backgroundColor:"#3A3B3C"}} id='login-card'>
+            <Card
+               className='translucent'
+               style={{ backgroundColor: '#3A3B3C' }}
+               id='login-card'
+            >
                <Card.Body>
                   <Card.Header
                      style={{ fontSize: '25px', fontStyle: 'italic' }}
@@ -62,7 +94,7 @@ export default function Register() {
                   <br />
                   <Form>
                      <Form.Group controlId='formName'>
-                        <Form.Label>First name</Form.Label>
+                        <Form.Label>*First name</Form.Label>
                         <Form.Control
                            type='text'
                            placeholder='Enter Your Name'
@@ -75,7 +107,7 @@ export default function Register() {
                         />
                      </Form.Group>
                      <Form.Group controlId='formName'>
-                        <Form.Label>Last name</Form.Label>
+                        <Form.Label>*Last name</Form.Label>
                         <Form.Control
                            type='text'
                            placeholder='Enter Your Name'
@@ -88,7 +120,7 @@ export default function Register() {
                         />
                      </Form.Group>
                      <Form.Group controlId='formEmail'>
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>*Email address</Form.Label>
                         <Form.Control
                            type='email'
                            placeholder='Enter email'
@@ -101,7 +133,7 @@ export default function Register() {
                         />
                      </Form.Group>
                      <Form.Group controlId='formBio'>
-                        <Form.Label>Add Your Bio</Form.Label>
+                        <Form.Label>*Add Your Bio</Form.Label>
                         <Form.Control
                            as='textarea'
                            rows={3}
@@ -116,17 +148,11 @@ export default function Register() {
                      </Form.Group>
                      <Form>
                         <Form.Group controlId='formAquiredSkills'>
-                           <Form.Label>Skills you Possess</Form.Label>
+                           <Form.Label>*Skills you Possess</Form.Label>
                            <Form.Control
                               inline
                               type='text'
                               placeholder='Enter skills you wan to mentor for'
-                              //  onChange={(e) =>
-                              //    setForm({
-                              //       ...formValues,
-                              //       ['acquiredSkills']: e.target.value,
-                              //    })
-                              // }
                            />
                            <Button
                               onClick={() => {
@@ -164,17 +190,11 @@ export default function Register() {
                      </Form>
                      <Form>
                         <Form.Group controlId='formDesiredSkills'>
-                           <Form.Label>Skills you want to learn</Form.Label>
+                           <Form.Label>*Skills you want to learn</Form.Label>
                            <Form.Control
                               inline
                               type='text'
                               placeholder='Enter skills you want to learn'
-                              //  onChange={(e) =>
-                              //     setForm({
-                              //        ...formValues,
-                              //        ['learningSkills']: e.target.value,
-                              //     })
-                              //  }
                            />
                            <Button
                               onClick={() => {
@@ -212,7 +232,7 @@ export default function Register() {
                      </Form>
 
                      <Form.Group controlId='formPhone'>
-                        <Form.Label>Mobile</Form.Label>
+                        <Form.Label>*Mobile</Form.Label>
                         <Form.Control
                            type='number'
                            placeholder='484603555'
@@ -226,7 +246,7 @@ export default function Register() {
                      </Form.Group>
 
                      <Form.Group controlId='formPassword'>
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>*Password</Form.Label>
                         <Form.Control
                            type='password'
                            placeholder='Password'
@@ -239,7 +259,7 @@ export default function Register() {
                         />
                      </Form.Group>
                      <Form.Group controlId='formConfirmPassword'>
-                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Label>*Confirm Password</Form.Label>
                         <Form.Control
                            type='password'
                            placeholder='Confirm Password'

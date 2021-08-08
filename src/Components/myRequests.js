@@ -1,28 +1,19 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {
-   Card,
-   ListGroup,
-   Table,
-   Modal,
-   CardColumns,
-   Button,
-   Spinner,
-} from 'react-bootstrap';
+import { Card, ListGroup, Modal, Button, Spinner } from 'react-bootstrap';
 import { showToast } from '../Components/Constants/toastServices';
 import Avatars from './Constants/avatars';
 
 export default function Notifications(props) {
    const [request, setRequest] = useState(0);
-   const [apRequest, setApRequest] = useState(0);
    const [show, setShow] = useState(false);
 
    const [isLoading, setIsLoading] = useState(true);
    const approve = 'AP';
    const reject = 'RJ';
 
-   useEffect(() => {
+   const fetchRequests = () => {
       axios
          .get('/users/pendingRequests' + `/${localStorage.userId}/PD`, {
             headers: {
@@ -33,13 +24,16 @@ export default function Notifications(props) {
          .then((res) => {
             setRequest(res.data);
             setIsLoading(false);
-            setShow(true);
          })
          .catch((err) => {
             console.log(err);
             setRequest(0);
             setIsLoading(false);
          });
+   };
+
+   useEffect(() => {
+      fetchRequests();
    }, []);
 
    const sendResponse = (connectionId, status) => {
@@ -54,8 +48,10 @@ export default function Notifications(props) {
             console.log(res.data);
             if (res.data === 'Connection request Approved') {
                showToast(`Request Accepted`, 'success');
+               fetchRequests();
             } else {
-               showToast(`Request Declined`, 'success');
+               showToast(`Request Declined`, 'danger');
+               fetchRequests();
             }
          })
          .catch((err) => {

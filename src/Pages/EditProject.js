@@ -33,7 +33,6 @@ export default function EditProject() {
             )[0];
             console.log(project);
             setProjectDetails(project);
-            console.log(project);
             setSkillsRequired(project.skills.split(','));
          });
    }, []);
@@ -91,11 +90,24 @@ export default function EditProject() {
    return (
       // <Alert >
       <Card
-         style={{ width: '100%', backgroundColor: '#242526', minHeight:"100vh" }}
+         style={{
+            width: '100%',
+            backgroundColor: '#242526',
+            minHeight: '100vh',
+         }}
          className='translucent'
       >
-         <Card.Body style={{ minHeight:"100vh" ,width: "80vw", margin: "auto", backgroundColor:"#3A3B3C"}}>
-         <h1 style={{ color: '#ffc107', textAlign:"center" }}>Update Project</h1>
+         <Card.Body
+            style={{
+               minHeight: '100vh',
+               width: '80vw',
+               margin: 'auto',
+               backgroundColor: '#3A3B3C',
+            }}
+         >
+            <h1 style={{ color: '#ffc107', textAlign: 'center' }}>
+               Update Project
+            </h1>
             <Form>
                <Form.Group controlId='formTitle'>
                   <Form.Label style={{ color: 'white' }}>
@@ -189,6 +201,43 @@ export default function EditProject() {
                            })
                         }
                         id={`inline-radio-3`}
+                     />
+                  </div>
+               </Form.Group>
+
+               <Form.Group controlId='formParticipants'>
+                  <Form.Label style={{ color: 'white' }}>
+                     Status {projectDetails.project_status}
+                  </Form.Label>
+
+                  <div key={`inline-radio`} className='mb-3'>
+                     <Form.Check
+                        style={{ color: 'white' }}
+                        inline
+                        label='Go online'
+                        name='status'
+                        type='radio'
+                        onClick={() =>
+                           setProjectDetails({
+                              ...projectDetails,
+                              project_status: 1,
+                           })
+                        }
+                        id={`inline-radio-1`}
+                     />
+                     <Form.Check
+                        style={{ color: 'white' }}
+                        inline
+                        label='Go offline'
+                        name='status'
+                        type='radio'
+                        onClick={() =>
+                           setProjectDetails({
+                              ...projectDetails,
+                              project_status: 0,
+                           })
+                        }
+                        id={`inline-radio-2`}
                      />
                   </div>
                </Form.Group>

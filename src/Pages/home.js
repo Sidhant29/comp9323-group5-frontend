@@ -123,7 +123,7 @@ export default function Home(props) {
                            <FormControl
                               id='search-skills'
                               aria-describedby='basic-addon3'
-                              placeholder='Search by skills required'
+                              placeholder='Java, Python...'
                               onChange={(e) => setSkill(e.target.value)}
                            />
                         </InputGroup>

@@ -2,18 +2,19 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
+import rating from '../Components/rating.png';
 
 import {
    Card,
    Modal,
-   Container,
-   Col,
    ListGroup,
    Button,
    InputGroup,
    Form,
    FormControl,
    Badge,
+   OverlayTrigger,
+   Tooltip,
 } from 'react-bootstrap';
 import axios from 'axios';
 import Ratings from '../Components/Constants/ratings';
@@ -106,8 +107,13 @@ export default function GetSearchedUser(props) {
             console.log(err);
          });
    };
+
    const handleRouting = (projectId) => {
       history.push(`/search_project/${projectId}`);
+   };
+
+   const tooltipRating = () => {
+      return <Tooltip>Give your ratings here</Tooltip>;
    };
 
    useEffect(() => {
@@ -143,12 +149,34 @@ export default function GetSearchedUser(props) {
                <ListGroup.Item>
                   <h3>
                      {userDetails.rating
-                        ? `Rating - ${userDetails.rating}`
+                        ? `Current rating - ${userDetails.rating}`
                         : ' No ratings yet'}
                   </h3>
-                  <h3 onClick={renderDetails}>
-                     <Ratings userId={props.userId} />
-                  </h3>
+                  <OverlayTrigger
+                     overlay={tooltipRating()}
+                     trigger='hover'
+                     placement='right'
+                  >
+                     <div
+                        style={{
+                           display: 'flex',
+                           flexDirection: 'row',
+                           width: '150px',
+                        }}
+                     >
+                        {' '}
+                        <img
+                           src={rating}
+                           width='30'
+                           height='30'
+                           className='d-inline-block align-top'
+                           alt='React Bootstrap logo'
+                        />
+                        <h3 onClick={renderDetails}>
+                           <Ratings userId={props.userId} />
+                        </h3>
+                     </div>
+                  </OverlayTrigger>
                </ListGroup.Item>
                <ListGroup.Item>
                   Skilled at
@@ -273,7 +301,7 @@ export default function GetSearchedUser(props) {
                               variant='danger'
                               onClick={() => setMsgBox(false)}
                            >
-                              close
+                              Close
                            </Button>
                         </div>
                      )}

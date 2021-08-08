@@ -32,6 +32,9 @@
    cursor: pointer;
    background-color: #ffc107;
 }
+#my-request:hover {
+   cursor: pointer;
+}
 
 #row {
    justify-content: center;
@@ -74,7 +77,7 @@
 #nav-link {
    color: white;
 }
-#author:hover{
+#author:hover {
    color: blue;
 }
 #nav-link:hover {

@@ -130,7 +130,7 @@ export default function Searchuser(props) {
                            <FormControl
                               id='search-skills'
                               aria-describedby='basic-addon3'
-                              placeholder='Search by Skills'
+                              placeholder='Java, Python...'
                               onChange={(e) => setSkill(e.target.value)}
                            />
                         </InputGroup>
