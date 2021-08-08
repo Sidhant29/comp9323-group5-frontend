@@ -39,7 +39,8 @@ export default function EditProject() {
 
    async function handleSubmit() {
       if (!(Array.isArray(skillsRequired) && skillsRequired.length)) {
-         alert('Skills cannot be empty');
+         showToast(`Skills cannot be empty`, 'danger');
+
          return null;
       }
       console.log({ ...projectDetails, skills: skillsRequired.join() });
@@ -61,7 +62,8 @@ export default function EditProject() {
             }
          )
          .then((response) => {
-            alert('Project Successfully Updated');
+            showToast(`Project Successfully Updated`, 'success');
+
             history.push('/user_profile');
          })
          .catch((error) => {
@@ -206,9 +208,7 @@ export default function EditProject() {
                </Form.Group>
 
                <Form.Group controlId='formParticipants'>
-                  <Form.Label style={{ color: 'white' }}>
-                     Status 
-                  </Form.Label>
+                  <Form.Label style={{ color: 'white' }}>Status</Form.Label>
 
                   <div key={`inline-radio`} className='mb-3'>
                      <Form.Check

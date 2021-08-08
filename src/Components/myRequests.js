@@ -118,6 +118,12 @@ export default function Notifications(props) {
                               <ListGroup.Item>
                                  {' '}
                                  <Card.Text>
+                                    {message.participantType}
+                                 </Card.Text>{' '}
+                              </ListGroup.Item>
+                              <ListGroup.Item>
+                                 {' '}
+                                 <Card.Text>
                                     {message.requestedDate}
                                  </Card.Text>{' '}
                               </ListGroup.Item>

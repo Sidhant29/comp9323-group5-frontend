@@ -226,6 +226,25 @@ export default function ProjectPage() {
                </Row>
             </ListGroup.Item>
             <ListGroup variant='flush'>
+               <ListGroup.Item>
+                  <Card.Text>
+                     {projects.projectLinkedUsers && <h4>Participants:</h4>}
+
+                     {projects.projectLinkedUsers &&
+                        projects.projectLinkedUsers.map((user) => {
+                           return (
+                              <Button
+                                 variant='link'
+                                 onClick={() => handleRouting(user.id)}
+                              >
+                                 {user.name}
+                              </Button>
+                           );
+                        })}
+                  </Card.Text>
+               </ListGroup.Item>
+            </ListGroup>
+            <ListGroup variant='flush'>
                <ListGroup.Item className=' text-center'>
                   {!msgBox && (
                      <div className='d-grid gap-2'>

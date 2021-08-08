@@ -4,7 +4,7 @@ import { Card, Row, ListGroup, Col, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import { showToast } from '../Components/Constants/toastServices';
-import MentorConnect from '../Components/MentorConnect.jpg'
+import MentorConnect from '../Components/MentorConnect.jpg';
 import bg from '../Components/bb.jpeg';
 export default function Login() {
    const history = useHistory();
@@ -19,8 +19,9 @@ export default function Login() {
                localStorage.setItem('token', res.data.token);
                localStorage.setItem('email', res.data.email);
                localStorage.setItem('userId', res.data.id);
+               localStorage.setItem('userName', res.data.name);
             }
-            showToast(`Hey ${res.data.email}`, 'success');
+            showToast(`Hey ${res.data.name}`, 'success');
             console.log(res.data);
             history.push('/home');
          })
@@ -46,7 +47,6 @@ export default function Login() {
                backgroundColor: 'rgba(0, 0, 0, 0.5)',
             }}
          >
-            
             <Row className='justify-content-md-center'>
                <Col>
                   <Card
@@ -59,8 +59,12 @@ export default function Login() {
                            style={{ fontSize: '25px', fontStyle: 'italic' }}
                         >
                            <Row className='justify-content-md-center'>
-               <img style={{height:"30vh",width:"30vh"}} src={MentorConnect} alt="LOGO"/>
-            </Row>
+                              <img
+                                 style={{ height: '30vh', width: '30vh' }}
+                                 src={MentorConnect}
+                                 alt='LOGO'
+                              />
+                           </Row>
                            Please log in
                         </Card.Header>
                         <br />
