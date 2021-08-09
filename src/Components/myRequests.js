@@ -114,7 +114,7 @@ export default function Notifications(props) {
                                     {' '}
                                     <Card.Text>
                                        {' '}
-                                       <h5>Applying for:</h5>
+                                       <h5>Applied for:</h5>
                                        {message.projectName} (
                                        {message.participantType})
                                     </Card.Text>{' '}
