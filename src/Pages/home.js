@@ -134,7 +134,7 @@ export default function Home(props) {
                         <Form>
                            <div>
                               {' '}
-                              <b style={{ color: 'white' }}>Looking For:</b>
+                              <b style={{ color: 'white' }}>I want to be:</b>
                               <br />
                               <Form.Check
                                  inline
