@@ -9,17 +9,19 @@ After cloning, Go to the project directory and run:
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+---
+
 ### Page js files
 
 The directory /src/Pages contains the code for all the pages in the application, which includes
-Login page
-Registration page
-Home (search projects) page
-search user page
-User profile page
-My projects page
-Create project page
-Leader board page
+    # Login page
+    # Registration page
+    # Home (search projects) page
+    # search user page
+    # User profile page
+    # My projects page
+    # Create project page
+    # Leader board page
 
 ### Components and Constants
 
