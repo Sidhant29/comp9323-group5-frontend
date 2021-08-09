@@ -93,7 +93,7 @@ export default function Notifications(props) {
                   {request ? (
                      request.map((message) => {
                         return (
-                           <Card>
+                           <Card style={{ marginBottom: '3%' }}>
                               <ListGroup.Item>
                                  <Card.Title
                                     style={{
@@ -109,22 +109,41 @@ export default function Notifications(props) {
                                     </p>
                                  </Card.Title>
                               </ListGroup.Item>
+                              {message.projectName && (
+                                 <ListGroup.Item>
+                                    {' '}
+                                    <Card.Text>
+                                       {' '}
+                                       <h5>Applying for:</h5>
+                                       {message.projectName} (
+                                       {message.participantType})
+                                    </Card.Text>{' '}
+                                 </ListGroup.Item>
+                              )}
                               <ListGroup.Item>
                                  {' '}
                                  <Card.Text>
+                                    {' '}
+                                    <h5>Message:</h5>
                                     {message.messageToUser}
                                  </Card.Text>{' '}
                               </ListGroup.Item>
+                              {!message.projectName && (
+                                 <ListGroup.Item>
+                                    {' '}
+                                    <Card.Text>
+                                       <h5>Seeking for:</h5>
+                                       {message.participantType}
+                                    </Card.Text>{' '}
+                                 </ListGroup.Item>
+                              )}
                               <ListGroup.Item>
                                  {' '}
                                  <Card.Text>
-                                    {message.participantType}
-                                 </Card.Text>{' '}
-                              </ListGroup.Item>
-                              <ListGroup.Item>
-                                 {' '}
-                                 <Card.Text>
-                                    {message.requestedDate}
+                                    {' '}
+                                    <small className='text-muted'>
+                                       Posted On: {message.requestedDate}
+                                    </small>
                                  </Card.Text>{' '}
                               </ListGroup.Item>
                               <Card.Footer
