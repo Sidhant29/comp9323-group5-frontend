@@ -13,21 +13,29 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Page js files
 
-The directory /src/Pages contains the code for all the pages in the application, which includes ## Login page ## Registration page ## Home (search projects) page ## search user page ## User profile page ## My projects page ## Create project page ## Leader board page
+The directory /src/Pages contains the code for all the pages in the application, which includes
+Login page,
+Registration page,
+Home (search projects) page,
+search user page,
+User profile page,
+My projects page,
+Create project page,
+Leader board page
 
 ### Components and Constants
 
 The directory /src/Components contains the code for reusable helper functions, which includes
-Nav Bars
-Listing projects/ users
-Listing requests
+Nav Bars,
+Listing projects/ users,
+Listing requests,
 Images
 
 /Constants includes,
-Avatars
-Listing comments
-Rating displayer
-Rate user
-Skills and Badges
-Alert services
+Avatars,
+Listing comments,
+Rating displayer,
+Rate user,
+Skills and Badges,
+Alert services,
 URL's
